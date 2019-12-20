@@ -5,7 +5,6 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.skysharing.api.exception.InvalidPrivateKeyException;
 import com.skysharing.api.exception.InvalidPublicKeyException;
 
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
@@ -26,6 +25,7 @@ public class Signer {
      * 从公钥字符串中获取公钥对象, 公钥不需要 pkcs8 格式, 需要去掉公钥字符串的头尾及换行符
      * @param key 公钥字符串
      * @return 公钥对象
+     * @throws InvalidPublicKeyException 无效的公钥字符串
      */
     public PublicKey getPublicKey(String key) throws InvalidPublicKeyException {
 
@@ -46,6 +46,7 @@ public class Signer {
      * 私钥pkcs8通过 `openssl pkcs8 -topk8 -nocrypt -inform PEM -in rsa_private_key.pem -out rsa_private_key_pkcs8.pem` 命令来产生, 可以去除头尾及换行信息
      * @param key 私钥字符串, 可以是去掉了头尾信息及换行符的字符串
      * @return 返回私钥对象
+     * @throws InvalidPrivateKeyException 无效的私钥字符串
      */
     public PrivateKey getPrivateKey(String key) throws InvalidPrivateKeyException {
         try {
@@ -68,8 +69,8 @@ public class Signer {
      * 对Map进行签名, 包含排序|url_encode|等步骤
      * @param params 待签名的Map
      * @param privateKey 私钥
-     * @return
-     * @throws Exception
+     * @return 返回签名字符串
+     * @throws Exception 签名失败
      */
     public String singParams(JSONObject params, PrivateKey privateKey) throws Exception {
         String waitSignStr = this.paramsToWaitSignStr(params);
@@ -81,8 +82,8 @@ public class Signer {
      * @param params 待验签Map
      * @param publicKey 公钥对象
      * @param sign 签名字符串
-     * @return
-     * @throws Exception
+     * @return 判断数据和签名是否正确
+     * @throws Exception 异常
      */
     public Boolean verifyParams(JSONObject params, PublicKey publicKey, String sign) throws Exception {
         String str = this.paramsToWaitVerifyStr(params);
@@ -96,7 +97,7 @@ public class Signer {
         return signature.verify(Base64.getDecoder().decode(sign));
     }
 
-    public String paramsToWaitSignStr(JSONObject params) throws IOException {
+    public String paramsToWaitSignStr(JSONObject params) {
         String newStr = params.toJSONString(params, SerializerFeature.SortField.MapSortField);
         newStr = newStr.replace(" ", "");
         newStr = URLEncoder.encode(newStr, StandardCharsets.UTF_8);

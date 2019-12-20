@@ -1,7 +1,6 @@
 package com.skysharing.api.request;
 
 import com.alibaba.fastjson.JSONObject;
-import com.skysharing.api.exception.ResponseNotValidException;
 import com.skysharing.api.response.GetBalanceResponse;
 
 /**
@@ -21,7 +20,7 @@ public class GetBalanceRequest extends CassPayRequest<GetBalanceResponse> {
     }
 
     @Override
-    public GetBalanceResponse makeResponse(JSONObject response) throws ResponseNotValidException {
+    public GetBalanceResponse makeResponse(JSONObject response) {
         return new GetBalanceResponse(response);
     }
 
