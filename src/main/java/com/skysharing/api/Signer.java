@@ -5,6 +5,9 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.skysharing.api.exception.InvalidPrivateKeyException;
 import com.skysharing.api.exception.InvalidPublicKeyException;
 
+import java.beans.Encoder;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
@@ -97,20 +100,20 @@ public class Signer {
         return signature.verify(Base64.getDecoder().decode(sign));
     }
 
-    public String paramsToWaitSignStr(JSONObject params) {
+    public String paramsToWaitSignStr(JSONObject params) throws UnsupportedEncodingException {
         String newStr = params.toJSONString(params, SerializerFeature.SortField.MapSortField);
         newStr = newStr.replace(" ", "");
-        newStr = URLEncoder.encode(newStr, StandardCharsets.UTF_8);
+        newStr = URLEncoder.encode(newStr, "UTF-8");
         return newStr;
     }
 
-    public String paramsToWaitVerifyStr(JSONObject params) {
+    public String paramsToWaitVerifyStr(JSONObject params) throws UnsupportedEncodingException {
         String newStr = params.toJSONString(params, SerializerFeature.SortField.MapSortField);
-        newStr = URLEncoder.encode(newStr, StandardCharsets.UTF_8);
+        newStr = URLEncoder.encode(newStr, "UTF-8");
         return newStr;
     }
 
-    public String httpBuildQuery(Map<String, String> map) {
+    public String httpBuildQuery(Map<String, String> map) throws UnsupportedEncodingException {
         StringBuffer sb = new StringBuffer();
         if (map.size() > 0) {
             for (String key : map.keySet()) {
@@ -119,7 +122,7 @@ public class Signer {
                     sb.append("&");
                 } else {
                     String value = map.get(key);
-                    value = URLEncoder.encode(value, StandardCharsets.UTF_8);
+                    value = URLEncoder.encode(value, "UTF-8");
                     sb.append(value + "&");
                 }
             }

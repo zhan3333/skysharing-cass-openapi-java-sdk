@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.HashMap;
@@ -77,7 +78,7 @@ public class TestRSA {
     }
 
     @Test
-    public void testBuildHttpQuery() {
+    public void testBuildHttpQuery() throws UnsupportedEncodingException {
         HashMap<String, String> map = new HashMap<>();
         JSONObject bizParam = new JSONObject();
         bizParam.put("test", "test");

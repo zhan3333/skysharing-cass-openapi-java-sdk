@@ -44,7 +44,6 @@ public class TestCassPayClient {
         GetBalanceRequest request = new GetBalanceRequest();
         request.setPayChannelK(GetBalanceRequest.BANK);
         GetBalanceResponse response = this.client.execute(request);
-        ;
 
         System.out.println(response);
         assertEquals("10000", response.code);

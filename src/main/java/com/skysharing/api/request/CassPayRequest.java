@@ -55,7 +55,7 @@ public class CassPayRequest<T extends CassPayResponse> {
             if (!response.containsKey("sign") || response.getString("sign").equals("")) {
                 throw new ResponseNotValidException("响应中必须要有sign键, 并不为空");
             }
-            T cassResponse =  this.makeResponse(response.getJSONObject(responseKey));
+            T cassResponse = this.makeResponse(response.getJSONObject(responseKey));
             cassResponse.sign = response.getString("sign");
             cassResponse.request = this;
             return cassResponse;
