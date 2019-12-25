@@ -61,4 +61,15 @@ public class BankPayOrder {
         this.receiptBankAddr = receiptBankAddr;
         this.CRCHGNO = CRCHGNO;
     }
+
+    public BankPayOrder (String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount, String receiptBankName, String receiptBankAddr, String CRCHGNO, PayOrderData payOrderData) {
+        this.orderSN = orderSN;
+        this.receiptFANO = receiptFANO;
+        this.payeeAccount = payeeAccount;
+        this.requestPayAmount = requestPayAmount;
+        this.receiptBankName = receiptBankName;
+        this.receiptBankAddr = receiptBankAddr;
+        this.CRCHGNO = CRCHGNO;
+        this.data = payOrderData;
+    }
 }

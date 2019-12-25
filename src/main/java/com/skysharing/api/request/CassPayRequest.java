@@ -30,22 +30,13 @@ public class CassPayRequest<T extends CassPayResponse> {
     public String version = "1.0";
     public String isItEncrypted = "0";
     public PrivateKey privateKey;
+    private Signer signer = new Signer();
 
     public T send() throws ResponseNotValidException {
-        Signer signer = new Signer();
         this.datetime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         try {
-            JSONObject params = new JSONObject();
-            params.put("method", this.getMethod());
-            params.put("APPID", this.APPID);
-            params.put("format", this.format);
-            params.put("charset", this.charset);
-            params.put("datetime", this.datetime);
-            params.put("version", this.version);
-            params.put("signType", this.signType);
-            params.put("bizParam", JSON.toJSONString(this.bizMap));
-            this.sign = signer.singParams(params, this.privateKey);
-            params.put("sign", this.sign);
+            JSONObject params = this.buildParams();
+            System.out.println(params);
             String queryStr = signer.httpBuildQuery(JSON.toJavaObject(params, Map.class));
             JSONObject response = this.post(queryStr);
             String responseKey = this.getResponseKeyName();
@@ -87,5 +78,20 @@ public class CassPayRequest<T extends CassPayResponse> {
 
     public String getResponseKeyName() {
         return this.getMethod().replace(".", "") + "Response";
+    }
+
+    public JSONObject buildParams() throws Exception {
+        JSONObject params = new JSONObject();
+        params.put("method", this.getMethod());
+        params.put("APPID", this.APPID);
+        params.put("format", this.format);
+        params.put("charset", this.charset);
+        params.put("datetime", this.datetime);
+        params.put("version", this.version);
+        params.put("signType", this.signType);
+        params.put("bizParam", JSON.toJSONString(this.bizMap));
+        this.sign = signer.singParams(params, this.privateKey);
+        params.put("sign", this.sign);
+        return params;
     }
 }

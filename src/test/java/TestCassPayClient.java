@@ -1,17 +1,16 @@
 import com.skysharing.api.DefaultCassPayClient;
-import com.skysharing.api.Signer;
 import com.skysharing.api.exception.InvalidPrivateKeyException;
 import com.skysharing.api.exception.InvalidPublicKeyException;
 import com.skysharing.api.exception.ResponseNotValidException;
-import com.skysharing.api.model.AliPayOrder;
-import com.skysharing.api.model.BankPayOrder;
-import com.skysharing.api.model.RemitOrder;
-import com.skysharing.api.model.VerifyUserStatus;
+import com.skysharing.api.model.*;
 import com.skysharing.api.request.*;
 import com.skysharing.api.response.*;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -63,9 +62,10 @@ public class TestCassPayClient {
     public void testPayBankRemit() throws Exception {
         PayBankRemitRequest request = new PayBankRemitRequest();
         request.setPayChannelK(GetBalanceRequest.BANK);
-        BankPayOrder[] orders = new BankPayOrder[]{
-                new BankPayOrder("123456", "12345678910", "詹光", "1.00")
-        };
+        List<BankPayOrder> orders = new ArrayList<BankPayOrder>();
+        orders.add(new BankPayOrder("123456", "123456789100", "詹光", "1.00"));
+        orders.add(new BankPayOrder("124123421", "123456781239", "詹光", "1.00", "1423", "adsfasdf", "123456789100"));
+        orders.add(new BankPayOrder("124123421", "123456781390", "詹光", "1.00", "", "adsfasdf", "123456789100", new PayOrderData("名称", "描述")));
         request.setOrders(orders);
         PayBankRemitResponse response = this.client.execute(request);
 
@@ -80,11 +80,14 @@ public class TestCassPayClient {
 
     @Test
     public void testGetOneRemitStatus() throws ResponseNotValidException {
-        BankPayOrder bankPayOrder = new BankPayOrder("123456", "12345678910", "123光", "1.00");
-        PayBankRemitResponse payResponse = this.client.execute((new PayBankRemitRequest()).setPayChannelK(GetBalanceRequest.BANK).setOrders(new BankPayOrder[]{
-                bankPayOrder
-        }));
-        ;
+        List<BankPayOrder> orders = new ArrayList<>();
+        orders.add(new BankPayOrder("123456", "12345678910", "123光", "1.00"));
+        PayBankRemitResponse payResponse = this.client
+                .execute(
+                        (new PayBankRemitRequest())
+                                .setPayChannelK(GetBalanceRequest.BANK)
+                                .setOrders(orders)
+                );
         String rbUUID = payResponse.rbUUID;
         GetOneRemitStatusRequest request = new GetOneRemitStatusRequest();
         request.setRbUUID(rbUUID);
@@ -92,16 +95,19 @@ public class TestCassPayClient {
         assertEquals(rbUUID, response.rbUUID);
         RemitOrder remitOrder = response.remitOrders.get(0);
         assertNotNull(remitOrder);
-        assertEquals(bankPayOrder.orderSN, remitOrder.orderSN);
+        assertEquals(orders.get(0).orderSN, remitOrder.orderSN);
     }
 
     @Test
     public void testGetOneOrderStatusByBank() throws Exception {
-        BankPayOrder bankPayOrder = new BankPayOrder("123456", "12345678910", "詹光", "1.00");
-        PayBankRemitResponse payResponse = this.client.execute((new PayBankRemitRequest()).setPayChannelK(GetBalanceRequest.BANK).setOrders(new BankPayOrder[]{
-                bankPayOrder
-        }));
-        ;
+        List<BankPayOrder> orders = new ArrayList<>();
+        orders.add(new BankPayOrder("123456", "12345678910", "詹光", "1.00"));
+        PayBankRemitResponse payResponse = this.client
+                .execute(
+                        (new PayBankRemitRequest())
+                                .setPayChannelK(GetBalanceRequest.BANK)
+                                .setOrders(orders)
+                );
 
         String rbUUID = payResponse.rbUUID;
         GetOneRemitStatusResponse response = this.client.execute(new GetOneRemitStatusRequest().setRbUUID(rbUUID));
@@ -111,7 +117,7 @@ public class TestCassPayClient {
         oneOrderStatusRequest.setOrderUUID(orderUUID);
         GetOneOrderStatusResponse getOneOrderStatusResponse = this.client.execute(oneOrderStatusRequest);
         assertTrue(getOneOrderStatusResponse.verify());
-        assertEquals(bankPayOrder.orderSN, getOneOrderStatusResponse.orderSN);
+        assertEquals(orders.get(0).orderSN, getOneOrderStatusResponse.orderSN);
         assertEquals(rbUUID, getOneOrderStatusResponse.rbUUID);
     }
 
@@ -212,18 +218,18 @@ public class TestCassPayClient {
 
     @Test
     public void testGetUsersVerifyStatus() throws ResponseNotValidException {
-         GetUsersVerifyStatusRequest request = new GetUsersVerifyStatusRequest();
-         request.setUsers(new VerifyUserStatus[]{
-                 new VerifyUserStatus("彭思琴", "429006199112162721")
-         });
-         GetUsersVerifyStatusResponse response = this.client.execute(request);
-         System.out.println(response);
-         assertEquals("10000", response.code);
-         assertNotNull(response.users);
-         VerifyUserStatus user = response.users.get(0);
-         assertNotNull(user.name);
-         assertNotNull(user.idCard);
-         assertNotNull(user.isVerified);
+        GetUsersVerifyStatusRequest request = new GetUsersVerifyStatusRequest();
+        request.setUsers(new VerifyUserStatus[]{
+                new VerifyUserStatus("彭思琴", "429006199112162721")
+        });
+        GetUsersVerifyStatusResponse response = this.client.execute(request);
+        System.out.println(response);
+        assertEquals("10000", response.code);
+        assertNotNull(response.users);
+        VerifyUserStatus user = response.users.get(0);
+        assertNotNull(user.name);
+        assertNotNull(user.idCard);
+        assertNotNull(user.isVerified);
     }
 
     @Test
