@@ -64,7 +64,6 @@ public class CassPayResponse<T extends CassPayRequest> {
 
     public boolean verify() throws Exception {
         Signer signer = new Signer();
-        System.out.println(this.content);
         return signer.verifyParams(this.raw, this.vzhuoPublicKey, this.sign);
     }
 

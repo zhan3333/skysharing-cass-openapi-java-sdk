@@ -63,3 +63,5 @@ class Test {
 |银行卡充值申请提交| ChargeAliPayRequest  | ChargeAliPayResponse |
 |获取充值结果| GetChargeResultRequest  | GetChargeResultResponse |
 |充值账号查询| GetChannelDataRequest  | GetChannelDataResponse |
+|获取用户实名认证状态| GetUsersVerifyStatusRequest  | GetUsersVerifyStatusResponse |
+|添加用户实名认证状态| VerifyUserRequest  | VerifyUserResponse |

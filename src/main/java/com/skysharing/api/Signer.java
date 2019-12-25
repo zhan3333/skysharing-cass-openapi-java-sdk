@@ -102,6 +102,7 @@ public class Signer {
         String newStr = params.toJSONString(params, SerializerFeature.SortField.MapSortField);
         newStr = newStr.replace(" ", "");
         newStr = URLEncoder.encode(newStr, "UTF-8");
+        newStr = newStr.replace("*", "%2A");
         return newStr;
     }
 
