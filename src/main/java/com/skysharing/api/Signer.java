@@ -5,9 +5,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.skysharing.api.exception.InvalidPrivateKeyException;
 import com.skysharing.api.exception.InvalidPublicKeyException;
 
-import java.beans.Encoder;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;

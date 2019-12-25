@@ -59,3 +59,7 @@ class Test {
 |获取单个批次状态| GetOneRemitStatusRequest  | GetOneRemitStatusResponse |
 |支付宝实时下单| PayAliRemitRequest  | PayAliRemitResponse |
 |银行卡实时下单| PayBankRemitRequest  | PayBankRemitResponse |
+|支付宝充值申请提交| ChargeBankRequest  | ChargeBankResponse |
+|银行卡充值申请提交| ChargeAliPayRequest  | ChargeAliPayResponse |
+|获取充值结果| GetChargeResultRequest  | GetChargeResultResponse |
+|充值账号查询| GetChannelDataRequest  | GetChannelDataResponse |
