@@ -108,8 +108,9 @@ public class Signer {
     }
 
     public String paramsToWaitVerifyStr(JSONObject params) throws UnsupportedEncodingException {
-        String newStr = params.toJSONString(params, SerializerFeature.SortField.MapSortField);
+        String newStr = params.toJSONString(params, SerializerFeature.SortField.MapSortField, SerializerFeature.WriteSlashAsSpecial);
         newStr = URLEncoder.encode(newStr, "UTF-8");
+        newStr = newStr.replace("*", "%2A");
         return newStr;
     }
 
