@@ -1,4 +1,5 @@
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.skysharing.api.DefaultCassPayClient;
 import com.skysharing.api.exception.InvalidPrivateKeyException;
 import com.skysharing.api.exception.InvalidPublicKeyException;
@@ -296,7 +297,8 @@ public class TestCassPayClient {
 
     @Test
     public void testJsonEncode() {
-        String newStr = JSON.toJSONString("!*'();:@&=+$,/?%#[]");
-        assertEquals("\"!*'();:@&=+$,/?%#[]\"", newStr);
+        // 对 '/' 进行转义
+        String newStr = JSON.toJSONString("!*'();:@&=+$,/?%#[]", SerializerFeature.WriteSlashAsSpecial);
+        assertEquals("\"!*'();:@&=+$,\\/?%#[]\"", newStr);
     }
 }
