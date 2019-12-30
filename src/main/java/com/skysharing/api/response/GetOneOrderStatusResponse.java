@@ -7,8 +7,18 @@ public class GetOneOrderStatusResponse extends CassPayResponse<GetOneOrderStatus
     public String rbUUID;
     public String orderUUID;
     public String orderSN;
+    /**
+     * 批次状态
+     */
     public Integer remitStatus;
-    public String remitAt;
+    /**
+     * 订单付款状态
+     */
+    public Integer orderStatus;
+    /**
+     * 到账时间
+     */
+    public String reachAt;
     public String responseMsg;
 
     public GetOneOrderStatusResponse(JSONObject response) {
@@ -17,7 +27,8 @@ public class GetOneOrderStatusResponse extends CassPayResponse<GetOneOrderStatus
         this.orderUUID = this.content.getString("orderUUID");
         this.orderSN = this.content.getString("orderSN");
         this.remitStatus = this.content.getInteger("remitStatus");
-        this.remitAt = this.content.getString("remitAt");
+        this.orderStatus = this.content.getInteger("orderStatus");
+        this.reachAt = this.content.getString("reachAt");
         this.responseMsg = this.content.getString("responseMsg");
     }
 
@@ -28,7 +39,7 @@ public class GetOneOrderStatusResponse extends CassPayResponse<GetOneOrderStatus
                 ", orderUUID='" + orderUUID + '\'' +
                 ", orderSN='" + orderSN + '\'' +
                 ", remitStatus=" + remitStatus +
-                ", remitAt='" + remitAt + '\'' +
+                ", remitAt='" + reachAt + '\'' +
                 ", responseMsg='" + responseMsg + '\'' +
                 ", code='" + code + '\'' +
                 ", message='" + message + '\'' +

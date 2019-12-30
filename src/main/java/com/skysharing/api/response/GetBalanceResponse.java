@@ -14,11 +14,9 @@ public class GetBalanceResponse extends CassPayResponse<GetBalanceRequest> {
         super(response);
         if (this.content.containsKey("bank")) {
             JSONObject bank = this.content.getJSONObject("bank");
-            this.bank.bankAccout = bank.getString("bankAccount");
             this.bank.lockedAmt = bank.getString("lockedAmt");
             this.bank.canUseAmt = bank.getString("canUseAmt");
             this.bank.childFAbalance = bank.getString("childFAbalance");
-            this.bank.mandatoryName = bank.getString("mandatoryName");
         }
         if (this.content.containsKey("alipay")) {
             JSONObject alipay = this.content.getJSONObject("alipay");

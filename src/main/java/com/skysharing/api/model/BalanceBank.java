@@ -2,10 +2,6 @@ package com.skysharing.api.model;
 
 public class BalanceBank {
     /**
-     * 银行账号
-     */
-    public String bankAccout = "";
-    /**
      * 锁定金额
      */
     public String lockedAmt = "";
@@ -18,16 +14,12 @@ public class BalanceBank {
      */
     public String childFAbalance = "";
 
-    public String mandatoryName = "";
-
     @Override
     public String toString() {
         return "Bank{" +
-                "bankAccout='" + bankAccout + '\'' +
                 ", lockedAmt='" + lockedAmt + '\'' +
                 ", canUseAmt='" + canUseAmt + '\'' +
                 ", childFAbalance='" + childFAbalance + '\'' +
-                ", mandatoryName='" + mandatoryName + '\'' +
                 '}';
     }
 }

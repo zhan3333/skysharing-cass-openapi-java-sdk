@@ -52,11 +52,9 @@ public class TestCassPayClient {
         assertEquals("请求成功", response.message);
         assertEquals("", response.subCode);
         assertEquals("", response.subMsg);
-        assertNotEquals("", response.bank.bankAccout);
         assertNotEquals("", response.bank.lockedAmt);
         assertNotEquals("", response.bank.canUseAmt);
         assertNotEquals("", response.bank.childFAbalance);
-        assertNotEquals("", response.bank.mandatoryName);
         assertTrue(response.verify());
     }
 
@@ -85,7 +83,14 @@ public class TestCassPayClient {
     public void testPayOneBankRemit() throws ResponseNotValidException {
         PayOneBankRemitRequest request = new PayOneBankRemitRequest();
         request.setPayChannelK(GetBalanceRequest.BANK);
-        request.setOrder(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "1235432456346", "詹光", "1.00").setIdentityCard("420222199212041057"));
+        request.setOrder(
+                new BankPayOrder(
+                        UUID.randomUUID().toString().toUpperCase(),
+                        "1235432456346",
+                        "詹光",
+                        "1.00"
+                ).setIdentityCard("420222199212041058")
+        );
         PayOneBankRemitResponse response = this.client.execute(request);
         assertEquals(response.toString(), "10000", response.code);
         assertNotNull(response.toString(), response.rbUUID);
@@ -136,12 +141,20 @@ public class TestCassPayClient {
         assertEquals(payResponse.message + "/" + payResponse.subMsg, "10000", payResponse.code);
         String rbUUID = payResponse.rbUUID;
         GetOneRemitStatusResponse response = this.client.execute(new GetOneRemitStatusRequest().setRbUUID(rbUUID));
-        System.out.println(response);
+        assertEquals(response.toString(), "10000", response.code);
         RemitOrder remitOrder = response.remitOrders.get(0);
         String orderUUID = remitOrder.orderUUID;
         GetOneOrderStatusRequest oneOrderStatusRequest = new GetOneOrderStatusRequest();
         oneOrderStatusRequest.setOrderUUID(orderUUID);
         GetOneOrderStatusResponse getOneOrderStatusResponse = this.client.execute(oneOrderStatusRequest);
+        assertEquals(getOneOrderStatusResponse.toString(), "10000", response.code);
+        assertNotNull(getOneOrderStatusResponse.rbUUID);
+        assertNotNull(getOneOrderStatusResponse.orderUUID);
+        assertNotNull(getOneOrderStatusResponse.orderSN);
+        assertNotNull(getOneOrderStatusResponse.remitStatus);
+        assertNotNull(getOneOrderStatusResponse.orderStatus);
+        assertNotNull(getOneOrderStatusResponse.toString(), getOneOrderStatusResponse.reachAt);
+        assertNotNull(getOneOrderStatusResponse.responseMsg);
         assertTrue(getOneOrderStatusResponse.verify());
         assertEquals(orders.get(0).orderSN, getOneOrderStatusResponse.orderSN);
         assertEquals(rbUUID, getOneOrderStatusResponse.rbUUID);
