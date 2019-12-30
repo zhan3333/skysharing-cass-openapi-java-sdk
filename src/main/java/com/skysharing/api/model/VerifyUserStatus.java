@@ -3,42 +3,39 @@ package com.skysharing.api.model;
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class VerifyUserStatus {
-
-    /**
-     * 姓名
-     */
-    @JSONField(name = "name")
-    public String name;
-
     /**
      * 身份证
      */
-    @JSONField(name = "id_card")
-    public String idCard;
+    public String identityCard;
+
+    /**
+     * 是否在验证系统中
+     */
+    public Boolean exists;
 
     /**
      * 是否进行了实名认证
      */
-    @JSONField(name = "is_verified")
     public Boolean isVerified;
 
-    public VerifyUserStatus(String name, String idCard, Boolean isVerified) {
-        this.name = name;
-        this.idCard = idCard;
-        this.isVerified = isVerified;
-    }
+    /**
+     * 验证身份证失败信息
+     */
+    public String verifyIdCardFailedMessage;
 
-    public VerifyUserStatus(String name, String idCard) {
-        this.name = name;
-        this.idCard = idCard;
-    }
+    /**
+     * 验证身份证失败信息
+     */
+    public String verifyIdCardImgFailedMessage;
 
     @Override
     public String toString() {
         return "VerifyUserStatus{" +
-                "name='" + name + '\'' +
-                ", id_card='" + idCard + '\'' +
-                ", is_verified=" + isVerified +
+                "identityCard='" + identityCard + '\'' +
+                ", exists=" + exists +
+                ", isVerified=" + isVerified +
+                ", verifyIdCardFailedMessage=" + verifyIdCardFailedMessage +
+                ", verifyIdCardImgFailedMessage=" + verifyIdCardImgFailedMessage +
                 '}';
     }
 }

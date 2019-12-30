@@ -41,9 +41,15 @@ public class BankPayOrder {
     public String requestPayAmount;
 
     /**
+     * 身份证号, 在商户被要求实名认证时,该字段必填
+     */
+    public String identityCard;
+
+    /**
      * name(合同名称)和 description(合同描述)
      */
     public PayOrderData data = new PayOrderData();
+
 
     public BankPayOrder (String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount) {
         this.orderSN = orderSN;
@@ -71,5 +77,15 @@ public class BankPayOrder {
         this.receiptBankAddr = receiptBankAddr;
         this.CRCHGNO = CRCHGNO;
         this.data = payOrderData;
+    }
+
+    /**
+     * 设置订单身份证号
+     * @param identityCard 身份证号
+     * @return 原对象
+     */
+    public BankPayOrder setIdentityCard(String identityCard) {
+        this.identityCard = identityCard;
+        return this;
     }
 }

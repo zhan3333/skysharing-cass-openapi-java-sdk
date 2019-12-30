@@ -11,18 +11,18 @@ public class VerifyUserRequest extends CassPayRequest<VerifyUserResponse> {
         return this;
     }
 
-    public VerifyUserRequest setIdCard(String idCard) {
-        this.bizMap.put("id_card", idCard);
+    public VerifyUserRequest setIdentityCard(String idCard) {
+        this.bizMap.put("identityCard", idCard);
         return this;
     }
 
     public VerifyUserRequest setFrontImgBase64(String frontImgBase64) {
-        this.bizMap.put("front_img_base64", frontImgBase64);
+        this.bizMap.put("frontImgBase64", frontImgBase64);
         return this;
     }
 
     public VerifyUserRequest setBackImgBase64(String backImgBase64) {
-        this.bizMap.put("back_img_base64", backImgBase64);
+        this.bizMap.put("backImgBase64", backImgBase64);
         return this;
     }
 

@@ -65,3 +65,5 @@ class Test {
 |充值账号查询| GetChannelDataRequest  | GetChannelDataResponse |
 |获取用户实名认证状态| GetUsersVerifyStatusRequest  | GetUsersVerifyStatusResponse |
 |添加用户实名认证状态| VerifyUserRequest  | VerifyUserResponse |
+|单笔银行卡实时下单| PayOneBankRemitRequest  | PayOneBankRemitRequest |
+|单笔支付宝实时下单| PayOneAliRemitRequest  | PayOneAliRemitRequest |

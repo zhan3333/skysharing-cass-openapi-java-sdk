@@ -36,7 +36,6 @@ public class CassPayRequest<T extends CassPayResponse> {
         this.datetime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         try {
             JSONObject params = this.buildParams();
-            System.out.println(params);
             String queryStr = signer.httpBuildQuery(JSON.toJavaObject(params, Map.class));
             JSONObject response = this.post(queryStr);
             String responseKey = this.getResponseKeyName();

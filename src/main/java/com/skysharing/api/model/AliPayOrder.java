@@ -26,6 +26,11 @@ public class AliPayOrder {
     public String requestPayAmount;
 
     /**
+     * 身份证号, 在需要认证用户实名信息的情况下需要输入
+     */
+    public String identityCard;
+
+    /**
      * name(合同名称)和 description(合同描述)
      */
     public PayOrderData data = new PayOrderData();
@@ -35,5 +40,15 @@ public class AliPayOrder {
         this.receiptFANO = receiptFANO;
         this.payeeAccount = payeeAccount;
         this.requestPayAmount = requestPayAmount;
+    }
+
+    /**
+     * 设置订单身份证号
+     * @param identityCard 身份证号
+     * @return 原对象
+     */
+    public AliPayOrder setIdentityCard(String identityCard) {
+        this.identityCard = identityCard;
+        return this;
     }
 }

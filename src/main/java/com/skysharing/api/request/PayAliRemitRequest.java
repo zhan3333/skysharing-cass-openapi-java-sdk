@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.skysharing.api.model.AliPayOrder;
 import com.skysharing.api.response.PayAliRemitResponse;
 
+import java.util.List;
+
 public class PayAliRemitRequest extends CassPayRequest<PayAliRemitResponse> {
 
     public String method = "Vzhuo.AliRemit.Pay";
@@ -18,7 +20,7 @@ public class PayAliRemitRequest extends CassPayRequest<PayAliRemitResponse> {
         return this;
     }
 
-    public PayAliRemitRequest setOrders(AliPayOrder[] orders) {
+    public PayAliRemitRequest setOrders(List<AliPayOrder> orders) {
         this.bizMap.put("orderData", orders);
         return this;
     }
