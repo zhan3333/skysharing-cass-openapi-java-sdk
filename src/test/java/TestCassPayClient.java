@@ -66,6 +66,7 @@ public class TestCassPayClient {
 
         orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "123456789100", "詹光", "1.00").setIdentityCard("420222199212041057"));
         orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "123456781239", "詹光", "1.00", "1423", "adsfasdf", "123456789100").setIdentityCard("420222199212041057"));
+        orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "123456781239", "詹光", "1.00", "", "", "").setIdentityCard("420222199212041057"));
         orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "123456781390", "詹光", "1.00", "", "adsfasdf", "123456789100", new PayOrderData("名称", "描述")).setIdentityCard("420222199212041057"));
         request.setOrders(orders);
         PayBankRemitResponse response = this.client.execute(request);
@@ -100,7 +101,14 @@ public class TestCassPayClient {
     public void testPayOneAliRemit() throws ResponseNotValidException {
         PayOneAliRemitRequest request = new PayOneAliRemitRequest();
         request.setPayChannelK(GetBalanceRequest.AliPay);
-        request.setOrder(new AliPayOrder(UUID.randomUUID().toString().toUpperCase(), "13517210601", "詹光", "1.00").setIdentityCard("420222199212041057"));
+        request.setOrder(
+                new AliPayOrder(
+                        UUID.randomUUID().toString().toUpperCase(),
+                        "13517210601",
+                        "詹光",
+                        "1.00"
+                ).setIdentityCard("420222199212041057")
+        );
         PayOneAliRemitResponse response = this.client.execute(request);
         assertEquals(response.toString(), "10000", response.code);
         assertNotNull(response.toString(), response.rbUUID);

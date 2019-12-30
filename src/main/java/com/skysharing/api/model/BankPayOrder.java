@@ -63,9 +63,15 @@ public class BankPayOrder {
         this.receiptFANO = receiptFANO;
         this.payeeAccount = payeeAccount;
         this.requestPayAmount = requestPayAmount;
-        this.receiptBankName = receiptBankName;
-        this.receiptBankAddr = receiptBankAddr;
-        this.CRCHGNO = CRCHGNO;
+        if (!receiptBankName.equals("")) {
+            this.receiptBankName = receiptBankName;
+        }
+        if (!receiptBankAddr.equals("")) {
+            this.receiptBankAddr = receiptBankAddr;
+        }
+        if (!CRCHGNO.equals("")) {
+            this.CRCHGNO = CRCHGNO;
+        }
     }
 
     public BankPayOrder (String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount, String receiptBankName, String receiptBankAddr, String CRCHGNO, PayOrderData payOrderData) {
@@ -73,9 +79,15 @@ public class BankPayOrder {
         this.receiptFANO = receiptFANO;
         this.payeeAccount = payeeAccount;
         this.requestPayAmount = requestPayAmount;
-        this.receiptBankName = receiptBankName;
-        this.receiptBankAddr = receiptBankAddr;
-        this.CRCHGNO = CRCHGNO;
+        if (!receiptBankName.equals("")) {
+            this.receiptBankName = receiptBankName;
+        }
+        if (!receiptBankAddr.equals("")) {
+            this.receiptBankAddr = receiptBankAddr;
+        }
+        if (!CRCHGNO.equals("")) {
+            this.CRCHGNO = CRCHGNO;
+        }
         this.data = payOrderData;
     }
 
