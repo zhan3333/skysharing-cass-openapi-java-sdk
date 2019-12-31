@@ -68,6 +68,7 @@ public class TestCassPayClient {
         orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "123456781239", "詹光", "1.00", "1423", "adsfasdf", "123456789100").setIdentityCard("420222199212041057"));
         orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "123456781239", "詹光", "1.00", "", "", "").setIdentityCard("420222199212041057"));
         orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "123456781390", "詹光", "1.00", "", "adsfasdf", "123456789100", new PayOrderData("名称", "描述")).setIdentityCard("420222199212041057"));
+        System.out.println(JSON.toJSONString(orders));
         request.setOrders(orders);
         PayBankRemitResponse response = this.client.execute(request);
 
@@ -104,9 +105,9 @@ public class TestCassPayClient {
         request.setOrder(
                 new AliPayOrder(
                         UUID.randomUUID().toString().toUpperCase(),
-                        "13517210601",
-                        "詹光",
-                        "1.00"
+                        "18627981216",
+                        "彭思琴",
+                        "0.10"
                 ).setIdentityCard("420222199212041057")
         );
         PayOneAliRemitResponse response = this.client.execute(request);
@@ -170,7 +171,7 @@ public class TestCassPayClient {
 
     @Test
     public void testGetOneOrderStatusByAliPay() throws Exception {
-        AliPayOrder aliPayOrder = new AliPayOrder("123456", "13517210601", "詹光1", "1.00").setIdentityCard("420222199212041057");
+        AliPayOrder aliPayOrder = new AliPayOrder("123456", "18627981216", "彭思琴", "0.10").setIdentityCard("420222199212041057");
         PayAliRemitResponse payResponse = this.client.execute(
                 (new PayAliRemitRequest())
                         .setPayChannelK(GetBalanceRequest.AliPay)
@@ -241,6 +242,32 @@ public class TestCassPayClient {
     }
 
     @Test
+    public void testGetChargeResultByAli() throws ResponseNotValidException {
+        ChargeAliPayRequest request = new ChargeAliPayRequest();
+        request.setApplyAmount("0.1")
+                .setBankAccount("中国银行")
+                .setBankCardNO("6217001780012364")
+                .setOrderName("充值一毛钱")
+                .setRechargePic("123124123");
+        ChargeAliPayResponse response = this.client.execute(request);
+        assertEquals("10000", response.code);
+        assertNotNull(response.rechargeSBSN);
+
+        String rechargeSBSN = response.rechargeSBSN;
+        System.out.println(rechargeSBSN);
+        GetChargeResultRequest request1 = new GetChargeResultRequest();
+        request1.setRechargeSBSN(rechargeSBSN);
+        GetChargeResultResponse response1 = this.client.execute(request1);
+        System.out.println(response1);
+
+        assertEquals("10000", response1.code);
+        assertNotNull(response1.status);
+        assertNotNull(response1.applyAmount);
+        assertNotNull(response1.realAmount);
+        assertEquals(rechargeSBSN, response1.rechargeSBSN);
+    }
+
+    @Test
     public void testGetChargeResult() throws ResponseNotValidException {
         ChargeBankRequest request = new ChargeBankRequest();
         request.setApplyAmount("0.02")
@@ -250,7 +277,7 @@ public class TestCassPayClient {
                 .setRechargePic("123124123");
         ChargeBankResponse response = this.client.execute(request);
         String rechargeSBSN = response.rechargeSBSN;
-
+        System.out.println(rechargeSBSN);
         GetChargeResultRequest request1 = new GetChargeResultRequest();
         request1.setRechargeSBSN(rechargeSBSN);
         GetChargeResultResponse response1 = this.client.execute(request1);

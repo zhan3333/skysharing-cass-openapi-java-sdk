@@ -43,7 +43,7 @@ public class BankPayOrder {
     /**
      * 身份证号, 在商户被要求实名认证时,该字段必填
      */
-    public String identityCard;
+    public String identityCard = "";
 
     /**
      * name(合同名称)和 description(合同描述)

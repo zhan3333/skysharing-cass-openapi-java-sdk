@@ -39,7 +39,8 @@ public class GetOneOrderStatusResponse extends CassPayResponse<GetOneOrderStatus
                 ", orderUUID='" + orderUUID + '\'' +
                 ", orderSN='" + orderSN + '\'' +
                 ", remitStatus=" + remitStatus +
-                ", remitAt='" + reachAt + '\'' +
+                ", orderStatus=" + orderStatus +
+                ", reachAt='" + reachAt + '\'' +
                 ", responseMsg='" + responseMsg + '\'' +
                 ", code='" + code + '\'' +
                 ", message='" + message + '\'' +

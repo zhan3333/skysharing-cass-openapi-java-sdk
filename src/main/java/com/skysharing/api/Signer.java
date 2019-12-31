@@ -103,7 +103,6 @@ public class Signer {
         newStr = newStr.replace(" ", "");
         newStr = URLEncoder.encode(newStr, "UTF-8");
         newStr = newStr.replace("*", "%2A");
-        System.out.println(newStr);
         return newStr;
     }
 
