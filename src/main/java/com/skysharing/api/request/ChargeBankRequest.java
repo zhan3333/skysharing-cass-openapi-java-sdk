@@ -26,11 +26,6 @@ public class ChargeBankRequest extends CassPayRequest<ChargeBankResponse>  {
         return this;
     }
 
-    public ChargeBankRequest setRechargePic(String rechargePic) {
-        this.bizMap.put("rechargePic", rechargePic);
-        return this;
-    }
-
     @Override
     public ChargeBankResponse makeResponse(JSONObject response) {
         return new ChargeBankResponse(response);

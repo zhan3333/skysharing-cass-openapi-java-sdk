@@ -105,9 +105,9 @@ public class TestCassPayClient {
         request.setOrder(
                 new AliPayOrder(
                         UUID.randomUUID().toString().toUpperCase(),
-                        "18627981216",
-                        "彭思琴",
-                        "0.10"
+                        "13517210601",
+                        "詹光11",
+                        "0.20"
                 ).setIdentityCard("420222199212041057")
         );
         PayOneAliRemitResponse response = this.client.execute(request);
@@ -171,7 +171,7 @@ public class TestCassPayClient {
 
     @Test
     public void testGetOneOrderStatusByAliPay() throws Exception {
-        AliPayOrder aliPayOrder = new AliPayOrder("123456", "18627981216", "彭思琴", "0.10").setIdentityCard("420222199212041057");
+        AliPayOrder aliPayOrder = new AliPayOrder(UUID.randomUUID().toString().toUpperCase(), "18627981216", "彭思琴11", "0.10").setIdentityCard("420222199212041057");
         PayAliRemitResponse payResponse = this.client.execute(
                 (new PayAliRemitRequest())
                         .setPayChannelK(GetBalanceRequest.AliPay)
@@ -233,8 +233,7 @@ public class TestCassPayClient {
         request.setApplyAmount("0.01")
                 .setBankAccount("中国银行")
                 .setBankCardNO("6217001780012364")
-                .setOrderName("充值一分钱")
-                .setRechargePic("123124123");
+                .setOrderName("充值一分钱");
         ChargeBankResponse response = this.client.execute(request);
         System.out.println(response);
         assertEquals("10000", response.code);
@@ -273,8 +272,7 @@ public class TestCassPayClient {
         request.setApplyAmount("0.02")
                 .setBankAccount("中国银行")
                 .setBankCardNO("6217001780012364")
-                .setOrderName("充值两分钱")
-                .setRechargePic("123124123");
+                .setOrderName("充值两分钱");
         ChargeBankResponse response = this.client.execute(request);
         String rechargeSBSN = response.rechargeSBSN;
         System.out.println(rechargeSBSN);
