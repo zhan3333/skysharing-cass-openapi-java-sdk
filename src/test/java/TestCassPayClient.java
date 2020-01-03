@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
 
@@ -38,6 +37,7 @@ public class TestCassPayClient {
         this.APPID = dotenv.get("APPID");
         this.url = dotenv.get("API_URL");
         this.client = new DefaultCassPayClient(this.url, this.APPID, this.privateKeyStr, this.vzhuoPublicKeyStr, "JSON", "RSA2");
+        this.client.setDebug(true);
     }
 
     @Test
@@ -379,7 +379,7 @@ public class TestCassPayClient {
         ArrayList<Thread> arr = new ArrayList<Thread>();
         long t1 = new Date().getTime();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 1; i++) {
             Thread t = new Thread(new OneBankRemitThread(this.client, i));
             t.start();
             arr.add(t);

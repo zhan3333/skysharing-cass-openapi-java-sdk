@@ -53,4 +53,21 @@ public class CassPayRequest<T extends CassPayResponse> {
         params.put("sign", this.sign);
         return params;
     }
+
+    @Override
+    public String toString() {
+        return "CassPayRequest{" +
+                "url='" + url + '\'' +
+                ", bizMap=" + bizMap +
+                ", method='" + method + '\'' +
+                ", APPID='" + APPID + '\'' +
+                ", format='" + format + '\'' +
+                ", charset='" + charset + '\'' +
+                ", signType='" + signType + '\'' +
+                ", sign='" + sign + '\'' +
+                ", datetime='" + datetime + '\'' +
+                ", version='" + version + '\'' +
+                ", isItEncrypted='" + isItEncrypted + '\'' +
+                '}';
+    }
 }

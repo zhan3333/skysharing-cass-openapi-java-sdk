@@ -25,6 +25,7 @@ public class DefaultCassPayClient {
     private final String signType;
     private OkHttpClient client;
     private DateTimeFormatter datetimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private Boolean debug = false;
 
     public DefaultCassPayClient(String url, String appId, String appPrivateKey, String cassPublicKey, String format, String signType) throws InvalidPrivateKeyException, InvalidPublicKeyException {
         this.url = url;
@@ -55,6 +56,11 @@ public class DefaultCassPayClient {
         return this;
     }
 
+    public DefaultCassPayClient setDebug(Boolean debug) {
+        this.debug = debug;
+        return this;
+    }
+
     public <T extends CassPayRequest, F extends CassPayResponse> F execute(T request) throws SignException, RequestFailedException, ResponseNotValidException {
         request.url = this.url;
         request.APPID = this.appId;
@@ -62,6 +68,9 @@ public class DefaultCassPayClient {
         request.signType = this.signType;
         request.privateKey = this.appPrivateKey;
         request.datetime = LocalDateTime.now().format(this.datetimeFormat);
+        if (debug) {
+            System.out.println("Request: " + request.toString());
+        }
         JSONObject params = request.buildParams();
         String queryStr = signer.httpBuildQuery(JSON.toJavaObject(params, Map.class));
         JSONObject response = this.post(queryStr);
@@ -73,6 +82,9 @@ public class DefaultCassPayClient {
             throw new ResponseNotValidException("响应中必须要有sign键");
         }
         F cassResponse = (F) request.makeResponse(response.getJSONObject(responseKey));
+        if (debug) {
+            System.out.println("Response: " + cassResponse.raw);
+        }
         cassResponse.sign = response.getString("sign");
         cassResponse.request = request;
         cassResponse.vzhuoPublicKey = this.cassPublicKey;
