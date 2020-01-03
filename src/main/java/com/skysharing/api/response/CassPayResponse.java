@@ -59,6 +59,7 @@ public class CassPayResponse<T extends CassPayRequest> {
         this.subCode = response.getString("subCode");
         this.subMsg = response.getString("subMsg");
         this.message = response.getString("message");
+        System.out.println(this.raw);
         this.content = response.getJSONObject("content");
     }
 
