@@ -72,7 +72,6 @@ public class DefaultCassPayClient {
             System.out.println("Request: " + request.toString());
         }
         JSONObject params = request.buildParams();
-        System.out.println("Request JSON" + params.toJSONString());
         String queryStr = signer.httpBuildQuery(JSON.toJavaObject(params, Map.class));
         JSONObject response = this.post(queryStr);
         String responseKey = request.getResponseKeyName();
