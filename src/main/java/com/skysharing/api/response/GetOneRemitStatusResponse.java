@@ -14,6 +14,7 @@ public class GetOneRemitStatusResponse extends CassPayResponse<GetOneRemitStatus
     public String totalExpectAmount;
     public String SBSNCN;
     public String totalRealPayAmount;
+    public String totalServiceCharge;
     public String subStatus;
     public List<RemitOrder> remitOrders;
 
@@ -25,6 +26,7 @@ public class GetOneRemitStatusResponse extends CassPayResponse<GetOneRemitStatus
         this.totalExpectAmount = this.content.getString("totalExpectAmount");
         this.SBSNCN = this.content.getString("SBSNCN");
         this.totalRealPayAmount = this.content.getString("totalRealPayAmount");
+        this.totalServiceCharge = this.content.getString("totalServiceCharge");
         this.subStatus = this.content.getString("subStatus");
         this.remitOrders = JSON.parseArray(this.content.getString("orderData"), RemitOrder.class);
     }

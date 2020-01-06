@@ -7,7 +7,6 @@ import com.skysharing.api.request.*;
 import com.skysharing.api.response.*;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.net.URLEncoder;
@@ -18,7 +17,6 @@ import java.util.UUID;
 
 import static org.junit.Assert.*;
 
-@Ignore
 public class TestCassPayClient {
 
     private String privateKeyStr;
@@ -56,6 +54,24 @@ public class TestCassPayClient {
     public void testGetBankBalance() throws Exception {
         GetBalanceRequest request = new GetBalanceRequest();
         request.setPayChannelK(GetBalanceRequest.BANK);
+        request.setPayChannelK(null);
+        GetBalanceResponse response = this.client.execute(request);
+
+        System.out.println(response);
+        assertEquals("10000", response.code);
+        assertEquals("请求成功", response.message);
+        assertEquals("", response.subCode);
+        assertEquals("", response.subMsg);
+        assertNotEquals("", response.bank.lockedAmt);
+        assertNotEquals("", response.bank.canUseAmt);
+        assertNotEquals("", response.bank.childFAbalance);
+        assertTrue(response.verify());
+    }
+
+    @Test
+    public void testGetBankBalanceWithNullChannelK() throws Exception {
+        GetBalanceRequest request = new GetBalanceRequest();
+        request.setPayChannelK(null);
         GetBalanceResponse response = this.client.execute(request);
 
         System.out.println(response);
@@ -145,6 +161,9 @@ public class TestCassPayClient {
         assertEquals(rbUUID, response.rbUUID);
         RemitOrder remitOrder = response.remitOrders.get(0);
         assertNotNull(remitOrder);
+        assertNotNull(response.totalServiceCharge);
+        assertNotNull(response.totalRealPayAmount);
+        assertNotNull(response.totalExpectAmount);
         assertEquals(orders.get(0).orderSN, remitOrder.orderSN);
     }
 
@@ -379,7 +398,7 @@ public class TestCassPayClient {
         ArrayList<Thread> arr = new ArrayList<Thread>();
         long t1 = new Date().getTime();
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < Integer.parseInt(this.dotenv.get("TEST_REQUEST_THREAD_NUM=1", "1")); i++) {
             Thread t = new Thread(new OneBankRemitThread(this.client, i));
             t.start();
             arr.add(t);

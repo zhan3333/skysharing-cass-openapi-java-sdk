@@ -1,5 +1,6 @@
 package com.skysharing.api;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.skysharing.api.exception.InvalidPrivateKeyException;
@@ -105,8 +106,24 @@ public class Signer {
         return signature.verify(Base64.getDecoder().decode(sign));
     }
 
+    /**
+     * 过滤掉参数中的 "", {}, [] 值
+     * @param params 参数组
+     * @return 过滤后的参数组
+     */
+    public JSONObject filterParams(JSONObject params) {
+        JSONObject filteredParams = new JSONObject();
+        for(String key : params.keySet()) {
+            if (params.getString(key).equals("") || params.getString(key).equals("{}") ||params.getString(key).equals("[]")) {
+                break;
+            }
+            filteredParams.put(key, params.getString(key));
+        }
+        return filteredParams;
+    }
+
     public String paramsToWaitSignStr(JSONObject params) {
-        String newStr = params.toJSONString(params, SerializerFeature.SortField.MapSortField, SerializerFeature.WriteSlashAsSpecial);
+        String newStr = JSON.toJSONString(this.filterParams(params), SerializerFeature.SortField.MapSortField, SerializerFeature.WriteSlashAsSpecial);
         newStr = newStr.replace(" ", "");
         try {
             newStr = URLEncoder.encode(newStr, "UTF-8");
@@ -118,7 +135,7 @@ public class Signer {
     }
 
     public String paramsToWaitVerifyStr(JSONObject params) {
-        String newStr = params.toJSONString(params, SerializerFeature.SortField.MapSortField, SerializerFeature.WriteSlashAsSpecial);
+        String newStr = JSON.toJSONString(params, SerializerFeature.SortField.MapSortField, SerializerFeature.WriteSlashAsSpecial);
         try {
             newStr = URLEncoder.encode(newStr, "UTF-8");
         } catch (UnsupportedEncodingException e) {
