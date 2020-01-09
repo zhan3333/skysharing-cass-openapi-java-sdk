@@ -68,10 +68,11 @@ public class DefaultCassPayClient {
         request.signType = this.signType;
         request.privateKey = this.appPrivateKey;
         request.datetime = LocalDateTime.now().format(this.datetimeFormat);
+        JSONObject params = request.buildParams();
         if (debug) {
             System.out.println("Request: " + request.toString());
+            System.out.println("Request JSON: " + params);
         }
-        JSONObject params = request.buildParams();
         String queryStr = signer.httpBuildQuery(JSON.toJavaObject(params, Map.class));
         JSONObject response = this.post(queryStr);
         String responseKey = request.getResponseKeyName();
@@ -83,7 +84,7 @@ public class DefaultCassPayClient {
         }
         F cassResponse = (F) request.makeResponse(response.getJSONObject(responseKey));
         if (debug) {
-            System.out.println("Response: " + cassResponse.raw);
+            System.out.println("Response JSON: " + cassResponse.raw);
         }
         cassResponse.sign = response.getString("sign");
         cassResponse.request = request;

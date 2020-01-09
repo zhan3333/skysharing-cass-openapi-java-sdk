@@ -1,13 +1,10 @@
 package com.skysharing.api.request;
 
 import com.alibaba.fastjson.JSONObject;
-import com.skysharing.api.model.AliPayOrder;
 import com.skysharing.api.model.BankPayOrder;
-import com.skysharing.api.response.PayBankRemitResponse;
 import com.skysharing.api.response.PayOneBankRemitResponse;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PayOneBankRemitRequest extends CassPayRequest<PayOneBankRemitResponse> {
 

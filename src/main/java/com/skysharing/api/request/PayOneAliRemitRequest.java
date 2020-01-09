@@ -2,7 +2,6 @@ package com.skysharing.api.request;
 
 import com.alibaba.fastjson.JSONObject;
 import com.skysharing.api.model.AliPayOrder;
-import com.skysharing.api.response.PayAliRemitResponse;
 import com.skysharing.api.response.PayOneAliRemitResponse;
 
 import java.util.ArrayList;

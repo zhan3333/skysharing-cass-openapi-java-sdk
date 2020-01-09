@@ -1,7 +1,5 @@
 package com.skysharing.api.model;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
 public class VerifyUserStatus {
     /**
      * 身份证
@@ -28,6 +26,15 @@ public class VerifyUserStatus {
      */
     public String verifyIdCardImgFailedMessage;
 
+    /**
+     * 验证状态, exists=false 时为空 ''
+     * exists=true 时, 包含以下结果
+     * pending: 验证中
+     * failed: 验证失败
+     * success: 验证成功
+     */
+    public String status;
+
     @Override
     public String toString() {
         return "VerifyUserStatus{" +
@@ -36,6 +43,7 @@ public class VerifyUserStatus {
                 ", isVerified=" + isVerified +
                 ", verifyIdCardFailedMessage=" + verifyIdCardFailedMessage +
                 ", verifyIdCardImgFailedMessage=" + verifyIdCardImgFailedMessage +
+                ", status=" + status +
                 '}';
     }
 }

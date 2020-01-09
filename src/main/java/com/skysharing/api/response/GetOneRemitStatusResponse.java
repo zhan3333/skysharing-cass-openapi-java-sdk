@@ -40,8 +40,9 @@ public class GetOneRemitStatusResponse extends CassPayResponse<GetOneRemitStatus
                 ", totalExpectAmount='" + totalExpectAmount + '\'' +
                 ", SBSNCN='" + SBSNCN + '\'' +
                 ", totalRealPayAmount='" + totalRealPayAmount + '\'' +
+                ", totalServiceCharge='" + totalServiceCharge + '\'' +
                 ", subStatus='" + subStatus + '\'' +
-                ", orders=" + remitOrders +
+                ", remitOrders=" + remitOrders +
                 ", code='" + code + '\'' +
                 ", message='" + message + '\'' +
                 ", subCode='" + subCode + '\'' +

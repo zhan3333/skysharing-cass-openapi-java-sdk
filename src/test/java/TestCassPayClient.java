@@ -91,10 +91,10 @@ public class TestCassPayClient {
         request.setPayChannelK(GetBalanceRequest.BANK);
         List<BankPayOrder> orders = new ArrayList<BankPayOrder>();
 
-        orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "123456789100", "詹光", "1.00").setIdentityCard("420222199212041057"));
-        orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "123456781239", "詹光", "1.00", "1423", "adsfasdf", "123456789100").setIdentityCard("420222199212041057"));
-        orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "123456781239", "詹光", "1.00", "", "", "").setIdentityCard("420222199212041057"));
-        orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "123456781390", "詹光", "1.00", "", "adsfasdf", "123456789100", new PayOrderData("名称", "描述")).setIdentityCard("420222199212041057"));
+        orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "6214850271449677", "谢丽1", "0.01").setIdentityCard("420222199212041057"));
+        orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "6214850271449677", "谢丽1", "0.01", "1423", "adsfasdf", "123456789100").setIdentityCard("420222199212041057"));
+        orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "6214850271449677", "谢丽1", "0.01", "", "", "").setIdentityCard("420222199212041057"));
+        orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "6214850271449677", "谢丽1", "0.01", "", "adsfasdf", "123456789100", new PayOrderData("名称", "描述")).setIdentityCard("420222199212041057"));
         System.out.println(JSON.toJSONString(orders));
         request.setOrders(orders);
         PayBankRemitResponse response = this.client.execute(request);
@@ -115,9 +115,9 @@ public class TestCassPayClient {
         request.setOrder(
                 new BankPayOrder(
                         UUID.randomUUID().toString().toUpperCase(),
-                        "1235432456346",
-                        "詹光",
-                        "1.00"
+                        "6214850271449677",
+                        "谢丽1",
+                        "0.02"
                 ).setIdentityCard("420222199212041058")
         );
         PayOneBankRemitResponse response = this.client.execute(request);
@@ -322,7 +322,7 @@ public class TestCassPayClient {
     public void testGetUsersVerifyStatus() throws ResponseNotValidException, RequestFailedException, SignException {
         GetUsersVerifyStatusRequest request = new GetUsersVerifyStatusRequest();
         List<java.lang.String> identityCards = new ArrayList<>();
-        identityCards.add("420222199212041057");
+        identityCards.add("420222199212041099");
         request.setIdentityCards(identityCards);
         GetUsersVerifyStatusResponse response = this.client.execute(request);
         System.out.println(response);
@@ -334,6 +334,7 @@ public class TestCassPayClient {
         assertNotNull(user.identityCard);
         assertNotNull(user.verifyIdCardFailedMessage);
         assertNotNull(user.verifyIdCardImgFailedMessage);
+        assertNotNull(user.status);
     }
 
     @Test
@@ -398,7 +399,7 @@ public class TestCassPayClient {
         ArrayList<Thread> arr = new ArrayList<Thread>();
         long t1 = new Date().getTime();
 
-        for (int i = 0; i < Integer.parseInt(this.dotenv.get("TEST_REQUEST_THREAD_NUM=1", "1")); i++) {
+        for (int i = 0; i < Integer.parseInt(this.dotenv.get("TEST_REQUEST_THREAD_NUM", "1")); i++) {
             Thread t = new Thread(new OneBankRemitThread(this.client, i));
             t.start();
             arr.add(t);

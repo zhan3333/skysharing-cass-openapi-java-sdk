@@ -1,7 +1,6 @@
 package com.skysharing.api.response;
 
 import com.alibaba.fastjson.JSONObject;
-import com.skysharing.api.request.PayBankRemitRequest;
 import com.skysharing.api.request.PayOneBankRemitRequest;
 
 public class PayOneBankRemitResponse extends CassPayResponse<PayOneBankRemitRequest> {
