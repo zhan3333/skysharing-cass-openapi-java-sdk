@@ -20,8 +20,19 @@ public class PayOneAliRemitRequest extends CassPayRequest<PayOneAliRemitResponse
         return this;
     }
 
+    /**
+     * 设置合同ID
+     *
+     * @param contractId 合同ID
+     * @return 当前类
+     */
+    public PayOneAliRemitRequest setContractID(String contractId) {
+        this.bizMap.put("contractID", contractId);
+        return this;
+    }
+
     public PayOneAliRemitRequest setOrder(AliPayOrder order) {
-        this.bizMap.put("orderData", new ArrayList<AliPayOrder>(){{
+        this.bizMap.put("orderData", new ArrayList<AliPayOrder>() {{
             add(order);
         }});
         return this;

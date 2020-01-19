@@ -20,8 +20,19 @@ public class PayOneBankRemitRequest extends CassPayRequest<PayOneBankRemitRespon
         return this;
     }
 
+    /**
+     * 设置合同ID
+     *
+     * @param contractId 合同ID
+     * @return 当前类
+     */
+    public PayOneBankRemitRequest setContractID(String contractId) {
+        this.bizMap.put("contractID", contractId);
+        return this;
+    }
+
     public PayOneBankRemitRequest setOrder(BankPayOrder order) {
-        this.bizMap.put("orderData", new ArrayList<BankPayOrder>(){{
+        this.bizMap.put("orderData", new ArrayList<BankPayOrder>() {{
             add(order);
         }});
         return this;

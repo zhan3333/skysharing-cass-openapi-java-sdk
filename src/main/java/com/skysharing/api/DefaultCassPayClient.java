@@ -82,10 +82,10 @@ public class DefaultCassPayClient {
         if (!response.containsKey("sign")) {
             throw new ResponseNotValidException("响应中必须要有sign键");
         }
-        F cassResponse = (F) request.makeResponse(response.getJSONObject(responseKey));
         if (debug) {
-            System.out.println("Response JSON: " + cassResponse.raw);
+            System.out.println("Response JSON: " + response.getJSONObject(responseKey));
         }
+        F cassResponse = (F) request.makeResponse(response.getJSONObject(responseKey));
         cassResponse.sign = response.getString("sign");
         cassResponse.request = request;
         cassResponse.vzhuoPublicKey = this.cassPublicKey;

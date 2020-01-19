@@ -10,12 +10,12 @@ public class GetOneOrderStatusRequest extends CassPayRequest<GetOneOrderStatusRe
         return this.method;
     }
 
-    public void setOrderUUID (String orderUUID) {
+    public void setOrderUUID(String orderUUID) {
         this.bizMap.put("orderUUID", orderUUID);
     }
 
     @Override
     public GetOneOrderStatusResponse makeResponse(JSONObject response) {
-        return  new GetOneOrderStatusResponse(response);
+        return new GetOneOrderStatusResponse(response);
     }
 }

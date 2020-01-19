@@ -108,13 +108,14 @@ public class Signer {
 
     /**
      * 过滤掉参数中的 "", {}, [] 值
+     *
      * @param params 参数组
      * @return 过滤后的参数组
      */
     public JSONObject filterParams(JSONObject params) {
         JSONObject filteredParams = new JSONObject();
-        for(String key : params.keySet()) {
-            if (params.getString(key).equals("") || params.getString(key).equals("{}") ||params.getString(key).equals("[]")) {
+        for (String key : params.keySet()) {
+            if (params.getString(key).equals("") || params.getString(key).equals("{}") || params.getString(key).equals("[]")) {
                 break;
             }
             filteredParams.put(key, params.getString(key));
@@ -145,7 +146,7 @@ public class Signer {
         return newStr;
     }
 
-    public String httpBuildQuery(Map<String, String> map)  {
+    public String httpBuildQuery(Map<String, String> map) {
         StringBuffer sb = new StringBuffer();
         if (map.size() > 0) {
             for (String key : map.keySet()) {

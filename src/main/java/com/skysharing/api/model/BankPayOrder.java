@@ -51,14 +51,14 @@ public class BankPayOrder {
     public PayOrderData data = new PayOrderData();
 
 
-    public BankPayOrder (String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount) {
+    public BankPayOrder(String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount) {
         this.orderSN = orderSN;
         this.receiptFANO = receiptFANO;
         this.payeeAccount = payeeAccount;
         this.requestPayAmount = requestPayAmount;
     }
 
-    public BankPayOrder (String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount, String receiptBankName, String receiptBankAddr, String CRCHGNO) {
+    public BankPayOrder(String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount, String receiptBankName, String receiptBankAddr, String CRCHGNO) {
         this.orderSN = orderSN;
         this.receiptFANO = receiptFANO;
         this.payeeAccount = payeeAccount;
@@ -74,7 +74,7 @@ public class BankPayOrder {
         }
     }
 
-    public BankPayOrder (String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount, String receiptBankName, String receiptBankAddr, String CRCHGNO, PayOrderData payOrderData) {
+    public BankPayOrder(String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount, String receiptBankName, String receiptBankAddr, String CRCHGNO, PayOrderData payOrderData) {
         this.orderSN = orderSN;
         this.receiptFANO = receiptFANO;
         this.payeeAccount = payeeAccount;
@@ -93,6 +93,7 @@ public class BankPayOrder {
 
     /**
      * 设置订单身份证号
+     *
      * @param identityCard 身份证号
      * @return 原对象
      */

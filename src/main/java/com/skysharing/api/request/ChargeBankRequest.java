@@ -3,7 +3,7 @@ package com.skysharing.api.request;
 import com.alibaba.fastjson.JSONObject;
 import com.skysharing.api.response.ChargeBankResponse;
 
-public class ChargeBankRequest extends CassPayRequest<ChargeBankResponse>  {
+public class ChargeBankRequest extends CassPayRequest<ChargeBankResponse> {
     public String method = "Vzhuo.Bank.Charge";
 
     public ChargeBankRequest setOrderName(String orderName) {

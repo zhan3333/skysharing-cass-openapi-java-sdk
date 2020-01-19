@@ -11,13 +11,13 @@ public class GetOneRemitStatusRequest extends CassPayRequest<GetOneRemitStatusRe
         return this.method;
     }
 
-    public GetOneRemitStatusRequest setRbUUID (String rbUUID) {
+    public GetOneRemitStatusRequest setRbUUID(String rbUUID) {
         this.bizMap.put("rbUUID", rbUUID);
         return this;
     }
 
     @Override
     public GetOneRemitStatusResponse makeResponse(JSONObject response) {
-        return  new GetOneRemitStatusResponse(response);
+        return new GetOneRemitStatusResponse(response);
     }
 }

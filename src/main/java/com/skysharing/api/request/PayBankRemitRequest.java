@@ -20,6 +20,17 @@ public class PayBankRemitRequest extends CassPayRequest<PayBankRemitResponse> {
         return this;
     }
 
+    /**
+     * 设置合同ID
+     *
+     * @param contractId 合同ID
+     * @return 当前类
+     */
+    public PayBankRemitRequest setContractID(String contractId) {
+        this.bizMap.put("contractID", contractId);
+        return this;
+    }
+
     public PayBankRemitRequest setOrders(List<BankPayOrder> orders) {
         this.bizMap.put("orderData", orders);
         return this;

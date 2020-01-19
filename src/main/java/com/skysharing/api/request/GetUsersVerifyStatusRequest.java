@@ -10,6 +10,7 @@ public class GetUsersVerifyStatusRequest extends CassPayRequest<GetUsersVerifySt
 
     /**
      * 设置要查询的身份证号码数组
+     *
      * @param identityCards 设置要查询的身份证号码数组
      */
     public void setIdentityCards(List<String> identityCards) {

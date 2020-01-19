@@ -10,10 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -97,6 +94,7 @@ public class TestCassPayClient {
         orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "6214850271449677", "谢丽1", "0.01", "", "adsfasdf", "123456789100", new PayOrderData("名称", "描述")).setIdentityCard("420222199212041057"));
         System.out.println(JSON.toJSONString(orders));
         request.setOrders(orders);
+        request.setContractID("13");
         PayBankRemitResponse response = this.client.execute(request);
 
         System.out.println(response);
@@ -120,6 +118,7 @@ public class TestCassPayClient {
                         "0.02"
                 ).setIdentityCard("420222199212041058")
         );
+        request.setContractID("12");
         PayOneBankRemitResponse response = this.client.execute(request);
         assertEquals(response.toString(), "10000", response.code);
         assertNotNull(response.toString(), response.rbUUID);
@@ -137,6 +136,7 @@ public class TestCassPayClient {
                         "0.20"
                 ).setIdentityCard("420222199212041057")
         );
+        request.setContractID("12");
         PayOneAliRemitResponse response = this.client.execute(request);
         assertEquals(response.toString(), "10000", response.code);
         assertNotNull(response.toString(), response.rbUUID);
@@ -322,7 +322,7 @@ public class TestCassPayClient {
     public void testGetUsersVerifyStatus() throws ResponseNotValidException, RequestFailedException, SignException {
         GetUsersVerifyStatusRequest request = new GetUsersVerifyStatusRequest();
         List<java.lang.String> identityCards = new ArrayList<>();
-        identityCards.add("420222199212041099");
+        identityCards.add("420222199212041057");
         request.setIdentityCards(identityCards);
         GetUsersVerifyStatusResponse response = this.client.execute(request);
         System.out.println(response);
@@ -410,5 +410,23 @@ public class TestCassPayClient {
         }
         long t2 = new Date().getTime();
         System.out.println("Use time: " + (t2 - t1));
+    }
+
+    @Test
+    // 测试获取合同列表
+    public void getContractList() throws SignException, RequestFailedException, ResponseNotValidException {
+        GetContractListResponse response = this.client.execute(
+                (new GetContractListRequest()).setPage(1).setSize(10)
+        );
+        System.out.println(response);
+        assertEquals("10000", response.code);
+        assertNotEquals(0, response.total);
+        assertNotNull(response.data);
+        assertNotEquals(0, response.data.size());
+        assertNotNull(response.data.get(0));
+        assertNotEquals(0, response.data.get(0).ID);
+        assertNotEquals("", response.data.get(0).name);
+        assertNotNull(response.data.get(0).skillRequirements);
+        assertNotNull(response.data.get(0).skillRequirements.get(0));
     }
 }
