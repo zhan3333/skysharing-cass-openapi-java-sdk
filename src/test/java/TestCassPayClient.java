@@ -359,7 +359,8 @@ public class TestCassPayClient {
                 .setFrontImgBase64(frontSB.toString())
                 .setBackImgBase64(backSB.toString())
                 .setLatitude("1234")
-                .setLongitude("4321");
+                .setLongitude("4321")
+                .setPhone("13517210601");
         VerifyUserResponse response = this.client.execute(request);
         System.out.println(response);
         assertEquals(response.message + "/" + response.subMsg, "10000", response.code);

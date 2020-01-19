@@ -36,6 +36,11 @@ public class VerifyUserRequest extends CassPayRequest<VerifyUserResponse> {
         return this;
     }
 
+    public VerifyUserRequest setPhone(String phone) {
+        this.bizMap.put("phone", phone);
+        return this;
+    }
+
     @Override
     public VerifyUserResponse makeResponse(JSONObject response) {
         return new VerifyUserResponse(response);
