@@ -7,6 +7,7 @@ import com.skysharing.api.request.*;
 import com.skysharing.api.response.*;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.net.URLEncoder;
@@ -136,7 +137,7 @@ public class TestCassPayClient {
                         "0.20"
                 ).setIdentityCard("420222199212041057")
         );
-        request.setContractID("12");
+        request.setContractID("12000");
         PayOneAliRemitResponse response = this.client.execute(request);
         assertEquals(response.toString(), "10000", response.code);
         assertNotNull(response.toString(), response.rbUUID);
@@ -207,7 +208,8 @@ public class TestCassPayClient {
                         .setPayChannelK(GetBalanceRequest.AliPay)
                         .setOrders(new ArrayList<AliPayOrder>() {{
                             add(aliPayOrder);
-                        }}));
+                        }}).setContractID("11")
+        );
         System.out.println(payResponse.raw);
         assertNotNull(payResponse.rbUUID);
         String rbUUID = payResponse.rbUUID;
@@ -414,6 +416,7 @@ public class TestCassPayClient {
     }
 
     @Test
+    @Ignore
     // 测试获取合同列表
     public void getContractList() throws SignException, RequestFailedException, ResponseNotValidException {
         GetContractListResponse response = this.client.execute(

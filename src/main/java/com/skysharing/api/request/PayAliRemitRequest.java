@@ -31,7 +31,7 @@ public class PayAliRemitRequest extends CassPayRequest<PayAliRemitResponse> {
      * @param contractId 合同ID
      * @return 当前类
      */
-    public PayAliRemitRequest setContractID(int contractId) {
+    public PayAliRemitRequest setContractID(String contractId) {
         this.bizMap.put("contractID", contractId);
         return this;
     }

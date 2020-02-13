@@ -12,8 +12,8 @@
     </licenses>
     <groupId>com.github.zhan3333</groupId>
     <artifactId>skysharing-cass-sdk-java</artifactId>
-     <version>1.0-SNAPSHOT</version>
-<!--    <version>1.0.0-RELEASES</version>-->
+     <version>1.0.2-SNAPSHOT</version>
+<!--    <version>1.0.1</version>-->
     <description>Skysharing CASS openapi SDK for Java</description>
     <build>
         <plugins>
