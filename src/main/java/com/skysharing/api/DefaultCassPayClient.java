@@ -74,7 +74,11 @@ public class DefaultCassPayClient {
             System.out.println("Request JSON: " + params);
         }
         String queryStr = signer.httpBuildQuery(JSON.toJavaObject(params, Map.class));
+        System.out.println("Query String: " + queryStr);
         JSONObject response = this.post(queryStr);
+        if (debug) {
+            System.out.println("Response Body: " + response.toString());
+        }
         String responseKey = request.getResponseKeyName();
         if (!response.containsKey(responseKey)) {
             throw new ResponseNotValidException("响应中必须要有" + responseKey + "键");

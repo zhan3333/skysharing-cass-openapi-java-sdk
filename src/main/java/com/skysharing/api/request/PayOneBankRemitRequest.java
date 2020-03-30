@@ -10,6 +10,9 @@ public class PayOneBankRemitRequest extends CassPayRequest<PayOneBankRemitRespon
 
     public String method = "Vzhuo.OneBankRemit.Pay";
 
+    public static final String PAYEE_CHANNEL_TYPE_BANK_CARD = "1"; // 网商银行->银行卡
+    public static final String PAYEE_CHANNEL_TYPE_ALI_PAY = "2"; // 网商银行->支付宝
+
     @Override
     public PayOneBankRemitResponse makeResponse(JSONObject response) {
         return new PayOneBankRemitResponse(response);
@@ -28,6 +31,20 @@ public class PayOneBankRemitRequest extends CassPayRequest<PayOneBankRemitRespon
      */
     public PayOneBankRemitRequest setContractID(String contractId) {
         this.bizMap.put("contractID", contractId);
+        return this;
+    }
+
+    /**
+     * 设置网商银行参数
+     * <p>
+     * 网商银行必填，收款通道：
+     * 网商银行支持，1-银行卡，2-支付宝；
+     * 其他银行仅支持，1-银行卡
+     *
+     * @return
+     */
+    public PayOneBankRemitRequest setPayeeChannelType(String type) {
+        this.bizMap.put("payeeChannelType", type);
         return this;
     }
 

@@ -50,6 +50,10 @@ public class BankPayOrder {
      */
     public PayOrderData data = new PayOrderData();
 
+    /**
+     * 异步通知地址： http://xxx.xxx.cn/xx/asynNotify.htm
+     */
+    public String notifyUrl = "";
 
     public BankPayOrder(String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount) {
         this.orderSN = orderSN;
@@ -99,6 +103,17 @@ public class BankPayOrder {
      */
     public BankPayOrder setIdentityCard(String identityCard) {
         this.identityCard = identityCard;
+        return this;
+    }
+
+    /**
+     * 设置回调地址
+     *
+     * @param notifyUrl 接收通知的地址
+     * @return 当前对象
+     */
+    public BankPayOrder setNotifyUrl(String notifyUrl) {
+        this.notifyUrl = notifyUrl;
         return this;
     }
 }
