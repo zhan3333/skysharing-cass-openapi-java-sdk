@@ -3,6 +3,8 @@ package com.skysharing.api.request;
 import com.alibaba.fastjson.JSONObject;
 import com.skysharing.api.response.ChargeAliPayResponse;
 
+import java.util.ArrayList;
+
 public class ChargeAliPayRequest extends CassPayRequest<ChargeAliPayResponse> {
     public String method = "Vzhuo.AliPay.Charge";
 
@@ -26,8 +28,25 @@ public class ChargeAliPayRequest extends CassPayRequest<ChargeAliPayResponse> {
         return this;
     }
 
+    /**
+     * 添加多个照片凭据
+     * @param rechargePics 照片凭据数组
+     * @return 当前类
+     */
+    public ChargeAliPayRequest setRechargePics(ArrayList<String> rechargePics) {
+        this.bizMap.put("rechargePic", rechargePics);
+        return this;
+    }
+
+    /**
+     * 添加单个照片凭据
+     * @param rechargePic 照片凭据字符串， Base64 编码
+     * @return 当前类
+     */
     public ChargeAliPayRequest setRechargePic(String rechargePic) {
-        this.bizMap.put("rechargePic", rechargePic);
+        ArrayList<String> list = new ArrayList<String>();
+        list.add(rechargePic);
+        this.bizMap.put("rechargePic", list);
         return this;
     }
 
