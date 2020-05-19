@@ -120,6 +120,7 @@ public class TestCassPayClient {
         System.out.println(JSON.toJSONString(orders));
         request.setOrders(orders);
         request.setContractID("13");
+        request.setPayeeChannelType(PayBankRemitRequest.PAYEE_CHANNEL_TYPE_BANK_CARD);
         PayBankRemitResponse response = this.client.execute(request);
 
         System.out.println(response);
@@ -137,13 +138,18 @@ public class TestCassPayClient {
         request.setPayChannelK(GetBalanceRequest.BANK);
         List<BankPayOrder> orders = new ArrayList<>();
 
-        orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "6214850271449677", "谢丽1", "0.01").setIdentityCard("420222199212041057"));
-        orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "6214850271449677", "谢丽1", "0.01", "1423", "adsfasdf", "123456789100").setIdentityCard("420222199212041057"));
-        orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "6214850271449677", "谢丽1", "0.01", "", "", "").setIdentityCard("420222199212041057"));
-        orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "6214850271449677", "谢丽1", "0.01", "", "adsfasdf", "123456789100", new PayOrderData("名称", "描述")).setIdentityCard("420222199212041057"));
+        orders.add(new BankPayOrder(
+                UUID.randomUUID().toString().toUpperCase(),
+                "6214850271449677",
+                "谢丽1",
+                "0.01")
+                .setIdentityCard("420222199212041057")
+                .setNotifyUrl("http://127.0.0.1:7777")
+        );
         System.out.println(JSON.toJSONString(orders));
         request.setOrders(orders);
         request.setContractID("13");
+        request.setPayeeChannelType(PayBankRemitRequest.PAYEE_CHANNEL_TYPE_BANK_CARD);
         PayBankRemitResponse response = this.client.execute(request);
 
         System.out.println(response);
@@ -159,7 +165,7 @@ public class TestCassPayClient {
     public void testPayOneBankRemit() throws ResponseNotValidException, RequestFailedException, SignException {
         PayOneBankRemitRequest request = new PayOneBankRemitRequest();
         request.setPayChannelK(GetBalanceRequest.BANK);
-//        request.setPayeeChannelType(PayOneBankRemitRequest.PAYEE_CHANNEL_TYPE_BANK_CARD);
+        request.setPayeeChannelType(PayOneBankRemitRequest.PAYEE_CHANNEL_TYPE_BANK_CARD);
         request.setOrder(
                 new BankPayOrder(
                         UUID.randomUUID().toString().toUpperCase(),
@@ -171,6 +177,28 @@ public class TestCassPayClient {
                         .setNotifyUrl("http://www.baidu.com")
         );
         request.setContractID("12");
+        PayOneBankRemitResponse response = this.client.execute(request);
+        assertEquals(response.toString(), "10000", response.code);
+        assertNotNull(response.toString(), response.rbUUID);
+    }
+
+    // 网商银行打款到支付宝
+    @Test
+    public void testPayOneBankRemitToAli() throws ResponseNotValidException, RequestFailedException, SignException {
+        PayOneBankRemitRequest request = new PayOneBankRemitRequest();
+        request.setPayChannelK(GetBalanceRequest.BANK);
+        request.setPayeeChannelType(PayOneBankRemitRequest.PAYEE_CHANNEL_TYPE_ALI_PAY);
+        request.setOrder(
+                new BankPayOrder(
+                        UUID.randomUUID().toString().toUpperCase(),
+                        "lishengwu@inke.cn",
+                        "李生",
+                        "0.94"
+                )
+//                        .setIdentityCard("420222199212041058")
+                        .setNotifyUrl("http://www.baidu.com")
+        );
+//        request.setContractID("12");
         PayOneBankRemitResponse response = this.client.execute(request);
         assertEquals(response.toString(), "10000", response.code);
         assertNotNull(response.toString(), response.rbUUID);
@@ -197,12 +225,20 @@ public class TestCassPayClient {
     @Test
     public void testGetOneRemitStatus() throws ResponseNotValidException, RequestFailedException, SignException {
         List<BankPayOrder> orders = new ArrayList<>();
-        orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "12345678910", "123光", "1.00").setIdentityCard("420222199212041057"));
+        orders.add(new BankPayOrder(
+                UUID.randomUUID().toString().toUpperCase(),
+                "12345678910",
+                "123光",
+                "1.00")
+                .setIdentityCard("420222199212041057")
+                .setNotifyUrl("http://127.0.0.1:7777")
+        );
         PayBankRemitResponse payResponse = this.client
                 .execute(
                         (new PayBankRemitRequest())
                                 .setPayChannelK(GetBalanceRequest.BANK)
                                 .setOrders(orders)
+                                .setPayeeChannelType(PayBankRemitRequest.PAYEE_CHANNEL_TYPE_BANK_CARD)
                 );
         assertEquals(payResponse.message + "/" + payResponse.subMsg, payResponse.code, "10000");
         String rbUUID = payResponse.rbUUID;
@@ -222,12 +258,20 @@ public class TestCassPayClient {
     @Test
     public void testGetOneOrderStatusByBank() throws Exception {
         List<BankPayOrder> orders = new ArrayList<>();
-        orders.add(new BankPayOrder(UUID.randomUUID().toString().toUpperCase(), "12345678910", "詹光", "1.00").setIdentityCard("420222199212041057"));
+        orders.add(
+                new BankPayOrder(UUID.randomUUID().toString().toUpperCase(),
+                        "12345678910",
+                        "詹光",
+                        "1.00")
+                        .setIdentityCard("420222199212041057")
+                        .setNotifyUrl("http://127.0.0.1:7777")
+        );
         PayBankRemitResponse payResponse = this.client
                 .execute(
                         (new PayBankRemitRequest())
                                 .setPayChannelK(GetBalanceRequest.BANK)
                                 .setOrders(orders)
+                                .setPayeeChannelType(PayBankRemitRequest.PAYEE_CHANNEL_TYPE_BANK_CARD)
                 );
         assertEquals(payResponse.message + "/" + payResponse.subMsg, "10000", payResponse.code);
         String rbUUID = payResponse.rbUUID;
@@ -308,9 +352,7 @@ public class TestCassPayClient {
     }
 
     @Test
-    /**
-     * 测试提交银行卡充值申请
-     */
+    // 测试提交银行卡充值申请
     public void testChargeBank() throws ResponseNotValidException, RequestFailedException, SignException {
         ChargeBankRequest request = new ChargeBankRequest();
         request.setApplyAmount("0.01")

@@ -34,8 +34,7 @@ public class Signer {
             byte[] keyBytes = (Base64.getDecoder().decode(key));
             X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
             KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
-            PublicKey publicKey = keyFactory.generatePublic(keySpec);
-            return publicKey;
+            return keyFactory.generatePublic(keySpec);
         } catch (Exception e) {
             throw new InvalidPublicKeyException(e.getMessage());
         }
@@ -82,6 +81,7 @@ public class Signer {
      */
     public String singParams(JSONObject params, PrivateKey privateKey) throws SignException {
         String waitSignStr = this.paramsToWaitSignStr(params);
+        System.out.println("Wait sign str" + waitSignStr);
         return this.sign(waitSignStr, privateKey);
     }
 
@@ -118,13 +118,13 @@ public class Signer {
             if (params.getString(key).equals("") || params.getString(key).equals("{}") || params.getString(key).equals("[]")) {
                 break;
             }
-            filteredParams.put(key, params.getString(key));
+            filteredParams.put(key, params.get(key));
         }
         return filteredParams;
     }
 
     public String paramsToWaitSignStr(JSONObject params) {
-        String newStr = JSON.toJSONString(this.filterParams(params), SerializerFeature.SortField.MapSortField, SerializerFeature.WriteSlashAsSpecial);
+        String newStr = JSON.toJSONString(this.filterParams(params), SerializerFeature.MapSortField, SerializerFeature.WriteSlashAsSpecial);
         newStr = newStr.replace(" ", "");
         try {
             newStr = URLEncoder.encode(newStr, "UTF-8");
@@ -132,11 +132,12 @@ public class Signer {
             e.printStackTrace();
         }
         newStr = newStr.replace("*", "%2A");
+        System.out.println("Join " + newStr);
         return newStr;
     }
 
     public String paramsToWaitVerifyStr(JSONObject params) {
-        String newStr = JSON.toJSONString(params, SerializerFeature.SortField.MapSortField, SerializerFeature.WriteSlashAsSpecial);
+        String newStr = JSON.toJSONString(params, SerializerFeature.MapSortField, SerializerFeature.WriteSlashAsSpecial);
         try {
             newStr = URLEncoder.encode(newStr, "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -147,10 +148,10 @@ public class Signer {
     }
 
     public String httpBuildQuery(Map<String, String> map) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if (map.size() > 0) {
             for (String key : map.keySet()) {
-                sb.append(key + "=");
+                sb.append(key).append("=");
                 if (map.get(key).equals("")) {
                     sb.append("&");
                 } else {
@@ -160,7 +161,7 @@ public class Signer {
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-                    sb.append(value + "&");
+                    sb.append(value).append("&");
                 }
             }
         }
