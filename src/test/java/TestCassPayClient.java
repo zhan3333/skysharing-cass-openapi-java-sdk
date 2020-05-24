@@ -7,6 +7,7 @@ import com.skysharing.api.request.*;
 import com.skysharing.api.response.*;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
@@ -15,6 +16,7 @@ import java.util.*;
 
 import static org.junit.Assert.*;
 
+@Ignore
 public class TestCassPayClient {
 
     private String privateKeyStr;
