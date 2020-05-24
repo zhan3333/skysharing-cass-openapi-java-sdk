@@ -1,9 +1,9 @@
 package com.skysharing.api.response;
 
 import com.alibaba.fastjson.JSONObject;
-import com.skysharing.api.request.GetBalanceRequest;
+import com.skysharing.api.request.ChargeBankRequest;
 
-public class ChargeBankResponse extends CassPayResponse<GetBalanceRequest> {
+public class ChargeBankResponse extends CassPayResponse<ChargeBankRequest> {
     /**
      * 流水号
      */

@@ -3,12 +3,14 @@ package com.skysharing.api.response;
 import com.alibaba.fastjson.JSONObject;
 import com.skysharing.api.model.BalanceAliPay;
 import com.skysharing.api.model.BalanceBank;
+import com.skysharing.api.model.BalanceWeChat;
 import com.skysharing.api.request.GetBalanceRequest;
 
 public class GetBalanceResponse extends CassPayResponse<GetBalanceRequest> {
     public BalanceBank bank = new BalanceBank();
 
     public BalanceAliPay alipay = new BalanceAliPay();
+    public BalanceWeChat wechat = new BalanceWeChat();
 
     public GetBalanceResponse(JSONObject response) {
         super(response);
@@ -24,6 +26,12 @@ public class GetBalanceResponse extends CassPayResponse<GetBalanceRequest> {
             this.alipay.canUseAmt = alipay.getString("canUseAmt");
             this.alipay.childFAbalance = alipay.getString("childFAbalance");
         }
+        if (this.content.containsKey("wechat")) {
+            JSONObject wechat = this.content.getJSONObject("wechat");
+            this.wechat.lockedAmt = wechat.getString("lockedAmt");
+            this.wechat.canUseAmt = wechat.getString("canUseAmt");
+            this.wechat.childFAbalance = wechat.getString("childFAbalance");
+        }
     }
 
     @Override
@@ -31,11 +39,13 @@ public class GetBalanceResponse extends CassPayResponse<GetBalanceRequest> {
         return "GetBalanceResponse{" +
                 "bank=" + bank +
                 ", alipay=" + alipay +
+                ", weChat=" + wechat +
                 ", code='" + code + '\'' +
                 ", message='" + message + '\'' +
                 ", subCode='" + subCode + '\'' +
                 ", subMsg='" + subMsg + '\'' +
                 ", content=" + content +
+                ", sign='" + sign + '\'' +
                 '}';
     }
 }

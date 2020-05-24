@@ -84,6 +84,25 @@ public class TestCassPayClient {
     }
 
     @Test
+    public void testGetWeChatBalance() throws Exception {
+        GetBalanceRequest request = new GetBalanceRequest();
+        request.setPayChannelK(GetBalanceRequest.Wecaht);
+        request.setPayChannelK(null);
+        GetBalanceResponse response = this.client.execute(request);
+
+        System.out.println(response);
+        assertEquals("10000", response.code);
+        assertEquals("请求成功", response.message);
+        assertEquals("", response.subCode);
+        assertEquals("", response.subMsg);
+        assertNotEquals("", response.bank.lockedAmt);
+        assertNotEquals("", response.bank.canUseAmt);
+        assertNotEquals("", response.bank.childFAbalance);
+        assertTrue(response.verify());
+    }
+
+
+    @Test
     public void testGetBankBalanceWithNullChannelK() throws Exception {
         GetBalanceRequest request = new GetBalanceRequest();
         request.setPayChannelK(null);
@@ -509,5 +528,67 @@ public class TestCassPayClient {
         assertNotNull(response.data.get(0));
         assertNotEquals(0, response.data.get(0).ID);
         assertNotEquals("", response.data.get(0).name);
+    }
+
+    @Test
+    public void testWeChatRemit() throws Exception {
+        PayWeChatRemitRequest request = new PayWeChatRemitRequest();
+        List<WeChatOrder> orders = new ArrayList<>();
+
+        orders.add(
+                new WeChatOrder(
+                        UUID.randomUUID().toString().toUpperCase(),
+                        "13517210601",
+                        "詹光",
+                        "1",
+                        "http://www.baidu.com")
+        );
+        System.out.println(JSON.toJSONString(orders));
+        request.setOrders(orders);
+        request.setContractID("13");
+        PayWeChatRemitResponse response = this.client.execute(request);
+
+        System.out.println(response);
+        assertEquals("10000", response.code);
+        assertEquals("请求成功", response.message);
+        assertEquals("", response.subCode);
+        assertEquals("", response.subMsg);
+        assertNotNull(response.rbUUID);
+        assertTrue(response.verify());
+    }
+
+    @Test
+    public void testOneWeChatRemit() throws Exception {
+        PayOneWeChatRemitRequest request = new PayOneWeChatRemitRequest();
+        request.setOrder(new WeChatOrder(
+                UUID.randomUUID().toString().toUpperCase(),
+                "13517210601",
+                "詹光",
+                "1",
+                "http://www.baidu.com"
+        ));
+        request.setContractID("13");
+
+        PayOneWeChatRemitResponse response = this.client.execute(request);
+        assertEquals("10000", response.code);
+        assertEquals("请求成功", response.message);
+        assertEquals("", response.subCode);
+        assertEquals("", response.subMsg);
+        assertNotNull(response.rbUUID);
+        assertTrue(response.verify());
+    }
+
+    @Test
+    public void testChargeWeChat() throws SignException, RequestFailedException, ResponseNotValidException {
+        ChargeWeChatRequest request = new ChargeWeChatRequest();
+        request.setApplyAmount("100")
+                .setBankAccount("中国银行")
+                .setBankCardNO("6217001780012364")
+                .setOrderName("充值一毛钱")
+                .setRechargePic(this.frontSB.toString());
+        ChargeWeChatResponse response = this.client.execute(request);
+        System.out.println(response);
+        assertEquals("10000", response.code);
+        assertNotNull(response.rechargeSBSN);
     }
 }
