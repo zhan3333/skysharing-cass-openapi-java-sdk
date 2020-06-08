@@ -81,7 +81,6 @@ public class Signer {
      */
     public String singParams(JSONObject params, PrivateKey privateKey) throws SignException {
         String waitSignStr = this.paramsToWaitSignStr(params);
-        System.out.println("Wait sign str" + waitSignStr);
         return this.sign(waitSignStr, privateKey);
     }
 
@@ -132,7 +131,6 @@ public class Signer {
             e.printStackTrace();
         }
         newStr = newStr.replace("*", "%2A");
-        System.out.println("Join " + newStr);
         return newStr;
     }
 

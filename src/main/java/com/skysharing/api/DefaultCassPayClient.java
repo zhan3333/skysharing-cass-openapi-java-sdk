@@ -2,18 +2,26 @@ package com.skysharing.api;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.skysharing.api.exception.*;
 import com.skysharing.api.request.CassPayRequest;
 import com.skysharing.api.response.CassPayResponse;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.Signature;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import static com.skysharing.api.Signer.SIGNATURE_ALGORITHM;
 
 public class DefaultCassPayClient {
     public static final Signer signer = new Signer();
@@ -106,6 +114,59 @@ public class DefaultCassPayClient {
         } catch (IOException e) {
             e.printStackTrace();
             throw new RequestFailedException("请求失败: " + e.getMessage());
+        }
+    }
+
+//    public parseNotify(String body) {
+//
+//    }
+
+    /**
+     * 验证通知的签名
+     *
+     * @param body 通知请求体
+     * @return 是否验证通过
+     */
+    public boolean verifyNotify(String body) {
+        if (this.debug) {
+            System.out.printf("Verify Notify Str: %s \n", body);
+        }
+        if (body.isEmpty()) {
+            return false;
+        }
+        JSONObject json = JSON.parseObject(body);
+        String sign = json.getString("sign");
+        JSONObject req = json.getJSONObject("response");
+        // 去除空值
+        JSONObject filteredParams = new JSONObject();
+        for (String key : req.keySet()) {
+            if (req.getString(key).equals("") || req.getString(key).equals("{}") || req.getString(key).equals("[]")) {
+                break;
+            }
+            filteredParams.put(key, req.get(key));
+        }
+        // 排序 + json encode
+        String waitSignStr = JSON.toJSONString(filteredParams, SerializerFeature.MapSortField, SerializerFeature.WriteSlashAsSpecial);
+        // 替换空字符串
+        waitSignStr = waitSignStr.replace(" ", "");
+        // url encode
+        try {
+            waitSignStr = URLEncoder.encode(waitSignStr, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return false;
+        }
+        if (this.debug) {
+            System.out.printf("Verify Notify Wait Sign Str: %s \n", waitSignStr);
+        }
+        try {
+            // 创建验证对象
+            Signature signature = Signature.getInstance(SIGNATURE_ALGORITHM);
+            signature.initVerify(this.cassPublicKey);
+            signature.update(waitSignStr.getBytes(StandardCharsets.UTF_8));
+            // 执行验证
+            return signature.verify(Base64.getDecoder().decode(sign));
+        } catch (Exception e) {
+            return false;
         }
     }
 }

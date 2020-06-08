@@ -15,7 +15,7 @@
 <dependency>
   <groupId>com.github.zhan3333</groupId>
   <artifactId>skysharing-cass-sdk-java</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>2.3.1</version>
 </dependency>
 ```
 
@@ -54,16 +54,50 @@ class Test {
 
 |  接口名称   | 请求  | 响应|
 |  ----  | ----  | --- |
-|获取商户余额| GetBalanceRequest  | GetBalanceResponse |
-|获取单个订单状态| GetOneOrderStatusRequest  | GetOneOrderStatusResponse |
-|获取单个批次状态| GetOneRemitStatusRequest  | GetOneRemitStatusResponse |
-|支付宝实时下单| PayAliRemitRequest  | PayAliRemitResponse |
-|银行卡实时下单| PayBankRemitRequest  | PayBankRemitResponse |
-|银行卡充值申请提交| ChargeBankRequest  | ChargeBankResponse |
-|支付宝充值申请提交| ChargeAliPayRequest  | ChargeAliPayResponse |
-|获取充值结果| GetChargeResultRequest  | GetChargeResultResponse |
-|充值账号查询| GetChannelDataRequest  | GetChannelDataResponse |
-|获取用户实名认证状态| GetUsersVerifyStatusRequest  | GetUsersVerifyStatusResponse |
-|添加用户实名认证状态| VerifyUserRequest  | VerifyUserResponse |
-|单笔银行卡实时下单| PayOneBankRemitRequest  | PayOneBankRemitRequest |
-|单笔支付宝实时下单| PayOneAliRemitRequest  | PayOneAliRemitRequest |
+|获取商户余额         | GetBalanceRequest             | GetBalanceResponse |
+|获取单个批次状态       | GetOneRemitStatusRequest      | GetOneRemitStatusResponse |
+|获取单个订单状态      | GetOneOrderStatusRequest       | GetOneOrderStatusResponse |
+|银行卡实时下单        | PayBankRemitRequest               | PayBankRemitResponse |
+|微信实时下单        | PayWeChatRemitRequest                | PayWeChatRemitResponse |
+|单笔银行卡实时下单          | PayOneBankRemitRequest            | PayOneBankRemitRequest |
+|单笔微信实时下单          | PayOneWeChatRemitRequest             | PayOneWeChatRemitRequest |
+|充值账号查询             | GetChannelDataRequest                 | GetChannelDataResponse |
+|银行卡充值申请提交      | ChargeBankRequest                     | ChargeBankResponse |
+|微信充值申请提交      | ChargeWeChatPayRequest                   | ChargeWeChatPayResponse |
+|获取充值结果             | GetChargeResultRequest                | GetChargeResultResponse |
+|添加用户实名认证状态         | VerifyUserRequest                 | VerifyUserResponse |
+|获取用户实名认证状态         | GetUsersVerifyStatusRequest       | GetUsersVerifyStatusResponse |
+|获取合同列表         | GetContractListRequest                    | GetContractListResponse |
+
+## 解析异步通知数据
+
+可以将接收到的 json 文本直接创建 Notify.class, 可以解析出来对象便于操作
+
+```
+String str = "{\"response\":{\"charset\":\"UTF-8\",\"content\":\"{\\\"resourceID\\\":\\\"18483279179157507UBO8C1GBI8S4RUJ\\\",\\\"pushType\\\":2,\\\"notifyUrl\\\":\\\"http:\\\\\\/\\\\\\/docker.for.mac.localhost:7777\\\\\\/api\\\\\\/conversion_skysharing\\\\\\/v1\\\\\\/notify\\\",\\\"sendData\\\":\\\"{\\\\\\\"status\\\\\\\":\\\\\\\"TRADE_FAILED\\\\\\\"}\\\",\\\"createdAt\\\":1585742840681725,\\\"orderSN\\\":\\\"8D9B9AE0-6DDD-4D72-9334-18AD72029500\\\",\\\"rbUUID\\\":\\\"18483278357073921OA5IDCFFO2RO62L\\\"}\",\"notifyTime\":\"20200608143859\",\"notifyType\":2,\"signType\":\"RSA2\"},\"sign\":\"gV9P7jvBCX6qc8xRRfIAfi357Wpc9Rmt9MfOwa4QucRU3\\/WSf525WFlyfEt3BqeJ1qsDWGHLoH5l++77kUPL0qRcLc6InC6G1uxERaaJ8yPPZa9246mJJo3SyLr+3ZT5bq5mLYhOOx0Zj2GR0+08luLHB29f72xdXTNWvitro9o48O4RJ0CeldIG89J1N683ZXlRSIfUcIBoHWEUHlYV8sDZlQlAMcc9+dIjsg\\/5RGjkhJHI2LMKldJrvK8jCb1pruS+i4f51gatcdqwoDZ0zWy1xTaywPT4PdaBU6emB4Xn4kyW6NBCLFVEU0bIg9CNZXZ6TXSN5H6Kbl8ppJuKdA==\"}";
+Notify n = new Notify(str);
+System.out.printf("notify object: %s", n);
+```
+
+## 异步通知签名校验
+
+可以直接对通知请求体进行校验签名，内部会自动解码处理
+
+```
+Map<String, String> map = new HashMap<>();
+try {
+    DefaultCassPayClient client = new DefaultCassPayClient(dotenv.get("API_URL"), dotenv.get("APPID"), dotenv.get("PRIVATE_KEY_STR"), dotenv.get("VZHUO_PUBLIC_KEY_STR"));
+    client.setDebug(true);
+    boolean ret = client.verifyNotify(postStr);
+    System.out.printf("response verify: %b", ret);
+    if (ret) {
+        map.put("content", "success");
+    } else {
+        map.put("content", "failed");
+    }
+} catch (InvalidPrivateKeyException | InvalidPublicKeyException e) {
+    e.printStackTrace();
+}
+// 需要向客户端返回 success, failed, 为 failed 时将会按照一定频率重试通知，
+return map
+```
