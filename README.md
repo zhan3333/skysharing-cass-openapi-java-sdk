@@ -42,7 +42,8 @@ class Test {
         if (response.verify()) {
             // 验签通过
             if (response.isSuccess()) {
-                // 业务请求成功 ...    
+                // 业务请求成功 ...   
+                System.println(response) 
             }
         }
     }
@@ -68,6 +69,8 @@ class Test {
 |添加用户实名认证状态         | VerifyUserRequest                 | VerifyUserResponse |
 |获取用户实名认证状态         | GetUsersVerifyStatusRequest       | GetUsersVerifyStatusResponse |
 |获取合同列表         | GetContractListRequest                    | GetContractListResponse |
+|批量获取用户电签状态         | GetUserEsignStatusRequest                    | GetUserEsignStatusResponse |
+|获取商户电签二维码         | GetShowSignUrlRequest                    | GetShowSignUrlResponse |
 
 ## 解析异步通知数据
 

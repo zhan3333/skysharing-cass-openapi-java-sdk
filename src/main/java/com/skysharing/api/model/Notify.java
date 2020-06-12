@@ -31,6 +31,7 @@ public class Notify {
         this.response.content.createdAt = jrc.getInteger("createdAt");
         this.response.content.orderSN = jrc.getString("orderSN");
         this.response.content.rbUUID = jrc.getString("rbUUID");
+        this.response.content.responseMsg = jrc.getString("responseMsg");
         this.response.content.sendData = new SendData();
         this.response.content.sendData.status = jrc.getJSONObject("sendData").getString("status");
     }
@@ -66,13 +67,19 @@ class Response {
 }
 
 class Content {
+    // 资源 ID
     public String resourceID;
+    // 消息推送类型：0-未知，1-充值，2-付款
     public Number pushType;
     public String notifyUrl;
     public SendData sendData;
     public Number createdAt;
+    // 商户订单号 (pushType == 2 时存在)
     public String orderSN;
+    // 批次 UUID (pushType == 2 时存在)
     public String rbUUID;
+    // 成功或失败原因 (pushType == 2 时存在)
+    public String responseMsg;
 
     @Override
     public String toString() {
@@ -84,6 +91,7 @@ class Content {
                 ", createdAt=" + createdAt +
                 ", orderSN='" + orderSN + '\'' +
                 ", rbUUID='" + rbUUID + '\'' +
+                ", responseMsg'" + responseMsg + '\'' +
                 '}';
     }
 }

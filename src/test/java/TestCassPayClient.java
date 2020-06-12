@@ -601,4 +601,34 @@ public class TestCassPayClient {
         Notify n = new Notify(str);
         System.out.printf("notify object: %s", n);
     }
+
+    @Test
+    public void testShowSignUrl() throws Exception {
+        GetShowSignUrlRequest req = new GetShowSignUrlRequest();
+        GetShowSignUrlResponse resp = this.client.execute(req);
+        assertEquals("10000", resp.code);
+        assertEquals("请求成功", resp.message);
+        assertEquals("", resp.subCode);
+        assertEquals("", resp.subMsg);
+        assertNotNull(resp.base64URL);
+        assertNotNull(resp.url);
+//        assertNotNull(resp.weChatH5URL);
+        assertTrue(resp.verify());
+    }
+
+    @Test
+    public void testGetUsersSignStatus() throws Exception {
+        GetUserEsignStatusRequest req = new GetUserEsignStatusRequest();
+        String phone = "13517210601";
+        req.addPhone(phone);
+        GetUserEsignStatusResponse resp = this.client.execute(req);
+        assertEquals("10000", resp.code);
+        assertEquals("请求成功", resp.message);
+        assertEquals("", resp.subCode);
+        assertEquals("", resp.subMsg);
+        assertTrue(resp.verify());
+        assertNotNull(resp.signUsers);
+        assertEquals(1, resp.signUsers.size());
+        assertEquals(phone, resp.signUsers.get(0).phone);
+    }
 }
