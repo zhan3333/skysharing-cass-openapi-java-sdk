@@ -5,8 +5,12 @@
 ### v2.3.3 2020-08-05
 
 1. 修改 3.12, 3.13 API 电签接口流程
-2. 取消设置的默认 `HTTP` 请求超时时间, 增加 `HTTP` 请求超时异常返回
+2. 取消设置的默认 `HTTP` 请求超时时间, 增加 `HTTP` 请求超时返回异常 `RequestTimeoutException`
 3. 修正 `new Notify(str)` 后的对象无法访问 `response` 的 bug 
+
+## 注意
+
+1. Client 创建时默认超时时长为 `60s`, 当付款请求产生 `RequestTimeoutException` 异常时， 对于该付款请求不要立即再次发送请求， 建议等待一段时间后进行订单查询操作, 防止超时的请求已到达结算系统并生效。
 
 ## 准备
 
@@ -79,6 +83,18 @@ class Test {
 |3.14|获取合同列表         | GetContractListRequest                    | GetContractListResponse |
 |3.16|批量获取用户电签状态         | GetUserEsignStatusRequest                    | GetUserEsignStatusResponse |
 |3.17|获取商户电签二维码         | GetShowSignUrlRequest                    | GetShowSignUrlResponse |
+
+## 异常清单
+
+|类|说明|
+|----|----|
+|CassApiException|异常基类|
+|InvalidPrivateKeyException|无效的私钥|
+|InvalidPublicKeyException|无效的公钥|
+|RequestFailedException|请求失败异常|
+|RequestTimeoutException|请求超时异常, 对于付款等关键接口, 发生该异常时, 务必不要立即重复发起请求, 需要一段时间后通过查询接口确认订单是否提交成功|
+|ResponseNotValidException|服务端响应结构异常|
+|SignException|对数据进行签名异常|
 
 ## 解析异步通知数据
 

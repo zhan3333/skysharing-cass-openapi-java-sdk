@@ -10,6 +10,7 @@ import okhttp3.*;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.SocketTimeoutException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import static com.skysharing.api.Signer.SIGNATURE_ALGORITHM;
@@ -42,7 +44,7 @@ public class DefaultCassPayClient {
         this.cassPublicKey = signer.getPublicKey(cassPublicKey);
         this.format = format;
         this.signType = signType;
-        this.setTimeout(TimeUnit.SECONDS, 30, 30, 30);
+        this.setTimeout(TimeUnit.SECONDS, 60, 60, 60, 60);
     }
 
     public DefaultCassPayClient(String url, String appId, String appPrivateKey, String cassPublicKey) throws InvalidPrivateKeyException, InvalidPublicKeyException {
@@ -52,9 +54,50 @@ public class DefaultCassPayClient {
         this.cassPublicKey = signer.getPublicKey(cassPublicKey);
         this.format = "JSON";
         this.signType = "RSA2";
-        this.setTimeout(TimeUnit.SECONDS, 30, 30, 30);
+        this.setTimeout(TimeUnit.SECONDS, 60, 60, 60, 60);
     }
 
+    public DefaultCassPayClient(String url, String appId, String appPrivateKey, String cassPublicKey, OkHttpClient c) throws InvalidPrivateKeyException, InvalidPublicKeyException {
+        this.url = url;
+        this.appId = appId;
+        this.appPrivateKey = signer.getPrivateKey(appPrivateKey);
+        this.cassPublicKey = signer.getPublicKey(cassPublicKey);
+        this.format = "JSON";
+        this.signType = "RSA2";
+        this.setOkHttp(c);
+    }
+
+    /**
+     * 设置 Http 请求客户端对象
+     *
+     * @param c OkHttp 对象
+     * @return this
+     */
+    public DefaultCassPayClient setOkHttp(OkHttpClient c) {
+        this.client = c;
+        return this;
+    }
+
+
+    /**
+     * 设置默认 Http 请求客户端对象
+     *
+     * @return this
+     */
+    public DefaultCassPayClient setOkHttp() {
+        this.client = new OkHttpClient();
+        return this;
+    }
+
+    /**
+     * 设置指定超时时间的 Http 请求客户端对象
+     *
+     * @param unit           时间单位
+     * @param connectTimeout 连接超时时间
+     * @param writeTimeout   写超时
+     * @param readTimeout    读超时
+     * @return this
+     */
     public DefaultCassPayClient setTimeout(TimeUnit unit, Integer connectTimeout, Integer writeTimeout, Integer readTimeout) {
         this.client = new OkHttpClient.Builder()
                 .connectTimeout(connectTimeout, unit)
@@ -64,12 +107,28 @@ public class DefaultCassPayClient {
         return this;
     }
 
+    public DefaultCassPayClient setTimeout(TimeUnit unit, Integer connectTimeout, Integer writeTimeout, Integer readTimeout, Integer callTimeout) {
+        this.client = new OkHttpClient.Builder()
+                .connectTimeout(connectTimeout, unit)
+                .writeTimeout(writeTimeout, unit)
+                .readTimeout(readTimeout, unit)
+                .callTimeout(callTimeout, unit)
+                .build();
+        return this;
+    }
+
+    /**
+     * 开启 debug 将会通过 System.out.print 输出日志
+     *
+     * @param debug 是否开启
+     * @return this
+     */
     public DefaultCassPayClient setDebug(Boolean debug) {
         this.debug = debug;
         return this;
     }
 
-    public <T extends CassPayRequest, F extends CassPayResponse> F execute(T request) throws SignException, RequestFailedException, ResponseNotValidException {
+    public <T extends CassPayRequest, F extends CassPayResponse> F execute(T request) throws SignException, RequestFailedException, ResponseNotValidException, RequestTimeoutException {
         request.url = this.url;
         request.APPID = this.appId;
         request.format = this.format;
@@ -103,23 +162,24 @@ public class DefaultCassPayClient {
         return cassResponse;
     }
 
-    private JSONObject post(String queryStr) throws RequestFailedException {
-        RequestBody body = RequestBody.create(queryStr, MediaType.get("application/html; charset=utf-8"));
+    private JSONObject post(String queryStr) throws RequestFailedException, RequestTimeoutException {
+        RequestBody reqBody = RequestBody.create(queryStr, MediaType.get("application/html; charset=utf-8"));
         Request request = new Request.Builder()
                 .url(this.url)
-                .post(body)
+                .post(reqBody)
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            return JSON.parseObject(response.body().string());
+            String body = Objects.requireNonNull(response.body()).string();
+            return JSON.parseObject(body);
+        } catch (NullPointerException e) {
+            throw new RequestFailedException("响应 body 为空");
+        } catch (SocketTimeoutException e) {
+            throw new RequestTimeoutException("请求超时: " + e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
             throw new RequestFailedException("请求失败: " + e.getMessage());
         }
     }
-
-//    public parseNotify(String body) {
-//
-//    }
 
     /**
      * 验证通知的签名

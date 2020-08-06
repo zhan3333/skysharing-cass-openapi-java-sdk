@@ -1,5 +1,6 @@
 import com.skysharing.api.DefaultCassPayClient;
 import com.skysharing.api.exception.RequestFailedException;
+import com.skysharing.api.exception.RequestTimeoutException;
 import com.skysharing.api.exception.ResponseNotValidException;
 import com.skysharing.api.exception.SignException;
 import com.skysharing.api.model.BankPayOrder;
@@ -32,11 +33,11 @@ public class OneBankRemitThread implements Runnable {
                         "0.01"
                 ).setIdentityCard("420222199212041058")
         );
-        PayOneBankRemitResponse response = null;
+        PayOneBankRemitResponse response;
         try {
             response = this.client.execute(this.request);
             System.out.println("Index " + this.index + " end: " + response.rbUUID);
-        } catch (ResponseNotValidException | SignException | RequestFailedException e) {
+        } catch (ResponseNotValidException | SignException | RequestFailedException | RequestTimeoutException e) {
             System.out.println("Index " + this.index + " error: " + e.getMessage());
             e.printStackTrace();
         }
