@@ -6,6 +6,7 @@ import com.skysharing.api.model.*;
 import com.skysharing.api.request.*;
 import com.skysharing.api.response.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
@@ -158,7 +159,7 @@ public class TestCassPayClient {
     public void testPayOneBankRemit() throws ResponseNotValidException, RequestFailedException, SignException, RequestTimeoutException {
         PayOneBankRemitRequest request = new PayOneBankRemitRequest();
         request.setPayChannelK(GetBalanceRequest.BANK);
-//        request.setPayeeChannelType(PayOneBankRemitRequest.PAYEE_CHANNEL_TYPE_BANK_CARD);
+        request.setPayeeChannelType(PayOneBankRemitRequest.PAYEE_CHANNEL_TYPE_BANK_CARD);
         request.setOrder(
                 new BankPayOrder(
                         UUID.randomUUID().toString().toUpperCase(),
@@ -406,31 +407,39 @@ public class TestCassPayClient {
         assertEquals(rechargeSBSN, response1.rechargeSBSN);
     }
 
+    // 3.13 查询认证状态
+    @Ignore
     @Test
     public void testGetUsersVerifyStatus() throws ResponseNotValidException, RequestFailedException, SignException, RequestTimeoutException {
         GetUsersVerifyStatusRequest request = new GetUsersVerifyStatusRequest();
-        List<java.lang.String> identityCards = new ArrayList<>();
-        identityCards.add("420222199212041057");
-        request.setIdentityCards(identityCards);
+
+        request.addItem(new GetUsersVerifyStatusRequest.Item("420222199212041057", "429006199112162721", 1));
+
         GetUsersVerifyStatusResponse response = this.beforeParams.client.execute(request);
+
         System.out.println(response);
         assertEquals("10000", response.code);
-        assertNotNull(response.users);
-        VerifyUserStatus user = response.users.get(0);
-        assertNotNull(user.isVerified);
-        assertNotNull(user.exists);
+        assertNotNull(response.items);
+        GetUsersVerifyStatusResponse.Item user = response.items.get(0);
         assertNotNull(user.identityCard);
-        assertNotNull(user.verifyIdCardFailedMessage);
-        assertNotNull(user.verifyIdCardImgFailedMessage);
+        assertNotNull(user.receiptFANO);
+        assertNotNull(user.receiptType);
         assertNotNull(user.status);
+        assertFalse(user.exists);
+        assertNotNull(user.identityCard);
+        assertEquals("", user.verifiedAt);
+        assertEquals("", user.failedMessage);
     }
 
+    // 3.12 提交认证数据
     @Test
     public void testVerifyUser() throws ResponseNotValidException, RequestFailedException, SignException, RequestTimeoutException {
         VerifyUserRequest request = new VerifyUserRequest();
         request
                 .setName("彭思琴")
                 .setIdentityCard("429006199112162721")
+                .setReceiptFANO(UUID.randomUUID().toString())
+                .setReceiptType(1)
                 .setFrontImgBase64(this.beforeParams.frontSB.toString())
                 .setBackImgBase64(this.beforeParams.backSB.toString())
                 .setLatitude("1234")

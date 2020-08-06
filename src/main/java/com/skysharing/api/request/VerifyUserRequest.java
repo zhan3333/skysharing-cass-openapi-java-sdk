@@ -41,6 +41,24 @@ public class VerifyUserRequest extends CassPayRequest<VerifyUserResponse> {
         return this;
     }
 
+    /**
+     * @param FANO 收款账号 必填 最大64长度
+     * @return this
+     */
+    public VerifyUserRequest setReceiptFANO(String FANO) {
+        this.bizMap.put("receiptFANO", FANO);
+        return this;
+    }
+
+    /**
+     * @param type 收款类型，包括 1-银行卡，2-支付宝，4- qq
+     * @return this
+     */
+    public VerifyUserRequest setReceiptType(Number type) {
+        this.bizMap.put("receiptType", type);
+        return this;
+    }
+
     @Override
     public VerifyUserResponse makeResponse(JSONObject response) {
         return new VerifyUserResponse(response);

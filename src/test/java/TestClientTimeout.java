@@ -44,9 +44,9 @@ public class TestClientTimeout {
     public void TestNoTimeout() throws SignException, RequestFailedException, ResponseNotValidException, InvalidPrivateKeyException, InvalidPublicKeyException, RequestTimeoutException {
 
         OkHttpClient okHttp = new OkHttpClient.Builder()
-                .connectTimeout(500, TimeUnit.MILLISECONDS)
-                .writeTimeout(500, TimeUnit.MILLISECONDS)
-                .readTimeout(500, TimeUnit.MILLISECONDS)
+                .connectTimeout(1000, TimeUnit.MILLISECONDS)
+                .writeTimeout(1000, TimeUnit.MILLISECONDS)
+                .readTimeout(1000, TimeUnit.MILLISECONDS)
                 .build();
         this.beforeParams.client = new DefaultCassPayClient(this.beforeParams.url,
                 this.beforeParams.APPID,
