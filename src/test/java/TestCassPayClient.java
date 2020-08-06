@@ -625,4 +625,40 @@ public class TestCassPayClient {
         assertEquals(1, resp.signUsers.size());
         assertEquals(phone, resp.signUsers.get(0).phone);
     }
+
+    @Test
+    public void testGetOneOrderByOuterOrderSN() throws ResponseNotValidException, RequestFailedException, SignException, RequestTimeoutException {
+        List<BankPayOrder> orders = new ArrayList<>();
+        String orderSN = UUID.randomUUID().toString().toUpperCase();
+        orders.add(new BankPayOrder(
+                orderSN,
+                "12345678910",
+                "123光",
+                "1.00")
+                .setIdentityCard("420222199212041057")
+                .setNotifyUrl("http://127.0.0.1:7777")
+        );
+        PayBankRemitResponse payResponse = this.beforeParams.client
+                .execute(
+                        (new PayBankRemitRequest())
+                                .setPayChannelK(GetBalanceRequest.BANK)
+                                .setOrders(orders)
+                                .setPayeeChannelType(PayBankRemitRequest.PAYEE_CHANNEL_TYPE_BANK_CARD)
+                );
+        assertEquals(payResponse.message + "/" + payResponse.subMsg, payResponse.code, "10000");
+        String rbUUID = payResponse.rbUUID;
+        // 进行查询
+        GetOneOrderByOuterOrderSNRequest request = new GetOneOrderByOuterOrderSNRequest();
+        request.setOrderSN(orderSN);
+
+        GetOneOrderByOuterOrderSNResponse response = this.beforeParams.client.execute(request);
+        assertEquals(response.message + "/" + response.subMsg, response.code, "10000");
+        assertEquals(rbUUID, response.rbUUID);
+        assertEquals(orderSN, response.orderSN);
+        assertNotNull(response.orderUUID);
+        assertNotNull(response.reachAt);
+        assertNotNull(response.responseMsg);
+        assertNotNull(response.orderStatus);
+        assertNotNull(response.remitStatus);
+    }
 }
