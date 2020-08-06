@@ -44,6 +44,10 @@ class Test {
         String APPID = "12345H29GDK580CGNO30G81OEB";
         // 实例化客户端, format 暂时只支持JSON, signType 暂时只支持RSA2
         DefaultCassPayClient client = new DefaultCassPayClient("https://fuwu-openapi.skysharing.cn/gateway/cass", APPID, privateKeyStr, cassPublicKeyStr, "JSON", "RSA2");
+        // 可选， 设置请求超时时间。默认为 60s
+        client.setTimeout(TimeUnit.SECONDS, 60, 60, 60, 60);
+        // 可选， 开启 debug 日志输出， 将通过 System.out 输出
+        client.setDebug(true);
         // 创建接口请求
         GetBalanceRequest request = new GetBalanceRequest();
         // 设置请求参数
