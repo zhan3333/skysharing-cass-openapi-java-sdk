@@ -1,5 +1,7 @@
 # Skysharing CASS open api JAVA SDK
 
+## 更新记录
+
 ## 准备
 
 1. 商户的私钥字符串 `appPrivateKey`, 无头尾信息及换行, pkcs8 格式, 下为示例
@@ -15,7 +17,7 @@
 <dependency>
   <groupId>com.github.zhan3333</groupId>
   <artifactId>skysharing-cass-sdk-java</artifactId>
-  <version>2.3.1</version>
+  <version>2.3.2</version>
 </dependency>
 ```
 
@@ -53,24 +55,24 @@ class Test {
 
 ## 接口对应请求和响应列表
 
-|  接口名称   | 请求  | 响应|
-|  ----  | ----  | --- |
-|获取商户余额         | GetBalanceRequest             | GetBalanceResponse |
-|获取单个批次状态       | GetOneRemitStatusRequest      | GetOneRemitStatusResponse |
-|获取单个订单状态      | GetOneOrderStatusRequest       | GetOneOrderStatusResponse |
-|银行卡实时下单        | PayBankRemitRequest               | PayBankRemitResponse |
-|微信实时下单        | PayWeChatRemitRequest                | PayWeChatRemitResponse |
-|单笔银行卡实时下单          | PayOneBankRemitRequest            | PayOneBankRemitRequest |
-|单笔微信实时下单          | PayOneWeChatRemitRequest             | PayOneWeChatRemitRequest |
-|充值账号查询             | GetChannelDataRequest                 | GetChannelDataResponse |
-|银行卡充值申请提交      | ChargeBankRequest                     | ChargeBankResponse |
-|微信充值申请提交      | ChargeWeChatPayRequest                   | ChargeWeChatPayResponse |
-|获取充值结果             | GetChargeResultRequest                | GetChargeResultResponse |
-|添加用户实名认证状态         | VerifyUserRequest                 | VerifyUserResponse |
-|获取用户实名认证状态         | GetUsersVerifyStatusRequest       | GetUsersVerifyStatusResponse |
-|获取合同列表         | GetContractListRequest                    | GetContractListResponse |
-|批量获取用户电签状态         | GetUserEsignStatusRequest                    | GetUserEsignStatusResponse |
-|获取商户电签二维码         | GetShowSignUrlRequest                    | GetShowSignUrlResponse |
+|序号|  接口名称   | 请求  | 响应|
+| ---- |  ----  | ----  | --- |
+|3.1|获取商户余额         | GetBalanceRequest             | GetBalanceResponse |
+|3.2|获取单个批次状态       | GetOneRemitStatusRequest      | GetOneRemitStatusResponse |
+|3.3|获取单个订单状态      | GetOneOrderStatusRequest       | GetOneOrderStatusResponse |
+|3.4|银行卡实时下单        | PayBankRemitRequest               | PayBankRemitResponse |
+|3.5|微信实时下单        | PayWeChatRemitRequest                | PayWeChatRemitResponse |
+|3.6|单笔银行卡实时下单          | PayOneBankRemitRequest            | PayOneBankRemitRequest |
+|3.7|单笔微信实时下单          | PayOneWeChatRemitRequest             | PayOneWeChatRemitRequest |
+|3.8|充值账号查询             | GetChannelDataRequest                 | GetChannelDataResponse |
+|3.9|银行卡充值申请提交      | ChargeBankRequest                     | ChargeBankResponse |
+|3.10|微信充值申请提交      | ChargeWeChatPayRequest                   | ChargeWeChatPayResponse |
+|3.11|获取充值结果             | GetChargeResultRequest                | GetChargeResultResponse |
+|3.12|添加用户实名认证状态         | VerifyUserRequest                 | VerifyUserResponse |
+|3.13|获取用户实名认证状态         | GetUsersVerifyStatusRequest       | GetUsersVerifyStatusResponse |
+|3.14|获取合同列表         | GetContractListRequest                    | GetContractListResponse |
+|3.16|批量获取用户电签状态         | GetUserEsignStatusRequest                    | GetUserEsignStatusResponse |
+|3.17|获取商户电签二维码         | GetShowSignUrlRequest                    | GetShowSignUrlResponse |
 
 ## 解析异步通知数据
 
