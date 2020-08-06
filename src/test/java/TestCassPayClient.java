@@ -600,6 +600,20 @@ public class TestCassPayClient {
         String str = "{\"response\":{\"charset\":\"UTF-8\",\"content\":\"{\\\"resourceID\\\":\\\"18483279179157507UBO8C1GBI8S4RUJ\\\",\\\"pushType\\\":2,\\\"notifyUrl\\\":\\\"http:\\\\\\/\\\\\\/docker.for.mac.localhost:7777\\\\\\/api\\\\\\/conversion_skysharing\\\\\\/v1\\\\\\/notify\\\",\\\"sendData\\\":\\\"{\\\\\\\"status\\\\\\\":\\\\\\\"TRADE_FAILED\\\\\\\"}\\\",\\\"createdAt\\\":1585742840681725,\\\"orderSN\\\":\\\"8D9B9AE0-6DDD-4D72-9334-18AD72029500\\\",\\\"rbUUID\\\":\\\"18483278357073921OA5IDCFFO2RO62L\\\"}\",\"notifyTime\":\"20200608143859\",\"notifyType\":2,\"signType\":\"RSA2\"},\"sign\":\"gV9P7jvBCX6qc8xRRfIAfi357Wpc9Rmt9MfOwa4QucRU3\\/WSf525WFlyfEt3BqeJ1qsDWGHLoH5l++77kUPL0qRcLc6InC6G1uxERaaJ8yPPZa9246mJJo3SyLr+3ZT5bq5mLYhOOx0Zj2GR0+08luLHB29f72xdXTNWvitro9o48O4RJ0CeldIG89J1N683ZXlRSIfUcIBoHWEUHlYV8sDZlQlAMcc9+dIjsg\\/5RGjkhJHI2LMKldJrvK8jCb1pruS+i4f51gatcdqwoDZ0zWy1xTaywPT4PdaBU6emB4Xn4kyW6NBCLFVEU0bIg9CNZXZ6TXSN5H6Kbl8ppJuKdA==\"}";
         Notify n = new Notify(str);
         System.out.printf("notify object: %s", n);
+        assertNotNull(n);
+        assertNotNull(n.response);
+        assertNotNull(n.response.charset);
+        assertNotNull(n.response.contentRaw);
+        assertNotNull(n.response.content);
+        assertNotNull(n.response.notifyTime);
+        assertNotNull(n.response.signType);
+        assertNotNull(n.response.notifyType);
+        assertNotNull(n.response.content.notifyUrl);
+        assertNotNull(n.response.content.orderSN);
+        assertNotNull(n.response.content.resourceID);
+        assertNotNull(n.response.content.createdAt);
+        assertNotNull(n.response.content.pushType);
+        assertNotNull(n.response.content.sendData);
     }
 
     @Test
