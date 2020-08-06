@@ -169,6 +169,16 @@ public class DefaultCassPayClient {
                 .post(reqBody)
                 .build();
         try (Response response = client.newCall(request).execute()) {
+            switch (response.code()) {
+                case 200:
+                    break;
+                case 502:
+                    throw new RequestFailedException("502 Bad Gateway");
+                case 504:
+                    throw new SocketTimeoutException("504");
+                default:
+                    throw new RequestFailedException("code " + response.code());
+            }
             String body = Objects.requireNonNull(response.body()).string();
             return JSON.parseObject(body);
         } catch (NullPointerException e) {

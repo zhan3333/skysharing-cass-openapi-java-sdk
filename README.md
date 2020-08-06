@@ -7,7 +7,7 @@
 1. 修改 3.12, 3.13 API 电签接口流程
 2. 取消设置的默认 `HTTP` 请求超时时间, 增加 `HTTP` 请求超时返回异常 `RequestTimeoutException`
 3. 修正 `new Notify(str)` 后的对象无法访问 `response` 的 bug 
-4. 增加通过外部订单号查询订单数据接口 ``
+4. 增加通过外部订单号查询订单数据接口 `GetOneOrderByOuterOrderSN`
 
 ## 注意
 
