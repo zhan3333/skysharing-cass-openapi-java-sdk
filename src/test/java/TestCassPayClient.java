@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
 
+@Ignore
 public class TestCassPayClient {
 
     private BeforeParams beforeParams;
@@ -628,6 +629,7 @@ public class TestCassPayClient {
     }
 
     @Test
+    @Ignore
     public void testGetOneOrderByOuterOrderSN() throws ResponseNotValidException, RequestFailedException, SignException, RequestTimeoutException, InvalidPrivateKeyException, InvalidPublicKeyException {
         List<BankPayOrder> orders = new ArrayList<>();
         String orderSN = UUID.randomUUID().toString().toUpperCase();

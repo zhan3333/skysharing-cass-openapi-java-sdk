@@ -28,7 +28,7 @@
 <dependency>
   <groupId>com.github.zhan3333</groupId>
   <artifactId>skysharing-cass-sdk-java</artifactId>
-  <version>2.3.3</version>
+  <version>2.3.3.2</version>
 </dependency>
 ```
 

@@ -8,6 +8,7 @@ import com.skysharing.api.request.CassPayRequest;
 import com.skysharing.api.response.CassPayResponse;
 import okhttp3.*;
 
+import javax.net.ssl.SSLException;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.UnsupportedEncodingException;
@@ -185,9 +186,10 @@ public class DefaultCassPayClient {
             return JSON.parseObject(body);
         } catch (NullPointerException e) {
             throw new RequestFailedException("响应 body 为空");
-        } catch (InterruptedIOException e) {
+        } catch (SSLException | InterruptedIOException e) {
             throw new RequestTimeoutException("请求超时: " + e.getMessage());
         } catch (IOException e) {
+            System.out.print("IOException");
             e.printStackTrace();
             throw new RequestFailedException("请求失败: " + e.getMessage());
         }
