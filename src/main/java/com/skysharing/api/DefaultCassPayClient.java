@@ -9,6 +9,7 @@ import com.skysharing.api.response.CassPayResponse;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.io.InterruptedIOException;
 import java.io.UnsupportedEncodingException;
 import java.net.SocketTimeoutException;
 import java.net.URLEncoder;
@@ -162,6 +163,7 @@ public class DefaultCassPayClient {
         return cassResponse;
     }
 
+    // todo java.net.UnknownHostException 异常处理
     private JSONObject post(String queryStr) throws RequestFailedException, RequestTimeoutException {
         RequestBody reqBody = RequestBody.create(queryStr, MediaType.get("application/html; charset=utf-8"));
         Request request = new Request.Builder()
@@ -183,7 +185,7 @@ public class DefaultCassPayClient {
             return JSON.parseObject(body);
         } catch (NullPointerException e) {
             throw new RequestFailedException("响应 body 为空");
-        } catch (SocketTimeoutException e) {
+        } catch (InterruptedIOException e) {
             throw new RequestTimeoutException("请求超时: " + e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
