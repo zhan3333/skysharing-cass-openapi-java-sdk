@@ -31,12 +31,33 @@ public class WeChatOrder {
     // max:255
     public String notifyUrl;
 
+    public String tax = "";
+
     public WeChatOrder(String orderSN, String phone, String payeeAccount, String requestPayAmount, String notifyUrl) {
         this.orderSN = orderSN;
         this.phone = phone;
         this.payeeAccount = payeeAccount;
         this.requestPayAmount = requestPayAmount;
         this.notifyUrl = notifyUrl;
+    }
+
+    /**
+     *
+     * 劳务模式加个税
+     * @param orderSN
+     * @param phone
+     * @param payeeAccount
+     * @param requestPayAmount
+     * @param notifyUrl
+     * @param tax
+     */
+    public WeChatOrder(String orderSN, String phone, String payeeAccount, String requestPayAmount, String notifyUrl, String tax) {
+        this.orderSN = orderSN;
+        this.phone = phone;
+        this.payeeAccount = payeeAccount;
+        this.requestPayAmount = requestPayAmount;
+        this.notifyUrl = notifyUrl;
+        this.tax = tax;
     }
 
     public WeChatOrder() {

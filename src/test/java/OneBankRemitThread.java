@@ -30,7 +30,8 @@ public class OneBankRemitThread implements Runnable {
                         UUID.randomUUID().toString().toUpperCase(),
                         "1111111_" + this.index,
                         "詹光",
-                        "0.01"
+                        "0.01",
+                        "0"
                 ).setIdentityCard("420222199212041058")
         );
         PayOneBankRemitResponse response;
