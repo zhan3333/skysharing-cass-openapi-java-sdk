@@ -6,6 +6,11 @@ import com.skysharing.api.response.PayAliRemitResponse;
 
 import java.util.List;
 
+/**
+ * 支付宝批量付款
+ *
+ * @see PayAliRemitResponse
+ */
 public class PayAliRemitRequest extends CassPayRequest<PayAliRemitResponse> {
 
     public String method = "Vzhuo.AliRemit.Pay";
@@ -15,24 +20,26 @@ public class PayAliRemitRequest extends CassPayRequest<PayAliRemitResponse> {
         return new PayAliRemitResponse(response);
     }
 
+    /**
+     * 设置付款通道
+     *
+     * @param payChannelK 付款通道
+     * @return this
+     * @see com.skysharing.api.Constants
+     */
     public PayAliRemitRequest setPayChannelK(String payChannelK) {
         this.bizMap.put("payChannelK", payChannelK);
         return this;
     }
 
+    /**
+     * 设置多个订单
+     *
+     * @param orders 订单列表
+     * @return this
+     */
     public PayAliRemitRequest setOrders(List<AliPayOrder> orders) {
         this.bizMap.put("orderData", orders);
-        return this;
-    }
-
-    /**
-     * 设置合同ID
-     *
-     * @param contractId 合同ID
-     * @return 当前类
-     */
-    public PayAliRemitRequest setContractID(String contractId) {
-        this.bizMap.put("contractID", contractId);
         return this;
     }
 

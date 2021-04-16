@@ -3,6 +3,9 @@ package com.skysharing.api.request;
 import com.alibaba.fastjson.JSONObject;
 import com.skysharing.api.response.ChargeBankResponse;
 
+/**
+ * @deprecated v2.4.3 停用
+ */
 public class ChargeBankRequest extends CassPayRequest<ChargeBankResponse> {
     public String method = "Vzhuo.Bank.Charge";
 

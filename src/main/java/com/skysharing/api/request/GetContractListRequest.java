@@ -3,6 +3,9 @@ package com.skysharing.api.request;
 import com.alibaba.fastjson.JSONObject;
 import com.skysharing.api.response.GetContractListResponse;
 
+/**
+ * @deprecated v2.4.3 停用
+ */
 public class GetContractListRequest extends CassPayRequest<GetContractListResponse> {
     public String method = "Vzhuo.ContractList.Get";
 

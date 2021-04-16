@@ -5,6 +5,9 @@ import com.skysharing.api.response.ChargeWeChatResponse;
 
 import java.util.ArrayList;
 
+/**
+ * @deprecated v2.4.3 停用
+ */
 public class ChargeWeChatRequest extends CassPayRequest<ChargeWeChatResponse> {
     public String method = "Vzhuo.WeChat.Charge";
 

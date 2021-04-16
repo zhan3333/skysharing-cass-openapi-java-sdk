@@ -3,6 +3,9 @@ package com.skysharing.api.response;
 import com.alibaba.fastjson.JSONObject;
 import com.skysharing.api.request.PayOneAliRemitRequest;
 
+/**
+ * @see PayOneAliRemitRequest
+ */
 public class PayOneAliRemitResponse extends CassPayResponse<PayOneAliRemitRequest> {
     public String rbUUID;
 

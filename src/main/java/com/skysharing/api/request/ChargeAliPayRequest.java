@@ -5,6 +5,9 @@ import com.skysharing.api.response.ChargeAliPayResponse;
 
 import java.util.ArrayList;
 
+/**
+ * @deprecated v2.4.3 停用
+ */
 public class ChargeAliPayRequest extends CassPayRequest<ChargeAliPayResponse> {
     public String method = "Vzhuo.AliPay.Charge";
 
@@ -30,6 +33,7 @@ public class ChargeAliPayRequest extends CassPayRequest<ChargeAliPayResponse> {
 
     /**
      * 添加多个照片凭据
+     *
      * @param rechargePics 照片凭据数组
      * @return 当前类
      */
@@ -40,6 +44,7 @@ public class ChargeAliPayRequest extends CassPayRequest<ChargeAliPayResponse> {
 
     /**
      * 添加单个照片凭据
+     *
      * @param rechargePic 照片凭据字符串， Base64 编码
      * @return 当前类
      */

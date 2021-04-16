@@ -1,6 +1,10 @@
 # Skysharing CASS open api JAVA SDK
 
-## 更新记录
+## Update Log
+
+### v2.3.4 2021-04-16
+
+1. 新增支付宝创建订单接口
 
 ### v2.3.3 2020-08-05
 
@@ -28,7 +32,7 @@
 <dependency>
   <groupId>com.github.zhan3333</groupId>
   <artifactId>skysharing-cass-sdk-java</artifactId>
-  <version>2.3.3.2</version>
+  <version>2.3.4.1</version>
 </dependency>
 ```
 
@@ -89,6 +93,8 @@ class Test {
 |3.16|批量获取用户电签状态         | GetUserEsignStatusRequest                    | GetUserEsignStatusResponse |
 |3.17|获取商户电签二维码         | GetShowSignUrlRequest                    | GetShowSignUrlResponse |
 |3.18|通过外部订单号查询订单状态         | GetOneOrderByOuterOrderSNRequest                    | GetOneOrderByOuterOrderSNResponse |
+|3.19|支付宝单笔下单         | PayOneALiRemitRequest                    | PayOneALiRemitResponse |
+|3.20|支付宝批量下单         | PayALiRemitRequest                    | PayALiRemitResponse |
 
 ## 异常清单
 

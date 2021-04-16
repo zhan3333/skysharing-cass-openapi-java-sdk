@@ -3,6 +3,9 @@ package com.skysharing.api.response;
 import com.alibaba.fastjson.JSONObject;
 import com.skysharing.api.request.GetBalanceRequest;
 
+/**
+ * @deprecated v2.4.3 停用
+ */
 public class GetChannelDataResponse extends CassPayResponse<GetBalanceRequest> {
     /**
      * 账户名称或开户名称

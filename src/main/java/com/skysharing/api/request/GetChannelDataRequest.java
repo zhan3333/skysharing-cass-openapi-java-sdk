@@ -3,6 +3,9 @@ package com.skysharing.api.request;
 import com.alibaba.fastjson.JSONObject;
 import com.skysharing.api.response.GetChannelDataResponse;
 
+/**
+ * @deprecated v2.4.3 停用
+ */
 public class GetChannelDataRequest extends CassPayRequest<GetChannelDataResponse> {
     public static final String BANK = "1";
     public static final String AliPay = "2";

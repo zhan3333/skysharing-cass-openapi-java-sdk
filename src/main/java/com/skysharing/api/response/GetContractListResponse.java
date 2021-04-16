@@ -7,6 +7,9 @@ import com.skysharing.api.request.GetContractListRequest;
 
 import java.util.List;
 
+/**
+ * @deprecated v2.4.3 停用
+ */
 public class GetContractListResponse extends CassPayResponse<GetContractListRequest> {
 
     /**
