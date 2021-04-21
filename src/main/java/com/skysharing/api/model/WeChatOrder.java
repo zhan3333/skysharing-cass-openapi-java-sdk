@@ -31,16 +31,25 @@ public class WeChatOrder {
     // max:255
     public String notifyUrl;
 
+    /**
+     * 个税(商户类型为劳务外包模式必填,值为大 于或等于 0 的数字)
+     * 例如：2.00
+     */
+    public String tax = null;
+
+    public WeChatOrder(String orderSN, String phone, String payeeAccount, String requestPayAmount) {
+        this.orderSN = orderSN;
+        this.phone = phone;
+        this.payeeAccount = payeeAccount;
+        this.requestPayAmount = requestPayAmount;
+    }
+
     public WeChatOrder(String orderSN, String phone, String payeeAccount, String requestPayAmount, String notifyUrl) {
         this.orderSN = orderSN;
         this.phone = phone;
         this.payeeAccount = payeeAccount;
         this.requestPayAmount = requestPayAmount;
         this.notifyUrl = notifyUrl;
-    }
-
-    public WeChatOrder() {
-
     }
 
     public WeChatOrder setNotifyUrl(String notifyUrl) {
@@ -50,6 +59,17 @@ public class WeChatOrder {
 
     public WeChatOrder setIdentityCard(String identityCard) {
         this.identityCard = identityCard;
+        return this;
+    }
+
+    /**
+     * 设置订单个税
+     *
+     * @param tax 个税
+     * @return this
+     */
+    public WeChatOrder setTax(String tax) {
+        this.tax = tax;
         return this;
     }
 }

@@ -55,6 +55,12 @@ public class BankPayOrder {
      */
     public String notifyUrl = "";
 
+    /**
+     * 个税(商户类型为劳务外包模式必填,值为大 于或等于 0 的数字)
+     * 例如：2.00
+     */
+    public String tax = null;
+
     public BankPayOrder(String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount) {
         this.orderSN = orderSN;
         this.receiptFANO = receiptFANO;
@@ -114,6 +120,17 @@ public class BankPayOrder {
      */
     public BankPayOrder setNotifyUrl(String notifyUrl) {
         this.notifyUrl = notifyUrl;
+        return this;
+    }
+
+    /**
+     * 设置订单个税
+     *
+     * @param tax 个税
+     * @return this
+     */
+    public BankPayOrder setTax(String tax) {
+        this.tax = tax;
         return this;
     }
 }
