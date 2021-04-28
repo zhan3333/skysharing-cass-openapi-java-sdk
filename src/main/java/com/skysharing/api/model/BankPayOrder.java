@@ -68,6 +68,24 @@ public class BankPayOrder {
         this.requestPayAmount = requestPayAmount;
     }
 
+    /**
+     *
+     * 劳务模式下加个税
+     * @param orderSN
+     * @param receiptFANO
+     * @param payeeAccount
+     * @param requestPayAmount
+     * @param tax
+     */
+    public BankPayOrder(String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount, String tax) {
+        this.orderSN = orderSN;
+        this.receiptFANO = receiptFANO;
+        this.payeeAccount = payeeAccount;
+        this.requestPayAmount = requestPayAmount;
+        this.tax = tax;
+    }
+
+
     public BankPayOrder(String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount, String receiptBankName, String receiptBankAddr, String CRCHGNO) {
         this.orderSN = orderSN;
         this.receiptFANO = receiptFANO;

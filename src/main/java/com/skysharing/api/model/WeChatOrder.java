@@ -52,6 +52,29 @@ public class WeChatOrder {
         this.notifyUrl = notifyUrl;
     }
 
+    /**
+     *
+     * 劳务模式加个税
+     * @param orderSN
+     * @param phone
+     * @param payeeAccount
+     * @param requestPayAmount
+     * @param notifyUrl
+     * @param tax
+     */
+    public WeChatOrder(String orderSN, String phone, String payeeAccount, String requestPayAmount, String notifyUrl, String tax) {
+        this.orderSN = orderSN;
+        this.phone = phone;
+        this.payeeAccount = payeeAccount;
+        this.requestPayAmount = requestPayAmount;
+        this.notifyUrl = notifyUrl;
+        this.tax = tax;
+    }
+
+    public WeChatOrder() {
+
+    }
+
     public WeChatOrder setNotifyUrl(String notifyUrl) {
         this.notifyUrl = notifyUrl;
         return this;
@@ -59,17 +82,6 @@ public class WeChatOrder {
 
     public WeChatOrder setIdentityCard(String identityCard) {
         this.identityCard = identityCard;
-        return this;
-    }
-
-    /**
-     * 设置订单个税
-     *
-     * @param tax 个税
-     * @return this
-     */
-    public WeChatOrder setTax(String tax) {
-        this.tax = tax;
         return this;
     }
 }
