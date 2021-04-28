@@ -7,6 +7,7 @@ import com.skysharing.api.request.PayOneBankRemitRequest;
 import com.skysharing.api.response.PayBankRemitResponse;
 import com.skysharing.api.response.PayOneBankRemitResponse;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 /**
  * 银行卡付款相关测试
  */
+@Ignore
 public class TestBankPay {
 
     private BeforeParams beforeParams;

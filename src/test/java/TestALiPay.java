@@ -8,6 +8,7 @@ import com.skysharing.api.request.PayOneAliRemitRequest;
 import com.skysharing.api.response.PayAliRemitResponse;
 import com.skysharing.api.response.PayOneAliRemitResponse;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import static org.junit.Assert.*;
 /**
  * 支付宝支付相关
  */
+@Ignore
 public class TestALiPay {
     private BeforeParams beforeParams;
 

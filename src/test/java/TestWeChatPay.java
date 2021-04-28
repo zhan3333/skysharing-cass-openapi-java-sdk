@@ -7,6 +7,7 @@ import com.skysharing.api.request.PayWeChatRemitRequest;
 import com.skysharing.api.response.PayOneWeChatRemitResponse;
 import com.skysharing.api.response.PayWeChatRemitResponse;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * 测试微信付款相关
  */
+@Ignore
 public class TestWeChatPay {
     private BeforeParams beforeParams;
 

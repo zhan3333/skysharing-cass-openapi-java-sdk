@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * 测试订单查询相关
  */
+@Ignore
 public class TestQueryOrder {
     private BeforeParams beforeParams;
 

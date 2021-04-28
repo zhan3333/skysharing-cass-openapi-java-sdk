@@ -4,10 +4,12 @@ import com.skysharing.api.request.GetBalanceRequest;
 import com.skysharing.api.response.GetBalanceResponse;
 import okhttp3.OkHttpClient;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
+@Ignore
 public class TestClientTimeout {
 
     private BeforeParams beforeParams;
