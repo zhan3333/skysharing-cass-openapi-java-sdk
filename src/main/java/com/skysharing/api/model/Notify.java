@@ -3,6 +3,12 @@ package com.skysharing.api.model;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
+/**
+ * <p>Notify class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class Notify {
     public static class Response {
         public static class Content {
@@ -72,6 +78,12 @@ public class Notify {
     public Response response;
     public String sign;
 
+    /**
+     * <p>Constructor for Notify.</p>
+     *
+     * @param json a {@link java.lang.String} object.
+     * @throws java.lang.Exception if any.
+     */
     public Notify(String json) throws Exception {
         JSONObject j = JSON.parseObject(json);
         if (!j.containsKey("sign")) {
@@ -101,6 +113,7 @@ public class Notify {
         this.response.content.sendData.status = jrc.getJSONObject("sendData").getString("status");
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Notify{" +

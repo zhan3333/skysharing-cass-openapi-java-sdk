@@ -1,5 +1,11 @@
 package com.skysharing.api.model;
 
+/**
+ * <p>AliPayOrder class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class AliPayOrder {
     /**
      * 商户订单号
@@ -41,6 +47,14 @@ public class AliPayOrder {
      */
     public String notifyUrl = "";
 
+    /**
+     * <p>Constructor for AliPayOrder.</p>
+     *
+     * @param orderSN a {@link java.lang.String} object.
+     * @param receiptFANO a {@link java.lang.String} object.
+     * @param payeeAccount a {@link java.lang.String} object.
+     * @param requestPayAmount a {@link java.lang.String} object.
+     */
     public AliPayOrder(String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount) {
         this.orderSN = orderSN;
         this.receiptFANO = receiptFANO;

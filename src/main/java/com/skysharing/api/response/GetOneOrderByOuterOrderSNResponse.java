@@ -3,6 +3,12 @@ package com.skysharing.api.response;
 import com.alibaba.fastjson.JSONObject;
 import com.skysharing.api.request.GetOneOrderByOuterOrderSNRequest;
 
+/**
+ * <p>GetOneOrderByOuterOrderSNResponse class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class GetOneOrderByOuterOrderSNResponse extends CassPayResponse<GetOneOrderByOuterOrderSNRequest> {
     /**
      * 批次 UUID
@@ -33,6 +39,11 @@ public class GetOneOrderByOuterOrderSNResponse extends CassPayResponse<GetOneOrd
      */
     public String responseMsg;
 
+    /**
+     * <p>Constructor for GetOneOrderByOuterOrderSNResponse.</p>
+     *
+     * @param response a {@link com.alibaba.fastjson.JSONObject} object.
+     */
     public GetOneOrderByOuterOrderSNResponse(JSONObject response) {
         super(response);
         this.rbUUID = this.content.getString("rbUUID");
@@ -44,6 +55,7 @@ public class GetOneOrderByOuterOrderSNResponse extends CassPayResponse<GetOneOrd
         this.responseMsg = this.content.getString("responseMsg");
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "GetOneOrderByOuterOrderSNResponse{" +

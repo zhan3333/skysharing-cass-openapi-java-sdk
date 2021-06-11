@@ -6,12 +6,32 @@ import com.skysharing.api.model.BalanceBank;
 import com.skysharing.api.model.BalanceWeChat;
 import com.skysharing.api.request.GetBalanceRequest;
 
+/**
+ * <p>GetBalanceResponse class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class GetBalanceResponse extends CassPayResponse<GetBalanceRequest> {
+    /**
+     *
+     */
     public BalanceBank bank = new BalanceBank();
 
+    /**
+     *
+     */
     public BalanceAliPay alipay = new BalanceAliPay();
+    /**
+     *
+     */
     public BalanceWeChat wechat = new BalanceWeChat();
 
+    /**
+     * <p>Constructor for GetBalanceResponse.</p>
+     *
+     * @param response a {@link com.alibaba.fastjson.JSONObject} object.
+     */
     public GetBalanceResponse(JSONObject response) {
         super(response);
         if (this.content.containsKey("bank")) {
@@ -34,6 +54,9 @@ public class GetBalanceResponse extends CassPayResponse<GetBalanceRequest> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "GetBalanceResponse{" +

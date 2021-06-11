@@ -2,6 +2,12 @@ package com.skysharing.api.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+/**
+ * <p>RemitOrder class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class RemitOrder {
     @JSONField
     public String orderSN;
@@ -20,6 +26,7 @@ public class RemitOrder {
     @JSONField
     public String orderResponseMsg;
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Order{" +

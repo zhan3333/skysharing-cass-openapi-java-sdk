@@ -6,6 +6,12 @@ import com.skysharing.api.request.CassPayRequest;
 
 import java.security.PublicKey;
 
+/**
+ * <p>CassPayResponse class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class CassPayResponse<T extends CassPayRequest> {
 
     /**
@@ -53,6 +59,11 @@ public class CassPayResponse<T extends CassPayRequest> {
      */
     public PublicKey vzhuoPublicKey;
 
+    /**
+     * <p>Constructor for CassPayResponse.</p>
+     *
+     * @param response a {@link com.alibaba.fastjson.JSONObject} object.
+     */
     public CassPayResponse(JSONObject response) {
         this.raw = response;
         this.code = response.getString("code");
@@ -66,11 +77,18 @@ public class CassPayResponse<T extends CassPayRequest> {
         }
     }
 
+    /**
+     * <p>verify.</p>
+     *
+     * @return a boolean.
+     * @throws java.lang.Exception if any.
+     */
     public boolean verify() throws Exception {
         Signer signer = new Signer();
         return signer.verifyParams(this.raw, this.vzhuoPublicKey, this.sign);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "CassPayResponse{" +
@@ -83,6 +101,8 @@ public class CassPayResponse<T extends CassPayRequest> {
     }
 
     /**
+     * <p>isSuccess.</p>
+     *
      * @return 返回这个请求的调用是否发生了错误 (当 code == "10000") 时, 可以理解为业务成功
      */
     public Boolean isSuccess() {
@@ -90,6 +110,8 @@ public class CassPayResponse<T extends CassPayRequest> {
     }
 
     /**
+     * <p>isRequestSuccess.</p>
+     *
      * @return 返回是否得到了正确的响应 (是指是否得到了需要的响应结果, 无论 code 为多少)
      */
     public Boolean isRequestSuccess() {

@@ -2,6 +2,12 @@ package com.skysharing.api.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+/**
+ * <p>SignUser class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class SignUser {
     // 用户姓名
     @JSONField(name = "payeeAccount")
@@ -16,11 +22,21 @@ public class SignUser {
     @JSONField(serialize = false)
     private boolean canWeChatPay;
 
+    /**
+     * <p>Setter for the field <code>canWeChatPay</code>.</p>
+     *
+     * @param canWeChatPay a {@link java.lang.String} object.
+     */
     @JSONField(name = "isWechatPay")
     public void setCanWeChatPay(String canWeChatPay) {
         this.canWeChatPay = canWeChatPay.equals("Y");
     }
 
+    /**
+     * <p>Getter for the field <code>canWeChatPay</code>.</p>
+     *
+     * @return a boolean.
+     */
     @JSONField(name = "isWechatPay")
     public boolean getCanWeChatPay() {
         return this.canWeChatPay;

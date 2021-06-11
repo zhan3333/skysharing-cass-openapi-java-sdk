@@ -3,11 +3,31 @@ package com.skysharing.api.response;
 import com.alibaba.fastjson.JSONObject;
 import com.skysharing.api.request.GetShowSignUrlRequest;
 
+/**
+ * <p>GetShowSignUrlResponse class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class GetShowSignUrlResponse extends CassPayResponse<GetShowSignUrlRequest> {
+    /**
+     *
+     */
     public String base64URL;
+    /**
+     *
+     */
     public String url;
+    /**
+     *
+     */
     public String weChatH5URL;
 
+    /**
+     * <p>Constructor for GetShowSignUrlResponse.</p>
+     *
+     * @param response a {@link com.alibaba.fastjson.JSONObject} object.
+     */
     public GetShowSignUrlResponse(JSONObject response) {
         super(response);
         this.base64URL = this.content.getString("base64_url");
@@ -15,6 +35,7 @@ public class GetShowSignUrlResponse extends CassPayResponse<GetShowSignUrlReques
         this.weChatH5URL = this.content.getString("wechat_h5_url");
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "GetShowSignUrlResponse{" +

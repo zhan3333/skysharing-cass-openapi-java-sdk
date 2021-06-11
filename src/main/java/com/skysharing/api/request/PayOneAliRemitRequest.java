@@ -11,11 +11,17 @@ import java.util.ArrayList;
  * 支付宝单笔付款
  *
  * @see PayOneAliRemitResponse
+ * @author zhan
+ * @version $Id: $Id
  */
 public class PayOneAliRemitRequest extends CassPayRequest<PayOneAliRemitResponse> {
 
+    /**
+     *
+     */
     public String method = "Vzhuo.OneAliRemit.Pay";
 
+    /** {@inheritDoc} */
     @Override
     public PayOneAliRemitResponse makeResponse(JSONObject response) {
         return new PayOneAliRemitResponse(response);
@@ -39,6 +45,7 @@ public class PayOneAliRemitRequest extends CassPayRequest<PayOneAliRemitResponse
      * @param k 收款通道 key
      * @return this
      * @see com.skysharing.api.Constants
+     * @since 2.3.5
      */
     public PayOneAliRemitRequest setPayeeChannelType(String k) {
         this.bizMap.put("payeeChannelType", k);
@@ -63,6 +70,7 @@ public class PayOneAliRemitRequest extends CassPayRequest<PayOneAliRemitResponse
      *
      * @param order 银行卡收款订单
      * @return this
+     * @since 2.3.5
      */
     public PayOneAliRemitRequest setOrder(BankPayOrder order) {
         this.bizMap.put("orderData", new ArrayList<BankPayOrder>() {{
@@ -71,6 +79,11 @@ public class PayOneAliRemitRequest extends CassPayRequest<PayOneAliRemitResponse
         return this;
     }
 
+    /**
+     * <p>Getter for the field <code>method</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getMethod() {
         return this.method;
     }

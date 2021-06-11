@@ -1,5 +1,11 @@
 package com.skysharing.api.model;
 
+/**
+ * <p>BalanceAliPay class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class BalanceAliPay {
     /**
      * 账户总余额
@@ -14,6 +20,7 @@ public class BalanceAliPay {
      */
     public String canUseAmt = "";
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "BalanceAliPay{" +

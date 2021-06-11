@@ -17,8 +17,16 @@ import java.util.Base64;
 import java.util.Map;
 
 
+/**
+ * <p>Signer class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class Signer {
+    /** Constant <code>ALGORITHM="RSA"</code> */
     public final static String ALGORITHM = "RSA";
+    /** Constant <code>SIGNATURE_ALGORITHM="SHA256WithRSA"</code> */
     public final static String SIGNATURE_ALGORITHM = "SHA256WithRSA";
 
     /**
@@ -26,7 +34,7 @@ public class Signer {
      *
      * @param key 公钥字符串
      * @return 公钥对象
-     * @throws InvalidPublicKeyException 无效的公钥字符串
+     * @throws com.skysharing.api.exception.InvalidPublicKeyException 无效的公钥字符串
      */
     public PublicKey getPublicKey(String key) throws InvalidPublicKeyException {
 
@@ -47,7 +55,7 @@ public class Signer {
      *
      * @param key 私钥字符串, 可以是去掉了头尾信息及换行符的字符串
      * @return 返回私钥对象
-     * @throws InvalidPrivateKeyException 无效的私钥字符串
+     * @throws com.skysharing.api.exception.InvalidPrivateKeyException 无效的私钥字符串
      */
     public PrivateKey getPrivateKey(String key) throws InvalidPrivateKeyException {
         try {
@@ -59,6 +67,14 @@ public class Signer {
         }
     }
 
+    /**
+     * <p>sign.</p>
+     *
+     * @param str a {@link java.lang.String} object.
+     * @param privateKey a {@link java.security.PrivateKey} object.
+     * @return a {@link java.lang.String} object.
+     * @throws com.skysharing.api.exception.SignException if any.
+     */
     public String sign(String str, PrivateKey privateKey) throws SignException {
         try {
             Signature signature = Signature.getInstance(SIGNATURE_ALGORITHM);
@@ -77,7 +93,7 @@ public class Signer {
      * @param params     待签名的Map
      * @param privateKey 私钥
      * @return 返回签名字符串
-     * @throws SignException 签名失败
+     * @throws com.skysharing.api.exception.SignException 签名失败
      */
     public String singParams(JSONObject params, PrivateKey privateKey) throws SignException {
         String waitSignStr = this.paramsToWaitSignStr(params);
@@ -91,13 +107,22 @@ public class Signer {
      * @param publicKey 公钥对象
      * @param sign      签名字符串
      * @return 判断数据和签名是否正确
-     * @throws Exception 异常
+     * @throws java.lang.Exception 异常
      */
     public Boolean verifyParams(JSONObject params, PublicKey publicKey, String sign) throws Exception {
         String str = this.paramsToWaitVerifyStr(params);
         return this.verify(str, publicKey, sign);
     }
 
+    /**
+     * <p>verify.</p>
+     *
+     * @param str a {@link java.lang.String} object.
+     * @param publicKey a {@link java.security.PublicKey} object.
+     * @param sign a {@link java.lang.String} object.
+     * @return a {@link java.lang.Boolean} object.
+     * @throws java.lang.Exception if any.
+     */
     public Boolean verify(String str, PublicKey publicKey, String sign) throws Exception {
         Signature signature = Signature.getInstance(SIGNATURE_ALGORITHM);
         signature.initVerify(publicKey);
@@ -122,6 +147,12 @@ public class Signer {
         return filteredParams;
     }
 
+    /**
+     * <p>paramsToWaitSignStr.</p>
+     *
+     * @param params a {@link com.alibaba.fastjson.JSONObject} object.
+     * @return a {@link java.lang.String} object.
+     */
     public String paramsToWaitSignStr(JSONObject params) {
         String newStr = JSON.toJSONString(this.filterParams(params), SerializerFeature.MapSortField, SerializerFeature.WriteSlashAsSpecial);
         newStr = newStr.replace(" ", "");
@@ -134,6 +165,12 @@ public class Signer {
         return newStr;
     }
 
+    /**
+     * <p>paramsToWaitVerifyStr.</p>
+     *
+     * @param params a {@link com.alibaba.fastjson.JSONObject} object.
+     * @return a {@link java.lang.String} object.
+     */
     public String paramsToWaitVerifyStr(JSONObject params) {
         String newStr = JSON.toJSONString(params, SerializerFeature.MapSortField, SerializerFeature.WriteSlashAsSpecial);
         try {
@@ -145,6 +182,12 @@ public class Signer {
         return newStr;
     }
 
+    /**
+     * <p>httpBuildQuery.</p>
+     *
+     * @param map a {@link java.util.Map} object.
+     * @return a {@link java.lang.String} object.
+     */
     public String httpBuildQuery(Map<String, String> map) {
         StringBuilder sb = new StringBuilder();
         if (map.size() > 0) {

@@ -4,7 +4,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.skysharing.api.request.GetBalanceRequest;
 
 /**
+ * <p>GetChannelDataResponse class.</p>
+ *
  * @deprecated v2.4.3 停用
+ * @author zhan
+ * @version $Id: $Id
  */
 public class GetChannelDataResponse extends CassPayResponse<GetBalanceRequest> {
     /**
@@ -24,6 +28,11 @@ public class GetChannelDataResponse extends CassPayResponse<GetBalanceRequest> {
      */
     public String childExclusiveAccount;
 
+    /**
+     * <p>Constructor for GetChannelDataResponse.</p>
+     *
+     * @param response a {@link com.alibaba.fastjson.JSONObject} object.
+     */
     public GetChannelDataResponse(JSONObject response) {
         super(response);
         this.accountName = this.content.getString("accountName");
@@ -32,6 +41,7 @@ public class GetChannelDataResponse extends CassPayResponse<GetBalanceRequest> {
         this.childExclusiveAccount = this.content.getString("childExclusiveAccount");
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "GetChannelDataResponse{" +

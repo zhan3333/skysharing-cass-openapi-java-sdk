@@ -1,5 +1,11 @@
 package com.skysharing.api.model;
 
+/**
+ * <p>BalanceBank class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class BalanceBank {
     /**
      * 锁定金额
@@ -14,6 +20,7 @@ public class BalanceBank {
      */
     public String childFAbalance = "";
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Bank{" +

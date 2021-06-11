@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 /**
  * 余额获取相关测试
  */
+@Ignore
 public class TestGetBalance {
     private BeforeParams beforeParams;
 

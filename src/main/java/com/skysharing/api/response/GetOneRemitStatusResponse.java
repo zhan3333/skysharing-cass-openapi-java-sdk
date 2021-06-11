@@ -7,17 +7,55 @@ import com.skysharing.api.request.GetOneRemitStatusRequest;
 
 import java.util.List;
 
+/**
+ * <p>GetOneRemitStatusResponse class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class GetOneRemitStatusResponse extends CassPayResponse<GetOneRemitStatusRequest> {
+    /**
+     *
+     */
     public Integer status;
+    /**
+     *
+     */
     public String responseMsg;
+    /**
+     *
+     */
     public String rbUUID;
+    /**
+     *
+     */
     public String totalExpectAmount;
+    /**
+     *
+     */
     public String SBSNCN;
+    /**
+     *
+     */
     public String totalRealPayAmount;
+    /**
+     *
+     */
     public String totalServiceCharge;
+    /**
+     *
+     */
     public String subStatus;
+    /**
+     *
+     */
     public List<RemitOrder> remitOrders;
 
+    /**
+     * <p>Constructor for GetOneRemitStatusResponse.</p>
+     *
+     * @param response a {@link com.alibaba.fastjson.JSONObject} object.
+     */
     public GetOneRemitStatusResponse(JSONObject response) {
         super(response);
         this.rbUUID = this.content.getString("rbUUID");
@@ -31,6 +69,9 @@ public class GetOneRemitStatusResponse extends CassPayResponse<GetOneRemitStatus
         this.remitOrders = JSON.parseArray(this.content.getString("orderData"), RemitOrder.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "GetOneRemitStatusResponse{" +

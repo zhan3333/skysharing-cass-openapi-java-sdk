@@ -1,8 +1,10 @@
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+@Ignore
 public class TestUrlEncode {
     @Test
     public void test() throws UnsupportedEncodingException {

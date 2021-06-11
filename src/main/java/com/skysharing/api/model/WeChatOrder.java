@@ -1,5 +1,11 @@
 package com.skysharing.api.model;
 
+/**
+ * <p>WeChatOrder class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class WeChatOrder {
     // 商户订单号，只能是英文字母，数字，中文以及连接符-
     // required
@@ -37,6 +43,14 @@ public class WeChatOrder {
      */
     public String tax = null;
 
+    /**
+     * <p>Constructor for WeChatOrder.</p>
+     *
+     * @param orderSN a {@link java.lang.String} object.
+     * @param phone a {@link java.lang.String} object.
+     * @param payeeAccount a {@link java.lang.String} object.
+     * @param requestPayAmount a {@link java.lang.String} object.
+     */
     public WeChatOrder(String orderSN, String phone, String payeeAccount, String requestPayAmount) {
         this.orderSN = orderSN;
         this.phone = phone;
@@ -44,6 +58,15 @@ public class WeChatOrder {
         this.requestPayAmount = requestPayAmount;
     }
 
+    /**
+     * <p>Constructor for WeChatOrder.</p>
+     *
+     * @param orderSN a {@link java.lang.String} object.
+     * @param phone a {@link java.lang.String} object.
+     * @param payeeAccount a {@link java.lang.String} object.
+     * @param requestPayAmount a {@link java.lang.String} object.
+     * @param notifyUrl a {@link java.lang.String} object.
+     */
     public WeChatOrder(String orderSN, String phone, String payeeAccount, String requestPayAmount, String notifyUrl) {
         this.orderSN = orderSN;
         this.phone = phone;
@@ -55,12 +78,13 @@ public class WeChatOrder {
     /**
      *
      * 劳务模式加个税
-     * @param orderSN
-     * @param phone
-     * @param payeeAccount
-     * @param requestPayAmount
-     * @param notifyUrl
-     * @param tax
+     *
+     * @param orderSN a {@link java.lang.String} object.
+     * @param phone a {@link java.lang.String} object.
+     * @param payeeAccount a {@link java.lang.String} object.
+     * @param requestPayAmount a {@link java.lang.String} object.
+     * @param notifyUrl a {@link java.lang.String} object.
+     * @param tax a {@link java.lang.String} object.
      */
     public WeChatOrder(String orderSN, String phone, String payeeAccount, String requestPayAmount, String notifyUrl, String tax) {
         this.orderSN = orderSN;
@@ -71,15 +95,30 @@ public class WeChatOrder {
         this.tax = tax;
     }
 
+    /**
+     * <p>Constructor for WeChatOrder.</p>
+     */
     public WeChatOrder() {
 
     }
 
+    /**
+     * <p>Setter for the field <code>notifyUrl</code>.</p>
+     *
+     * @param notifyUrl a {@link java.lang.String} object.
+     * @return a {@link com.skysharing.api.model.WeChatOrder} object.
+     */
     public WeChatOrder setNotifyUrl(String notifyUrl) {
         this.notifyUrl = notifyUrl;
         return this;
     }
 
+    /**
+     * <p>Setter for the field <code>identityCard</code>.</p>
+     *
+     * @param identityCard a {@link java.lang.String} object.
+     * @return a {@link com.skysharing.api.model.WeChatOrder} object.
+     */
     public WeChatOrder setIdentityCard(String identityCard) {
         this.identityCard = identityCard;
         return this;

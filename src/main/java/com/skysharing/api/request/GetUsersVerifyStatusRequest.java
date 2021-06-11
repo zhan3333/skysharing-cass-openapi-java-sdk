@@ -6,12 +6,35 @@ import com.skysharing.api.response.GetUsersVerifyStatusResponse;
 
 import java.util.List;
 
+/**
+ * <p>GetUsersVerifyStatusRequest class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class GetUsersVerifyStatusRequest extends CassPayRequest<GetUsersVerifyStatusResponse> {
+    /**
+     *
+     */
     public static class Item {
+        /**
+         *
+         */
         public String identityCard;
+        /**
+         *
+         */
         public String receiptFANO;
+        /**
+         *
+         */
         public Number receiptType;
 
+        /**
+         * @param identityCard 身份证号
+         * @param receiptFANO 收款账号
+         * @param receiptType 收款账号类型
+         */
         public Item(String identityCard, String receiptFANO, Number receiptType) {
             this.identityCard = identityCard;
             this.receiptFANO = receiptFANO;
@@ -30,6 +53,12 @@ public class GetUsersVerifyStatusRequest extends CassPayRequest<GetUsersVerifySt
         this.bizMap.put("identityCards", identityCards);
     }
 
+    /**
+     * <p>addItem.</p>
+     *
+     * @param i a {@link com.skysharing.api.request.GetUsersVerifyStatusRequest.Item} object.
+     * @return a {@link com.skysharing.api.request.GetUsersVerifyStatusRequest} object.
+     */
     public GetUsersVerifyStatusRequest addItem(Item i) {
         JSONArray arr = this.bizMap.getJSONArray("items");
         if (arr == null) {
@@ -40,11 +69,17 @@ public class GetUsersVerifyStatusRequest extends CassPayRequest<GetUsersVerifySt
         return this;
     }
 
+    /** {@inheritDoc} */
     @Override
     public GetUsersVerifyStatusResponse makeResponse(JSONObject response) {
         return new GetUsersVerifyStatusResponse(response);
     }
 
+    /**
+     * <p>Getter for the field <code>method</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getMethod() {
         return this.method;
     }

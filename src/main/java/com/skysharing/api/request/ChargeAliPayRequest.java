@@ -6,26 +6,54 @@ import com.skysharing.api.response.ChargeAliPayResponse;
 import java.util.ArrayList;
 
 /**
+ * <p>ChargeAliPayRequest class.</p>
+ *
  * @deprecated v2.4.3 停用
+ * @author zhan
+ * @version $Id: $Id
  */
 public class ChargeAliPayRequest extends CassPayRequest<ChargeAliPayResponse> {
     public String method = "Vzhuo.AliPay.Charge";
 
+    /**
+     * <p>setOrderName.</p>
+     *
+     * @param orderName a {@link java.lang.String} object.
+     * @return a {@link com.skysharing.api.request.ChargeAliPayRequest} object.
+     */
     public ChargeAliPayRequest setOrderName(String orderName) {
         this.bizMap.put("orderName", orderName);
         return this;
     }
 
+    /**
+     * <p>setBankAccount.</p>
+     *
+     * @param bankAccount a {@link java.lang.String} object.
+     * @return a {@link com.skysharing.api.request.ChargeAliPayRequest} object.
+     */
     public ChargeAliPayRequest setBankAccount(String bankAccount) {
         this.bizMap.put("bankAccount", bankAccount);
         return this;
     }
 
+    /**
+     * <p>setBankCardNO.</p>
+     *
+     * @param bankCardNO a {@link java.lang.String} object.
+     * @return a {@link com.skysharing.api.request.ChargeAliPayRequest} object.
+     */
     public ChargeAliPayRequest setBankCardNO(String bankCardNO) {
         this.bizMap.put("bankCardNO", bankCardNO);
         return this;
     }
 
+    /**
+     * <p>setApplyAmount.</p>
+     *
+     * @param applyAmount a {@link java.lang.String} object.
+     * @return a {@link com.skysharing.api.request.ChargeAliPayRequest} object.
+     */
     public ChargeAliPayRequest setApplyAmount(String applyAmount) {
         this.bizMap.put("applyAmount", applyAmount);
         return this;
@@ -55,11 +83,17 @@ public class ChargeAliPayRequest extends CassPayRequest<ChargeAliPayResponse> {
         return this;
     }
 
+    /** {@inheritDoc} */
     @Override
     public ChargeAliPayResponse makeResponse(JSONObject response) {
         return new ChargeAliPayResponse(response);
     }
 
+    /**
+     * <p>Getter for the field <code>method</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getMethod() {
         return this.method;
     }

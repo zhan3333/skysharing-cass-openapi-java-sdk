@@ -1,5 +1,11 @@
 package com.skysharing.api.model;
 
+/**
+ * <p>VerifyUserStatus class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class VerifyUserStatus {
     /**
      * 身份证
@@ -35,6 +41,7 @@ public class VerifyUserStatus {
      */
     public String status;
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "VerifyUserStatus{" +

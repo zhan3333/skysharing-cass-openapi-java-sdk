@@ -27,7 +27,14 @@ import java.util.concurrent.TimeUnit;
 
 import static com.skysharing.api.Signer.SIGNATURE_ALGORITHM;
 
+/**
+ * <p>DefaultCassPayClient class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class DefaultCassPayClient {
+    /** Constant <code>signer</code> */
     public static final Signer signer = new Signer();
     private final String url;
     private final String appId;
@@ -39,6 +46,18 @@ public class DefaultCassPayClient {
     private DateTimeFormatter datetimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private Boolean debug = false;
 
+    /**
+     * <p>Constructor for DefaultCassPayClient.</p>
+     *
+     * @param url a {@link java.lang.String} object.
+     * @param appId a {@link java.lang.String} object.
+     * @param appPrivateKey a {@link java.lang.String} object.
+     * @param cassPublicKey a {@link java.lang.String} object.
+     * @param format a {@link java.lang.String} object.
+     * @param signType a {@link java.lang.String} object.
+     * @throws com.skysharing.api.exception.InvalidPrivateKeyException if any.
+     * @throws com.skysharing.api.exception.InvalidPublicKeyException if any.
+     */
     public DefaultCassPayClient(String url, String appId, String appPrivateKey, String cassPublicKey, String format, String signType) throws InvalidPrivateKeyException, InvalidPublicKeyException {
         this.url = url;
         this.appId = appId;
@@ -49,6 +68,16 @@ public class DefaultCassPayClient {
         this.setTimeout(TimeUnit.SECONDS, 60, 60, 60, 60);
     }
 
+    /**
+     * <p>Constructor for DefaultCassPayClient.</p>
+     *
+     * @param url a {@link java.lang.String} object.
+     * @param appId a {@link java.lang.String} object.
+     * @param appPrivateKey a {@link java.lang.String} object.
+     * @param cassPublicKey a {@link java.lang.String} object.
+     * @throws com.skysharing.api.exception.InvalidPrivateKeyException if any.
+     * @throws com.skysharing.api.exception.InvalidPublicKeyException if any.
+     */
     public DefaultCassPayClient(String url, String appId, String appPrivateKey, String cassPublicKey) throws InvalidPrivateKeyException, InvalidPublicKeyException {
         this.url = url;
         this.appId = appId;
@@ -59,6 +88,18 @@ public class DefaultCassPayClient {
         this.setTimeout(TimeUnit.SECONDS, 60, 60, 60, 60);
     }
 
+    /**
+     * <p>Constructor for DefaultCassPayClient.</p>
+     *
+     * @param url a {@link java.lang.String} object.
+     * @param appId a {@link java.lang.String} object.
+     * @param appPrivateKey a {@link java.lang.String} object.
+     * @param cassPublicKey a {@link java.lang.String} object.
+     * @param cassPublicKey a {@link java.lang.String} object.
+     * @param c a {@link okhttp3.OkHttpClient} object.
+     * @throws com.skysharing.api.exception.InvalidPrivateKeyException if any.
+     * @throws com.skysharing.api.exception.InvalidPublicKeyException if any.
+     */
     public DefaultCassPayClient(String url, String appId, String appPrivateKey, String cassPublicKey, OkHttpClient c) throws InvalidPrivateKeyException, InvalidPublicKeyException {
         this.url = url;
         this.appId = appId;
@@ -109,6 +150,16 @@ public class DefaultCassPayClient {
         return this;
     }
 
+    /**
+     * <p>setTimeout.</p>
+     *
+     * @param unit a {@link java.util.concurrent.TimeUnit} object.
+     * @param connectTimeout a {@link java.lang.Integer} object.
+     * @param writeTimeout a {@link java.lang.Integer} object.
+     * @param readTimeout a {@link java.lang.Integer} object.
+     * @param callTimeout a {@link java.lang.Integer} object.
+     * @return a {@link com.skysharing.api.DefaultCassPayClient} object.
+     */
     public DefaultCassPayClient setTimeout(TimeUnit unit, Integer connectTimeout, Integer writeTimeout, Integer readTimeout, Integer callTimeout) {
         this.client = new OkHttpClient.Builder()
                 .connectTimeout(connectTimeout, unit)
@@ -130,6 +181,16 @@ public class DefaultCassPayClient {
         return this;
     }
 
+    /**
+     * <p>execute.</p>
+     *
+     * @param request a T object.
+     * @return a F object.
+     * @throws com.skysharing.api.exception.SignException if any.
+     * @throws com.skysharing.api.exception.RequestFailedException if any.
+     * @throws com.skysharing.api.exception.ResponseNotValidException if any.
+     * @throws com.skysharing.api.exception.RequestTimeoutException if any.
+     */
     public <T extends CassPayRequest, F extends CassPayResponse> F execute(T request) throws SignException, RequestFailedException, ResponseNotValidException, RequestTimeoutException {
         request.url = this.url;
         request.APPID = this.appId;

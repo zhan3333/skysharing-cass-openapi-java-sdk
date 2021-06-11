@@ -8,6 +8,12 @@ import com.skysharing.api.response.CassPayResponse;
 
 import java.security.PrivateKey;
 
+/**
+ * <p>CassPayRequest class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class CassPayRequest<T extends CassPayResponse> {
     public String url = "https://fuwu-openapi.skysharing.cn/gateway/cass";
     public JSONObject bizMap = new JSONObject();
@@ -27,18 +33,40 @@ public class CassPayRequest<T extends CassPayResponse> {
     public PrivateKey privateKey;
     private Signer signer = new Signer();
 
+    /**
+     * <p>makeResponse.</p>
+     *
+     * @param response a {@link com.alibaba.fastjson.JSONObject} object.
+     * @return a T object.
+     */
     public T makeResponse(JSONObject response) {
         return (T) new CassPayResponse(response);
     }
 
+    /**
+     * <p>Getter for the field <code>method</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getMethod() {
         return this.method;
     }
 
+    /**
+     * <p>getResponseKeyName.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getResponseKeyName() {
         return this.getMethod().replace(".", "") + "Response";
     }
 
+    /**
+     * <p>buildParams.</p>
+     *
+     * @return a {@link com.alibaba.fastjson.JSONObject} object.
+     * @throws com.skysharing.api.exception.SignException if any.
+     */
     public JSONObject buildParams() throws SignException {
         JSONObject params = new JSONObject();
         params.put("method", this.getMethod());
@@ -54,6 +82,7 @@ public class CassPayRequest<T extends CassPayResponse> {
         return params;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "CassPayRequest{" +

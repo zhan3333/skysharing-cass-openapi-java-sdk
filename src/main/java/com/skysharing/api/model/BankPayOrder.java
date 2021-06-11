@@ -1,5 +1,11 @@
 package com.skysharing.api.model;
 
+/**
+ * <p>BankPayOrder class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class BankPayOrder {
     /**
      * 商户订单号
@@ -61,6 +67,14 @@ public class BankPayOrder {
      */
     public String tax = null;
 
+    /**
+     * <p>Constructor for BankPayOrder.</p>
+     *
+     * @param orderSN a {@link java.lang.String} object.
+     * @param receiptFANO a {@link java.lang.String} object.
+     * @param payeeAccount a {@link java.lang.String} object.
+     * @param requestPayAmount a {@link java.lang.String} object.
+     */
     public BankPayOrder(String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount) {
         this.orderSN = orderSN;
         this.receiptFANO = receiptFANO;
@@ -71,11 +85,12 @@ public class BankPayOrder {
     /**
      *
      * 劳务模式下加个税
-     * @param orderSN
-     * @param receiptFANO
-     * @param payeeAccount
-     * @param requestPayAmount
-     * @param tax
+     *
+     * @param orderSN a {@link java.lang.String} object.
+     * @param receiptFANO a {@link java.lang.String} object.
+     * @param payeeAccount a {@link java.lang.String} object.
+     * @param requestPayAmount a {@link java.lang.String} object.
+     * @param tax a {@link java.lang.String} object.
      */
     public BankPayOrder(String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount, String tax) {
         this.orderSN = orderSN;
@@ -86,6 +101,17 @@ public class BankPayOrder {
     }
 
 
+    /**
+     * <p>Constructor for BankPayOrder.</p>
+     *
+     * @param orderSN a {@link java.lang.String} object.
+     * @param receiptFANO a {@link java.lang.String} object.
+     * @param payeeAccount a {@link java.lang.String} object.
+     * @param requestPayAmount a {@link java.lang.String} object.
+     * @param receiptBankName a {@link java.lang.String} object.
+     * @param receiptBankAddr a {@link java.lang.String} object.
+     * @param CRCHGNO a {@link java.lang.String} object.
+     */
     public BankPayOrder(String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount, String receiptBankName, String receiptBankAddr, String CRCHGNO) {
         this.orderSN = orderSN;
         this.receiptFANO = receiptFANO;
@@ -102,6 +128,18 @@ public class BankPayOrder {
         }
     }
 
+    /**
+     * <p>Constructor for BankPayOrder.</p>
+     *
+     * @param orderSN a {@link java.lang.String} object.
+     * @param receiptFANO a {@link java.lang.String} object.
+     * @param payeeAccount a {@link java.lang.String} object.
+     * @param requestPayAmount a {@link java.lang.String} object.
+     * @param receiptBankName a {@link java.lang.String} object.
+     * @param receiptBankAddr a {@link java.lang.String} object.
+     * @param CRCHGNO a {@link java.lang.String} object.
+     * @param payOrderData a {@link com.skysharing.api.model.PayOrderData} object.
+     */
     public BankPayOrder(String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount, String receiptBankName, String receiptBankAddr, String CRCHGNO, PayOrderData payOrderData) {
         this.orderSN = orderSN;
         this.receiptFANO = receiptFANO;

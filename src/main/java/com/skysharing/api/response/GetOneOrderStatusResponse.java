@@ -3,9 +3,24 @@ package com.skysharing.api.response;
 import com.alibaba.fastjson.JSONObject;
 import com.skysharing.api.request.GetOneOrderStatusRequest;
 
+/**
+ * <p>GetOneOrderStatusResponse class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class GetOneOrderStatusResponse extends CassPayResponse<GetOneOrderStatusRequest> {
+    /**
+     *
+     */
     public String rbUUID;
+    /**
+     *
+     */
     public String orderUUID;
+    /**
+     *
+     */
     public String orderSN;
     /**
      * 批次状态
@@ -19,8 +34,16 @@ public class GetOneOrderStatusResponse extends CassPayResponse<GetOneOrderStatus
      * 到账时间
      */
     public String reachAt;
+    /**
+     *
+     */
     public String responseMsg;
 
+    /**
+     * <p>Constructor for GetOneOrderStatusResponse.</p>
+     *
+     * @param response a {@link com.alibaba.fastjson.JSONObject} object.
+     */
     public GetOneOrderStatusResponse(JSONObject response) {
         super(response);
         this.rbUUID = this.content.getString("rbUUID");
@@ -32,6 +55,7 @@ public class GetOneOrderStatusResponse extends CassPayResponse<GetOneOrderStatus
         this.responseMsg = this.content.getString("responseMsg");
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "GetOneOrderStatusResponse{" +

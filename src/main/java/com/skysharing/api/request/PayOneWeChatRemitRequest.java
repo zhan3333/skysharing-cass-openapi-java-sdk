@@ -6,13 +6,26 @@ import com.skysharing.api.response.PayOneWeChatRemitResponse;
 
 import java.util.ArrayList;
 
+/**
+ * <p>PayOneWeChatRemitRequest class.</p>
+ *
+ * @author zhan
+ * @version $Id: $Id
+ */
 public class PayOneWeChatRemitRequest extends CassPayRequest<PayOneWeChatRemitResponse> {
+    /**
+     *
+     */
     public String method = "Vzhuo.OneWeChatRemit.Pay";
 
+    /**
+     * <p>Constructor for PayOneWeChatRemitRequest.</p>
+     */
     public PayOneWeChatRemitRequest() {
         this.bizMap.put("payChannelK", "3");
     }
 
+    /** {@inheritDoc} */
     @Override
     public PayOneWeChatRemitResponse makeResponse(JSONObject response) {
         return new PayOneWeChatRemitResponse(response);
@@ -29,6 +42,12 @@ public class PayOneWeChatRemitRequest extends CassPayRequest<PayOneWeChatRemitRe
         return this;
     }
 
+    /**
+     * <p>setOrder.</p>
+     *
+     * @param order a {@link com.skysharing.api.model.WeChatOrder} object.
+     * @return a {@link com.skysharing.api.request.PayOneWeChatRemitRequest} object.
+     */
     public PayOneWeChatRemitRequest setOrder(WeChatOrder order) {
         this.bizMap.put("orderData", new ArrayList<WeChatOrder>() {{
             add(order);
@@ -36,6 +55,11 @@ public class PayOneWeChatRemitRequest extends CassPayRequest<PayOneWeChatRemitRe
         return this;
     }
 
+    /**
+     * <p>Getter for the field <code>method</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getMethod() {
         return this.method;
     }
