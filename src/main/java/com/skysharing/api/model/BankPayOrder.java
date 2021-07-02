@@ -68,6 +68,12 @@ public class BankPayOrder {
     public String tax = null;
 
     /**
+     * 手机号
+     * nullable
+     */
+    public String phone = "";
+
+    /**
      * <p>Constructor for BankPayOrder.</p>
      *
      * @param orderSN a {@link java.lang.String} object.
@@ -187,6 +193,16 @@ public class BankPayOrder {
      */
     public BankPayOrder setTax(String tax) {
         this.tax = tax;
+        return this;
+    }
+
+    /**
+     * 设置手机号
+     * @param phone 手机号
+     * @return this
+     */
+    public BankPayOrder setPhone(String phone) {
+        this.phone = phone;
         return this;
     }
 }

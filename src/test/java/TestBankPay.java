@@ -78,11 +78,12 @@ public class TestBankPay {
                 "0.01")
                 .setIdentityCard("420222199212041057")
                 .setNotifyUrl("http://127.0.0.1:7777")
+                .setPhone("13517210601")
         );
         System.out.println(JSON.toJSONString(orders));
         request.setOrders(orders);
         request.setContractID("13");
-//        request.setPayeeChannelType(PayBankRemitRequest.PAYEE_CHANNEL_TYPE_BANK_CARD);
+        request.setPayeeChannelType(PayBankRemitRequest.PAYEE_CHANNEL_TYPE_BANK_CARD);
         PayBankRemitResponse response = this.beforeParams.client.execute(request);
 
         System.out.println(response);
@@ -120,16 +121,17 @@ public class TestBankPay {
     public void testPayOneBankRemitToAli() throws ResponseNotValidException, RequestFailedException, SignException, RequestTimeoutException {
         PayOneBankRemitRequest request = new PayOneBankRemitRequest();
         request.setPayChannelK(GetBalanceRequest.BANK);
-//        request.setPayeeChannelType(PayOneBankRemitRequest.PAYEE_CHANNEL_TYPE_ALI_PAY);
+        request.setPayeeChannelType(PayOneBankRemitRequest.PAYEE_CHANNEL_TYPE_ALI_PAY);
         request.setOrder(
                 new BankPayOrder(
                         UUID.randomUUID().toString().toUpperCase(),
-                        "1234567946767437",
-                        "李生",
-                        "0.94"
+                        "13517210601",
+                        "詹光",
+                        "0.1"
                 )
-//                        .setIdentityCard("420222199212041058")
+                        .setIdentityCard("420222199212041058")
                         .setNotifyUrl("http://www.baidu.com")
+                        .setPhone("13517210601")
         );
 //        request.setContractID("12");
         PayOneBankRemitResponse response = this.beforeParams.client.execute(request);

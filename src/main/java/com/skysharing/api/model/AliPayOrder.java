@@ -48,11 +48,17 @@ public class AliPayOrder {
     public String notifyUrl = "";
 
     /**
+     * 手机号
+     * nullable
+     */
+    public String phone = "";
+
+    /**
      * <p>Constructor for AliPayOrder.</p>
      *
-     * @param orderSN a {@link java.lang.String} object.
-     * @param receiptFANO a {@link java.lang.String} object.
-     * @param payeeAccount a {@link java.lang.String} object.
+     * @param orderSN          a {@link java.lang.String} object.
+     * @param receiptFANO      a {@link java.lang.String} object.
+     * @param payeeAccount     a {@link java.lang.String} object.
      * @param requestPayAmount a {@link java.lang.String} object.
      */
     public AliPayOrder(String orderSN, String receiptFANO, String payeeAccount, String requestPayAmount) {
@@ -92,6 +98,16 @@ public class AliPayOrder {
      */
     public AliPayOrder setNotifyUrl(String notifyUrl) {
         this.notifyUrl = notifyUrl;
+        return this;
+    }
+
+    /**
+     * 设置手机号
+     * @param phone 手机号
+     * @return this
+     */
+    public AliPayOrder setPhone(String phone) {
+        this.phone = phone;
         return this;
     }
 }

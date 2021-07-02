@@ -46,6 +46,7 @@ public class TestALiPay {
                         "詹光",
                         "0.01"
                 ).setNotifyUrl("http://www.baidu.com")
+                .setPhone("13517210601")
         );
 
         PayOneAliRemitResponse response = this.beforeParams.client.execute(request);
@@ -74,6 +75,7 @@ public class TestALiPay {
                         "詹光",
                         "0.01"
                 ).setNotifyUrl("http://www.baidu.com")
+                        .setPhone("13517210601")
         );
 
         PayOneAliRemitResponse response = this.beforeParams.client.execute(request);
