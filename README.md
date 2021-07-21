@@ -45,7 +45,7 @@
 <dependency>
   <groupId>com.github.zhan3333</groupId>
   <artifactId>skysharing-cass-sdk-java</artifactId>
-  <version>2.3.4.1</version>
+  <version>2.3.6</version>
 </dependency>
 ```
 
@@ -108,6 +108,8 @@ class Test {
 |3.18|通过外部订单号查询订单状态         | GetOneOrderByOuterOrderSNRequest                    | GetOneOrderByOuterOrderSNResponse |
 |3.19|支付宝单笔下单         | PayOneALiRemitRequest                    | PayOneALiRemitResponse |
 |3.20|支付宝批量下单         | PayALiRemitRequest                    | PayALiRemitResponse |
+|3.21|微信单笔付款到 OpenID         | PayOneWeChatOpenIDRemitRequest                    | PayOneWeChatOpenIDRemitResponse |
+|3.22|微信批量付款到 OpenID         | PayWeChatOpenIDRemitRequest                    | PayWeChatOpenIDRemitResponse |
 
 ## 异常清单
 
