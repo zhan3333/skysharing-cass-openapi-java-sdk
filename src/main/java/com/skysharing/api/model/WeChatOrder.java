@@ -46,9 +46,9 @@ public class WeChatOrder {
     /**
      * <p>Constructor for WeChatOrder.</p>
      *
-     * @param orderSN a {@link java.lang.String} object.
-     * @param phone a {@link java.lang.String} object.
-     * @param payeeAccount a {@link java.lang.String} object.
+     * @param orderSN          a {@link java.lang.String} object.
+     * @param phone            a {@link java.lang.String} object.
+     * @param payeeAccount     a {@link java.lang.String} object.
      * @param requestPayAmount a {@link java.lang.String} object.
      */
     public WeChatOrder(String orderSN, String phone, String payeeAccount, String requestPayAmount) {
@@ -61,11 +61,11 @@ public class WeChatOrder {
     /**
      * <p>Constructor for WeChatOrder.</p>
      *
-     * @param orderSN a {@link java.lang.String} object.
-     * @param phone a {@link java.lang.String} object.
-     * @param payeeAccount a {@link java.lang.String} object.
+     * @param orderSN          a {@link java.lang.String} object.
+     * @param phone            a {@link java.lang.String} object.
+     * @param payeeAccount     a {@link java.lang.String} object.
      * @param requestPayAmount a {@link java.lang.String} object.
-     * @param notifyUrl a {@link java.lang.String} object.
+     * @param notifyUrl        a {@link java.lang.String} object.
      */
     public WeChatOrder(String orderSN, String phone, String payeeAccount, String requestPayAmount, String notifyUrl) {
         this.orderSN = orderSN;
@@ -76,15 +76,14 @@ public class WeChatOrder {
     }
 
     /**
-     *
      * 劳务模式加个税
      *
-     * @param orderSN a {@link java.lang.String} object.
-     * @param phone a {@link java.lang.String} object.
-     * @param payeeAccount a {@link java.lang.String} object.
+     * @param orderSN          a {@link java.lang.String} object.
+     * @param phone            a {@link java.lang.String} object.
+     * @param payeeAccount     a {@link java.lang.String} object.
      * @param requestPayAmount a {@link java.lang.String} object.
-     * @param notifyUrl a {@link java.lang.String} object.
-     * @param tax a {@link java.lang.String} object.
+     * @param notifyUrl        a {@link java.lang.String} object.
+     * @param tax              a {@link java.lang.String} object.
      */
     public WeChatOrder(String orderSN, String phone, String payeeAccount, String requestPayAmount, String notifyUrl, String tax) {
         this.orderSN = orderSN;
@@ -93,13 +92,6 @@ public class WeChatOrder {
         this.requestPayAmount = requestPayAmount;
         this.notifyUrl = notifyUrl;
         this.tax = tax;
-    }
-
-    /**
-     * <p>Constructor for WeChatOrder.</p>
-     */
-    public WeChatOrder() {
-
     }
 
     /**
@@ -123,4 +115,14 @@ public class WeChatOrder {
         this.identityCard = identityCard;
         return this;
     }
+
+    /**
+     * @param tax 个税
+     * @return this
+     */
+    public WeChatOrder setTax(String tax) {
+        this.tax = tax;
+        return this;
+    }
+
 }

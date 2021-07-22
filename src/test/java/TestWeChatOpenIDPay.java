@@ -39,11 +39,16 @@ public class TestWeChatOpenIDPay {
         List<WeChatOpenIDOrder> orders = new ArrayList<>();
 
         orders.add(
-                new WeChatOpenIDOrder(
+                (new WeChatOpenIDOrder(
                         UUID.randomUUID().toString().toUpperCase(),
                         "oFltO5fE7Z6vzfkGO0anH_4eySMk",
                         "1",
                         "https://www.baidu.com")
+                )
+                        .setPhone("13517210601")
+                        .setIdentityCard("420222199212041057")
+                        .setTax("0.01")
+                        .setPayeeAccount("詹光")
         );
         System.out.println(JSON.toJSONString(orders));
         request.setOrders(orders);

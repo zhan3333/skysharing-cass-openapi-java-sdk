@@ -40,7 +40,10 @@ public class TestWeChatPay {
                         "13517210601",
                         "詹光",
                         "1",
-                        "http://www.baidu.com")
+                        "http://www.baidu.com"
+                )
+                        .setIdentityCard("")
+                        .setTax("")
         );
         System.out.println(JSON.toJSONString(orders));
         request.setOrders(orders);
@@ -59,13 +62,17 @@ public class TestWeChatPay {
     @Test
     public void testOneWeChatRemit() throws Exception {
         PayOneWeChatRemitRequest request = new PayOneWeChatRemitRequest();
-        request.setOrder(new WeChatOrder(
-                UUID.randomUUID().toString().toUpperCase(),
-                "13517210601",
-                "詹光",
-                "1",
-                "http://www.baidu.com"
-        ));
+        request.setOrder(
+                new WeChatOrder(
+                        UUID.randomUUID().toString().toUpperCase(),
+                        "13517210601",
+                        "詹光",
+                        "1",
+                        "http://www.baidu.com"
+                )
+                        .setIdentityCard("")
+                        .setTax("")
+        );
         request.setContractID("13");
 
         PayOneWeChatRemitResponse response = this.beforeParams.client.execute(request);
