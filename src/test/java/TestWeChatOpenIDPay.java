@@ -46,9 +46,9 @@ public class TestWeChatOpenIDPay {
                         "https://www.baidu.com")
                 )
                         .setPhone("13517210601")
-                        .setIdentityCard("420222199212041057")
+                        .setIdentityCard("421221199309035723")
                         .setTax("0.01")
-                        .setPayeeAccount("詹光")
+                        .setPayeeAccount("许文婷")
         );
         System.out.println(JSON.toJSONString(orders));
         request.setOrders(orders);

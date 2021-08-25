@@ -1,11 +1,11 @@
 import com.alibaba.fastjson.JSON;
 import com.skysharing.api.exception.InvalidPrivateKeyException;
 import com.skysharing.api.exception.InvalidPublicKeyException;
-import com.skysharing.api.model.WeChatOrder;
-import com.skysharing.api.request.PayOneWeChatRemitRequest;
-import com.skysharing.api.request.PayWeChatRemitRequest;
-import com.skysharing.api.response.PayOneWeChatRemitResponse;
-import com.skysharing.api.response.PayWeChatRemitResponse;
+import com.skysharing.api.model.WeChatOpenIDOrder;
+import com.skysharing.api.request.SingleAuthorizationOneWeChatRemitRequest;
+import com.skysharing.api.request.SingleAuthorizationWeChatRemitRequest;
+import com.skysharing.api.response.SingleAuthorizationOneWeChatRemitResponse;
+import com.skysharing.api.response.SingleAuthorizationWeChatRemitResponse;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -15,13 +15,12 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertTrue;
 
 /**
- * 测试微信付款相关
+ * 测试微信付款到 OpenID 相关
  */
 @Ignore
-public class TestWeChatPay {
+public class TestWeChatOpenIDNeedSignPay {
     private BeforeParams beforeParams;
 
     @Before
@@ -31,24 +30,24 @@ public class TestWeChatPay {
 
     @Test
     public void testWeChatRemit() throws Exception {
-        PayWeChatRemitRequest request = new PayWeChatRemitRequest();
-        List<WeChatOrder> orders = new ArrayList<>();
+        SingleAuthorizationWeChatRemitRequest request = new SingleAuthorizationWeChatRemitRequest();
+        List<WeChatOpenIDOrder> orders = new ArrayList<>();
 
         orders.add(
-                new WeChatOrder(
+                (new WeChatOpenIDOrder(
                         UUID.randomUUID().toString().toUpperCase(),
-                        "13517210601",
-                        "许文婷",
+                        "oFltO5e749REB4sFx8zBIls4FQCc",
                         "1",
-                        "http://www.baidu.com"
+                        "https://www.baidu.com")
                 )
-                        .setIdentityCard("")
-                        .setTax("")
+                        .setPhone("15827637967")
+                        .setIdentityCard("421221199309035723")
+                        .setTax("0.01")
+                        .setPayeeAccount("许文婷")
         );
         System.out.println(JSON.toJSONString(orders));
         request.setOrders(orders);
-        request.setContractID("13");
-        PayWeChatRemitResponse response = this.beforeParams.client.execute(request);
+        SingleAuthorizationWeChatRemitResponse response = this.beforeParams.client.execute(request);
 
         System.out.println(response);
         assertEquals("10000", response.code);
@@ -61,21 +60,19 @@ public class TestWeChatPay {
 
     @Test
     public void testOneWeChatRemit() throws Exception {
-        PayOneWeChatRemitRequest request = new PayOneWeChatRemitRequest();
+        SingleAuthorizationOneWeChatRemitRequest request = new SingleAuthorizationOneWeChatRemitRequest();
         request.setOrder(
-                new WeChatOrder(
+                new WeChatOpenIDOrder(
                         UUID.randomUUID().toString().toUpperCase(),
-                        "13517210601",
-                        "许文婷",
+                        "oFltO5e749REB4sFx8zBIls4FQCc",
                         "1",
-                        "http://www.baidu.com"
+                        "https://www.baidu.com"
                 )
-                        .setIdentityCard("")
-                        .setTax("")
+                        .setIdentityCard("421221199309035723")
+                        .setPayeeAccount("许文婷")
         );
-        request.setContractID("13");
 
-        PayOneWeChatRemitResponse response = this.beforeParams.client.execute(request);
+        SingleAuthorizationOneWeChatRemitResponse response = this.beforeParams.client.execute(request);
         assertEquals("10000", response.code);
         assertEquals("请求成功", response.message);
         assertEquals("", response.subCode);

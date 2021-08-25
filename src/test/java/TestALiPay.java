@@ -43,7 +43,7 @@ public class TestALiPay {
                 new AliPayOrder(
                         UUID.randomUUID().toString().toUpperCase(),
                         "13517210601",
-                        "詹光",
+                        "许文婷",
                         "0.01"
                 ).setNotifyUrl("http://www.baidu.com")
                 .setPhone("13517210601")
@@ -72,7 +72,7 @@ public class TestALiPay {
                 new BankPayOrder(
                         UUID.randomUUID().toString().toUpperCase(),
                         "6214850278508756",
-                        "詹光",
+                        "许文婷",
                         "0.01"
                 ).setNotifyUrl("http://www.baidu.com")
                         .setPhone("13517210601")
@@ -102,7 +102,7 @@ public class TestALiPay {
                 new AliPayOrder(
                         UUID.randomUUID().toString().toUpperCase(),
                         "13517210601",
-                        "詹光",
+                        "许文婷",
                         "0.01"
                 ).setNotifyUrl("http://www.baidu.com")
         );
@@ -110,7 +110,7 @@ public class TestALiPay {
                 new AliPayOrder(
                         UUID.randomUUID().toString().toUpperCase(),
                         "13517210601",
-                        "詹光",
+                        "许文婷",
                         "0.01"
                 ).setNotifyUrl("http://www.baidu.com")
         );
@@ -143,7 +143,7 @@ public class TestALiPay {
                 new BankPayOrder(
                         UUID.randomUUID().toString().toUpperCase(),
                         "6214850278508756",
-                        "詹光",
+                        "许文婷",
                         "0.01"
                 ).setNotifyUrl("http://www.baidu.com")
         );
@@ -151,7 +151,7 @@ public class TestALiPay {
                 new BankPayOrder(
                         UUID.randomUUID().toString().toUpperCase(),
                         "6214850278508756",
-                        "詹光",
+                        "许文婷",
                         "0.01"
                 ).setNotifyUrl("http://www.baidu.com")
         );

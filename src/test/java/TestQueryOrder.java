@@ -39,7 +39,7 @@ public class TestQueryOrder {
                 "12345678910",
                 "123光",
                 "1.00")
-                .setIdentityCard("420222199212041057")
+                .setIdentityCard("421221199309035723")
                 .setNotifyUrl("http://127.0.0.1:7777")
         );
         PayBankRemitResponse payResponse = this.beforeParams.client
@@ -70,9 +70,9 @@ public class TestQueryOrder {
         orders.add(
                 new BankPayOrder(UUID.randomUUID().toString().toUpperCase(),
                         "12345678910",
-                        "詹光",
+                        "许文婷",
                         "1.00")
-                        .setIdentityCard("420222199212041057")
+                        .setIdentityCard("421221199309035723")
                         .setNotifyUrl("http://127.0.0.1:7777")
         );
         PayBankRemitResponse payResponse = this.beforeParams.client
@@ -114,7 +114,7 @@ public class TestQueryOrder {
                 "12345678910",
                 "123光",
                 "1.00")
-                .setIdentityCard("420222199212041057")
+                .setIdentityCard("421221199309035723")
                 .setNotifyUrl("http://127.0.0.1:7777")
         );
         PayBankRemitRequest payRequest = new PayBankRemitRequest()

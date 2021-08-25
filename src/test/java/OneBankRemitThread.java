@@ -29,7 +29,7 @@ public class OneBankRemitThread implements Runnable {
                 new BankPayOrder(
                         UUID.randomUUID().toString().toUpperCase(),
                         "1111111_" + this.index,
-                        "詹光",
+                        "许文婷",
                         "0.01",
                         "0"
                 ).setIdentityCard("420222199212041058")

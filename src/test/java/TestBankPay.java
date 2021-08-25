@@ -43,10 +43,10 @@ public class TestBankPay {
                 new BankPayOrder(
                         UUID.randomUUID().toString().toUpperCase(),
                         "13517210601",
-                        "詹光1",
+                        "许文婷1",
                         "0.1"
                 )
-                        .setIdentityCard("420222199212041057")
+                        .setIdentityCard("421221199309035723")
                         .setNotifyUrl("http://www.baidu.com")
         );
         System.out.println(JSON.toJSONString(orders));
@@ -76,7 +76,7 @@ public class TestBankPay {
                 "6214850271449677",
                 "谢丽1",
                 "0.01")
-                .setIdentityCard("420222199212041057")
+                .setIdentityCard("421221199309035723")
                 .setNotifyUrl("http://127.0.0.1:7777")
                 .setPhone("13517210601")
         );
@@ -126,7 +126,7 @@ public class TestBankPay {
                 new BankPayOrder(
                         UUID.randomUUID().toString().toUpperCase(),
                         "13517210601",
-                        "詹光",
+                        "许文婷",
                         "0.1"
                 )
                         .setIdentityCard("420222199212041058")
@@ -168,7 +168,7 @@ public class TestBankPay {
                 "12345678910",
                 "123光",
                 "1.00")
-                .setIdentityCard("420222199212041057")
+                .setIdentityCard("421221199309035723")
                 .setNotifyUrl("http://127.0.0.1:7777")
         );
         PayBankRemitRequest payRequest = new PayBankRemitRequest()

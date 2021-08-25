@@ -27,6 +27,7 @@ public class WeChatOpenIDOrder {
 
     // 收款人姓名（真实姓名）
     // no required
+    // 在需要电签时必填
     // max:64
     public String payeeAccount;
 
@@ -37,6 +38,7 @@ public class WeChatOpenIDOrder {
 
     // 收款人身份证号
     // no required
+    // 在需要电签时必填
     // max:20
     public String identityCard;
 

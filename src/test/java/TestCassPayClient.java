@@ -50,7 +50,7 @@ public class TestCassPayClient {
     public void testGetUsersVerifyStatus() throws ResponseNotValidException, RequestFailedException, SignException, RequestTimeoutException {
         GetUsersVerifyStatusRequest request = new GetUsersVerifyStatusRequest();
 
-        request.addItem(new GetUsersVerifyStatusRequest.Item("420222199212041057", "429006199112162721", 1));
+        request.addItem(new GetUsersVerifyStatusRequest.Item("421221199309035723", "429006199112162721", 1));
 
         GetUsersVerifyStatusResponse response = this.beforeParams.client.execute(request);
 
