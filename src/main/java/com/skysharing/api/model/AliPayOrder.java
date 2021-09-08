@@ -54,6 +54,31 @@ public class AliPayOrder {
     public String phone = "";
 
     /**
+     * 身份证正面照(base64 图片)
+     * nullable
+     */
+    public String IDCardFrontImg = null;
+
+    /**
+     * 身份证背面照(base64 图片)
+     * nullable
+     */
+    public String IDCardBackImg = null;
+
+    /**
+     * 用户在第三方系统 userID
+     * nullable
+     */
+    public String thirdPartyUserID = null;
+
+    /**
+     * 用户在第三方系统的签约时间
+     * 格式为 YYYY-MM-DD HH:MM:SS 如: 2021-09-01 12:12:12
+     * nullable
+     */
+    public String signUpAt = null;
+
+    /**
      * <p>Constructor for AliPayOrder.</p>
      *
      * @param orderSN          a {@link java.lang.String} object.
@@ -103,11 +128,45 @@ public class AliPayOrder {
 
     /**
      * 设置手机号
+     *
      * @param phone 手机号
      * @return this
      */
     public AliPayOrder setPhone(String phone) {
         this.phone = phone;
+        return this;
+    }
+
+    /**
+     * @param IDCardFrontImg 身份证正面 base64 字符串
+     */
+    public AliPayOrder setIDCardFrontImg(String IDCardFrontImg) {
+        this.IDCardFrontImg = IDCardFrontImg;
+        return this;
+    }
+
+    /**
+     * @param IDCardBackImg 身份证背面 base64 字符串
+     */
+    public AliPayOrder setIDCardBackImg(String IDCardBackImg) {
+        this.IDCardBackImg = IDCardBackImg;
+        return this;
+    }
+
+    /**
+     * @param thirdPartyUserID 用户在第三方系统 userID
+     */
+    public AliPayOrder setThirdPartyUserID(String thirdPartyUserID) {
+        this.thirdPartyUserID = thirdPartyUserID;
+        return this;
+    }
+
+    /**
+     * @param signUpAt 用户在第三方系统的签约时间
+     *                 格式为 YYYY-MM-DD HH:MM:SS 如: 2021-09-01 12:12:12
+     */
+    public AliPayOrder setSignUpAt(String signUpAt) {
+        this.signUpAt = signUpAt;
         return this;
     }
 }

@@ -42,7 +42,7 @@ public class TestBankPay {
         orders.add(
                 new BankPayOrder(
                         UUID.randomUUID().toString().toUpperCase(),
-                        "13517210601",
+                        "15827637967",
                         "许文婷1",
                         "0.1"
                 )
@@ -78,7 +78,7 @@ public class TestBankPay {
                 "0.01")
                 .setIdentityCard("421221199309035723")
                 .setNotifyUrl("http://127.0.0.1:7777")
-                .setPhone("13517210601")
+                .setPhone("15827637967")
         );
         System.out.println(JSON.toJSONString(orders));
         request.setOrders(orders);
@@ -125,13 +125,13 @@ public class TestBankPay {
         request.setOrder(
                 new BankPayOrder(
                         UUID.randomUUID().toString().toUpperCase(),
-                        "13517210601",
+                        "15827637967",
                         "许文婷",
                         "0.1"
                 )
                         .setIdentityCard("420222199212041058")
                         .setNotifyUrl("http://www.baidu.com")
-                        .setPhone("13517210601")
+                        .setPhone("15827637967")
         );
 //        request.setContractID("12");
         PayOneBankRemitResponse response = this.beforeParams.client.execute(request);

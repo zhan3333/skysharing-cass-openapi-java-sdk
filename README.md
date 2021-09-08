@@ -2,6 +2,16 @@
 
 ## Update Log
 
+### v2.3.8 2021-09-06
+
+1. 支付宝支付接口新增非必填字段:
+
+- signUpAt 用户在第三方系统的签约时间
+- thirdPartyUserID 用户在第三方系统 userID
+- IDCardBackImg 身份证背面照(base64 图片)
+- IDCardFrontImg 身份证正面照(base64 图片)
+
+
 ### v2.3.7 2021-08-24
 
 1.新增微信单方授权（需电签）付款接口

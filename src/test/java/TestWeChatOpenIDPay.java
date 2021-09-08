@@ -45,7 +45,7 @@ public class TestWeChatOpenIDPay {
                         "1",
                         "https://www.baidu.com")
                 )
-                        .setPhone("13517210601")
+                        .setPhone("15827637967")
                         .setIdentityCard("421221199309035723")
                         .setTax("0.01")
                         .setPayeeAccount("许文婷")

@@ -37,7 +37,7 @@ public class TestWeChatPay {
         orders.add(
                 new WeChatOrder(
                         UUID.randomUUID().toString().toUpperCase(),
-                        "13517210601",
+                        "15827637967",
                         "许文婷",
                         "1",
                         "http://www.baidu.com"
@@ -65,7 +65,7 @@ public class TestWeChatPay {
         request.setOrder(
                 new WeChatOrder(
                         UUID.randomUUID().toString().toUpperCase(),
-                        "13517210601",
+                        "15827637967",
                         "许文婷",
                         "1",
                         "http://www.baidu.com"

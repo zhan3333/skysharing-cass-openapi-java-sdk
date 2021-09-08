@@ -81,7 +81,7 @@ public class TestCassPayClient {
                 .setBackImgBase64(this.beforeParams.backSB.toString())
                 .setLatitude("1234")
                 .setLongitude("4321")
-                .setPhone("13517210601");
+                .setPhone("15827637967");
         VerifyUserResponse response = this.beforeParams.client.execute(request);
         System.out.println(response);
         assertEquals(response.message + "/" + response.subMsg, "10000", response.code);
@@ -90,7 +90,7 @@ public class TestCassPayClient {
     @Test
     public void testGetUsersSignStatus() throws Exception {
         GetUserEsignStatusRequest req = new GetUserEsignStatusRequest();
-        String phone = "13517210601";
+        String phone = "15827637967";
         req.addPhone(phone);
         GetUserEsignStatusResponse resp = this.beforeParams.client.execute(req);
         assertEquals("10000", resp.code);
